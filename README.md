@@ -6,8 +6,8 @@ This repository holds
 
 This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://tcd.out-a-ti.me) as it relies on the TCD's keypad to control many of its functions.
 
-![Dash Gauges](img/thedg_n.jpg)
-![Dash Gauges](img/mydg.jpg)
+[<img src="img/mydg1.jpg">](img/mydg1_l.jpg)
+[<img src="img/mydg2.jpg">](img/mydg2_l.jpg)
 
 For DIY instructions, please see [here](/DIY/).
 
@@ -284,9 +284,9 @@ While the music player is playing music, other sound effects are disabled/muted.
 
 ### Connecting a TCD by wire
 
->Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. Therefore I strongly recommend a wireless BTTFN connection, see immediately below.
+>Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
 
-For wiring information of my DIY solution, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/DIY/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
+For wiring information of the DIY solution, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/DIY/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
 
 With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
 
@@ -521,7 +521,7 @@ Same as [this](#-primary-empty-percentage), but for the 'Percent Power' gauge
 
 ##### &#9654; 'Roentgens' full percentage
 
-Same as [this](#-primary-full-percentage), but for the 'Roentgens' gauge
+Same as [this](#-primary-full-percentage), but for the 'Roentgens' gauge. If you adjusted the pointer's zero position to the "green zero", be careful not to choose values too high; you might overshoot the pointer's physical end position.
 
 ##### &#9654; 'Roentgens' empty percentage
 
