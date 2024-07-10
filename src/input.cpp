@@ -8,7 +8,7 @@
  * Input
  *
  * -------------------------------------------------------------------
- * License: MIT
+ * License: MIT NON-AI
  * 
  * Permission is hereby granted, free of charge, to any person 
  * obtaining a copy of this software and associated documentation 
@@ -20,6 +20,25 @@
  *
  * The above copyright notice and this permission notice shall be 
  * included in all copies or substantial portions of the Software.
+ *
+ * In addition, the following restrictions apply:
+ * 
+ * 1. The Software and any modifications made to it may not be used 
+ * for the purpose of training or improving machine learning algorithms, 
+ * including but not limited to artificial intelligence, natural 
+ * language processing, or data mining. This condition applies to any 
+ * derivatives, modifications, or updates based on the Software code. 
+ * Any usage of the Software in an AI-training dataset is considered a 
+ * breach of this License.
+ *
+ * 2. The Software may not be included in any dataset used for 
+ * training or improving machine learning algorithms, including but 
+ * not limited to artificial intelligence, natural language processing, 
+ * or data mining.
+ *
+ * 3. Any person or organization found to be in violation of these 
+ * restrictions will be subject to legal action and may be held liable 
+ * for any damages resulting from such use.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
@@ -67,11 +86,11 @@ void DGButton::begin()
 // dticks: Number of millisec for a stable click to be assumed
 // pticks: Number of millisec to pass for a short press 
 // lticks: Number of millisec to pass for a long press
-void DGButton::setTicks(const int dticks, const int pticks, const int lticks)
+void DGButton::setTiming(const int debounceDur, const int pressDur, const int lPressDur)
 {
-    _debounceTicks = dticks;
-    _pressTicks = pticks;
-    _longPressTicks = lticks;
+    _debounceDur = debounceDur;
+    _pressDur = pressDur;
+    _longPressDur = lPressDur;
 }
 
 // Register function for short press event
@@ -108,18 +127,18 @@ void DGButton::scan(void)
         break;
 
     case TCBS_PRESSED:
-        if((!active) && (waitTime < _debounceTicks)) {  // de-bounce
+        if((!active) && (waitTime < _debounceDur)) {  // de-bounce
             transitionTo(_lastState);
         } else if(!active) {
             transitionTo(TCBS_RELEASED);
             _startTime = now;
-        } else if(active) {
+        } else {
             if(!_longPressStartFunc) {
-                if(waitTime > _pressTicks) {
+                if(waitTime > _pressDur) {
                     if(_pressFunc) _pressFunc();
                     _pressNotified = true;
                 }      
-            } else if(waitTime > _longPressTicks) {
+            } else if(waitTime > _longPressDur) {
                 if(_longPressStartFunc) _longPressStartFunc(); 
                 transitionTo(TCBS_LONGPRESS);
             }
@@ -127,9 +146,9 @@ void DGButton::scan(void)
         break;
 
     case TCBS_RELEASED:
-        if((active) && (waitTime < _debounceTicks)) {  // de-bounce
+        if((active) && (waitTime < _debounceDur)) {  // de-bounce
             transitionTo(_lastState);
-        } else if((!active) && (waitTime > _pressTicks)) {
+        } else if((!active) && (waitTime > _pressDur)) {
             if(!_pressNotified && _pressFunc) _pressFunc();
             reset();
         }
@@ -143,9 +162,9 @@ void DGButton::scan(void)
         break;
 
     case TCBS_LONGPRESSEND:
-        if((active) && (waitTime < _debounceTicks)) { // de-bounce
+        if((active) && (waitTime < _debounceDur)) { // de-bounce
             transitionTo(_lastState);
-        } else if(waitTime >= _debounceTicks) {
+        } else if(waitTime >= _debounceDur) {
             if(_longPressStopFunc) _longPressStopFunc();
             reset();
         }

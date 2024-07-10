@@ -8,7 +8,7 @@
  * DGDisplay: Handle the Gauges & the "empty" LED
  *
  * -------------------------------------------------------------------
- * License: MIT
+ * License: MIT NON-AI
  * 
  * Permission is hereby granted, free of charge, to any person 
  * obtaining a copy of this software and associated documentation 
@@ -20,6 +20,25 @@
  *
  * The above copyright notice and this permission notice shall be 
  * included in all copies or substantial portions of the Software.
+ *
+ * In addition, the following restrictions apply:
+ * 
+ * 1. The Software and any modifications made to it may not be used 
+ * for the purpose of training or improving machine learning algorithms, 
+ * including but not limited to artificial intelligence, natural 
+ * language processing, or data mining. This condition applies to any 
+ * derivatives, modifications, or updates based on the Software code. 
+ * Any usage of the Software in an AI-training dataset is considered a 
+ * breach of this License.
+ *
+ * 2. The Software may not be included in any dataset used for 
+ * training or improving machine learning algorithms, including but 
+ * not limited to artificial intelligence, natural language processing, 
+ * or data mining.
+ *
+ * 3. Any person or organization found to be in violation of these 
+ * restrictions will be subject to legal action and may be held liable 
+ * for any damages resulting from such use.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
@@ -136,15 +155,15 @@ static const struct ga_types gaugeTypesLarge[] = {
       {   28, MCP4728_VREF_INT|MCP4728_GAIN_LOW }, {} },
     
     // Type 2: Analog gauge: 0-1.6V through MCP4728
-    //         Simpson 49L VU meter with 3k6 resistor in series
-    //         Using MCP4728's built-in Vref (2.048V), limited by "maxV" parameter to 1.6V (3200/4095*2.048)
-    { 2, "Standard VU-Meter (0-1.6V)", DGD_TYPE_MCP4728,
-      { 3200, MCP4728_VREF_INT|MCP4728_GAIN_LOW }, {} },
+    //         Simpson model 49 VU meter with 3k6 resistor in series, and zero adjusted to "green" zero on scale
+    //         Using MCP4728's built-in Vref (2.048V), limited by "maxV" parameter to 1.66V (3200/4095*2.048)
+    { 2, "Standard VU-Meter (0-1.66V)", DGD_TYPE_MCP4728,
+      { 3300, MCP4728_VREF_INT|MCP4728_GAIN_LOW }, {} },
 
     // Type 3: Digital gauge: 0 or 12V, switched through DIGITAL_GAUGE_PIN. On the OEM control
     // board, the output voltage is 12V, but can be adjusted by putting a resistor
     // instead of a bridge at DIG5. A digital "Roentgens" meter must be connected to the 
-    // "Digital/Legacy" connector, pins 1 (+) and 2 (-).
+    // "Digital Roentgens" connector, pins 1 (+) and 2 (-).
     { 3, "Digital / Legacy (0/12V)", DGD_TYPE_DIGITAL,
       {}, { DIGITAL_GAUGE_PIN } },
 
@@ -432,7 +451,9 @@ bool Gauges::begin(uint8_t idA, uint8_t idB, uint8_t idC)
             if((_pins[i] = gat->dga.gpioPin) < 40) {
                 if(_pinIndices[_pins[i]] < 0) {
                     _pinIndices[_pins[i]] = pinIdx++;
+                    #ifdef DG_DBG
                     Serial.printf("pinIdx: %d\n", pinIdx);
+                    #endif
                 }
                 pinMode(_pins[i], OUTPUT);
                 setDigitalPin(_pins[i], LOW);
@@ -614,6 +635,9 @@ void Gauges::UpdateAll()
             Wire.write(0b01000000 | ((i << 1) & 0x06));    // Multi-write
             Wire.write((_values[i] >> 8) | _vrefGain[i]);
             Wire.write(_values[i] & 0xff);
+            #ifdef DG_DBG
+            Serial.printf("i %d: %x %x\n", i, (_values[i] >> 8) | _vrefGain[i], _values[i] & 0xff);
+            #endif
         }
         Wire.endTransmission(true);
     } else {

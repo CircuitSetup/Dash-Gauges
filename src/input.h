@@ -8,7 +8,7 @@
  * Input
  *
  * -------------------------------------------------------------------
- * License: MIT
+ * License: MIT NON-AI
  * 
  * Permission is hereby granted, free of charge, to any person 
  * obtaining a copy of this software and associated documentation 
@@ -20,6 +20,25 @@
  *
  * The above copyright notice and this permission notice shall be 
  * included in all copies or substantial portions of the Software.
+ *
+ * In addition, the following restrictions apply:
+ * 
+ * 1. The Software and any modifications made to it may not be used 
+ * for the purpose of training or improving machine learning algorithms, 
+ * including but not limited to artificial intelligence, natural 
+ * language processing, or data mining. This condition applies to any 
+ * derivatives, modifications, or updates based on the Software code. 
+ * Any usage of the Software in an AI-training dataset is considered a 
+ * breach of this License.
+ *
+ * 2. The Software may not be included in any dataset used for 
+ * training or improving machine learning algorithms, including but 
+ * not limited to artificial intelligence, natural language processing, 
+ * or data mining.
+ *
+ * 3. Any person or organization found to be in violation of these 
+ * restrictions will be subject to legal action and may be held liable 
+ * for any damages resulting from such use.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
@@ -52,7 +71,7 @@ class DGButton {
 
         void begin();
         
-        void setTicks(const int dticks, const int pticks, const int lticks);
+        void setTiming(const int dticks, const int pticks, const int lticks);
       
         void attachPress(void (*newFunction)(void));
         void attachLongPressStart(void (*newFunction)(void));
@@ -72,9 +91,9 @@ class DGButton {
         int _pin;
         bool _pullupActive;
         
-        unsigned int _debounceTicks = 50;
-        unsigned int _pressTicks = 400;
-        unsigned int _longPressTicks = 800;
+        unsigned int _debounceDur = 50;
+        unsigned int _pressDur = 400;
+        unsigned int _longPressDur = 800;
       
         int _buttonPressed;
       

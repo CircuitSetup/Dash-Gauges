@@ -1,7 +1,7 @@
 # Dash Gauges
 
 This repository holds 
-- some [DIY instructions](/DIY/) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
+- [instructions](/hardware/) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
 - and a suitable firmware.
 
 This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://tcd.out-a-ti.me) as it relies on the TCD's keypad to control many of its functions.
@@ -9,7 +9,7 @@ This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](ht
 [<img src="img/mydg1.jpg">](img/mydg1_l.jpg)
 [<img src="img/mydg2.jpg">](img/mydg2_l.jpg)
 
-For DIY instructions, please see [here](/DIY/).
+For information on the hardware, please see [here](/hardware/).
 
 Firmware features include
 - support for analog gauges (with software-controlled arbitrary pointer position) and digital gauges (Empty/Full, without arbitrary pointer position)
@@ -43,7 +43,7 @@ The first step is to download "install/sound-pack-xxxxxxxx.zip" and extract it. 
 
 Then there are two alternative ways to proceed. Note that both methods *require an SD card*.
 
-1) Through the [Config Portal](#the-config-portal). Click on *Update*, select the "DGA.bin" file in the bottom file selector and click on *Upload*. Note that an SD card must be in the FC's slot during this operation.
+1) Through the [Config Portal](#the-config-portal). Click on *Update*, select the "DGA.bin" file in the bottom file selector and click on *Upload*. Note that an SD card must be present during this operation.
 
 2) Via SD card:
 - Copy "DGA.bin" to the root directory of of a FAT32 formatted SD card;
@@ -55,7 +55,7 @@ After installation, the SD card can be re-used for [other purposes](#sd-card).
 
 ## Initial Configuration
 
->The following instructions only need to be followed once, on fresh TCDs. They do not need to be repeated after a firmware update.
+>The following instructions only need to be followed once, on fresh Dash Gauges. They do not need to be repeated after a firmware update.
 
 The first step is to establish access to the configuration web site ("Config Portal") in order to configure your Dash Gauges:
 
@@ -82,9 +82,9 @@ In order to connect your Dash Gauges to a WiFi network, click on "Configure WiFi
 >
 >This procedure causes static IP data to be deleted; the device will return to DHCP after a reboot.
 
-After saving the WiFi network settings, the FC reboots and tries to connect to your configured WiFi network. If that fails, it will again start in access point mode.
+After saving the WiFi network settings, the device reboots and tries to connect to your configured WiFi network. If that fails, it will again start in access point mode.
 
-After completing this step, your Dash Gauges are basically ready for use; you can also continue configuring them to your personal preferences through the Config Portal.
+After completing this step, your Dash Gauges are ready to be configured through the "Config Portal".
 
 ## The Config Portal
 
@@ -118,6 +118,18 @@ In the main menu, click on "Setup" to configure your Dash Gauges.
 
 A full reference of the Config Portal is [here](#appendix-a-the-config-portal).
 
+## Gauge Hardware Configuration
+
+The firmware needs to know the type of gauges installed; by default, power output to the gauges is disabled.
+
+In order to configure the Dash Gauges for your specific hardware,
+- hold the "Time Travel" button for 5 seconds (until a beep is emitted),
+- then enter the Config Portal as described above, and click on "Setup".
+
+Near the bottom of this page, there are three drop-down widgets, one for each gauge. Carefully select the type for each of your gauges, and click on "Save".
+
+After this step, your Dash Gauges are ready to be used.
+
 ## Basic Operation
 
 As mentioned, the Dash Gauges are an add-on for a Time Circuits Display. Their basic function is to show some values on its gauges, and to play an "empty" alarm after a time travel.
@@ -142,7 +154,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td>009&#9166;</td>
     </tr>
    <tr>
-     <td align="left">Set "full" percentage of "Primary" gauge</td>
+     <td align="left">Set "full" percentage of "Primary" gauge (01-99%)</td>
      <td>9101&#9166; - 9199&#9166;</td>
     </tr>
     <tr>
@@ -150,7 +162,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td align="left">9100&#9166;</td>
     </tr>
     <tr>
-     <td align="left">Set "full" percentage of "Percent Power" gauge</td>
+     <td align="left">Set "full" percentage of "Percent Power" gauge (01-99%)</td>
      <td align="left">9401&#9166; - 9499&#9166;</td>
     </tr>
     <tr>
@@ -158,7 +170,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td align="left">9400&#9166;</td>
     </tr>
     <tr>
-     <td align="left">Set "full" percentage of "Roentgens" gauge</td>
+     <td align="left">Set "full" percentage of "Roentgens" gauge (01-99%)</td>
      <td align="left">9701&#9166; - 9799&#9166;</td>
     </tr>
     <tr>
@@ -166,7 +178,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td align="left">9700&#9166;</td>
     </tr>    
     <tr>
-     <td align="left">Set volume level</td>
+     <td align="left">Set volume level (00-19)</td>
      <td align="left">9300&#9166; - 9319&#9166;</td>
     </tr>
     <tr>
@@ -182,7 +194,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td align="left">9008&#9166;</td>
     </tr>
     <tr>
-     <td align="left"><a href="#the-music-player">Music Player</a>: Select music folder</td>
+     <td align="left"><a href="#the-music-player">Music Player</a>: Select music folder (0-9)</td>
      <td align="left">9050&#9166; - 9059&#9166;</td>
     </tr>
     <tr>
@@ -229,7 +241,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
 
 ## Time travel
 
-To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. For my DIY solution, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/DIY/README.md#connecting-a-time-travel-button) for how to wire that button.
+To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/hardware/README.md#connecting-a-time-travel-button) for how to wire that button.
 
 Other ways of triggering a time travel are available if a [Time Circuits Display](#connecting-a-time-circuits-display) is connected.
 
@@ -264,7 +276,7 @@ Those files are not provided here. You can use any mp3, with a bitrate of 128kpb
 
 The firmware contains a simple music player to play mp3 files located on the SD card. This player requires a TCD connected through BTTFN for control.
 
-In order to be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, ie the player starts searching for music in folder *music0*. This folder number can be changed using the remote control.
+In order to be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, ie the player starts searching for music in folder *music0*. This folder number can be changed in the Config Portal or through the TCD keypad (905x).
 
 The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). *The maximum bitrate is 128kpbs.*
 
@@ -286,7 +298,7 @@ While the music player is playing music, other sound effects are disabled/muted.
 
 >Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
 
-For wiring information of the DIY solution, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/DIY/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
+For wiring information, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/hardware/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
 
 With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
 
@@ -331,6 +343,7 @@ The Dash Gauges can - to some extent - be controlled through messages sent to to
 - MP_PREV: Jump to previous song
 - MP_SHUFFLE_ON: Enables shuffle mode in [Music Player](#the-music-player)
 - MP_SHUFFLE_OFF: Disables shuffle mode in [Music Player](#the-music-player)
+- MP_FOLDER_x: x being 0-9, set Music Folder number for [Music Player](#the-music-player)
 
 ### Receive commands from Time Circuits Display
 
@@ -372,6 +385,14 @@ After the Dash Gauges have restarted, re-enter the Dash Gauges's Config Portal (
 Using this setup enables the Dash Gauges to receive notifications about time travel and alarm wirelessly, and to query the TCD for data. Also, the TCD keypad can be used to remote-control the Dash Gauges.
 
 In order to access the Dash Gauges's Config Portal in your car, connect your hand held or computer to the TCD's WiFi access point ("TCD-AP"), and direct your browser to http://gauges.local ; if that does not work, go to the TCD's keypad menu, press ENTER until "BTTFN CLIENTS" is shown, hold ENTER, and look for the Dash Gauges's IP address there; then direct your browser to that IP by using the URL http://a.b.c.d (a-d being the IP address displayed on the TCD display).
+
+### Door Switches
+
+The Dash Gauges have a connector for two door switches. These switches trigger door open/close sounds.
+
+By default, the "Door Open" sound is played when the switch is closed; "Door close" is played when the switch opens.
+
+In the Config Portal, you can invert this setting, so that the "Door Open" sound is played when the switch is closed.
 
 ## Flash Wear
 
@@ -423,7 +444,7 @@ The "empty" alarm's sound can be annoying if played for longer periods. This tim
 
 Enter the number of minutes until the Screen Saver should become active when the Dash Gauges are idle.
 
-The Screen Saver, when active, stops the "empty" alarm sound and disables all LEDs, until 
+The Screen Saver, when active, stops the "empty" alarm sound and disables all gauges and lights, until 
 - the time travel button is briefly pressed (the first press when the screen saver is active will not trigger a time travel),
 - on a connected TCD, a destination date is entered (only if TCD is wirelessly connected) or a time travel event is triggered (also when wired).
 
@@ -451,7 +472,16 @@ By default, if the Dash Gauges create a WiFi network of its own ("AP-mode"), thi
 
 By default, and if this field is empty, the Dash Gauges's own WiFi network ("AP-mode") will be unprotected. If you want to protect your access point, enter your password here. It needs to be 8 characters in length and only characters A-Z, a-z, 0-9 and - are allowed.
 
-If you forget this password and are thereby locked out of your Dash Gauges, .. TODO FIXME ...; this deletes the WiFi password. Then power-down and power-up your Dash Gauges and the access point will start unprotected.
+If you forget this password and are thereby locked out of your Dash Gauges, 
+- power-down the device,
+- hold the Time Travel button,
+- power-up the device (while still holding the Time Travel button)
+- wait until the "Empty" LED flashes briefly,
+- flip the Side Switch twice within 10 seconds,
+- wait until the "Empty" LED lights up,
+- then release the Time Travel button.
+
+This procedure temporarily (until a reboot) clears the WiFi password, allowing unprotected access to the Config Portal. (Note that this procedure also deletes static IP addres data; the device will return to using DHCP after a reboot.)
 
 ##### &#9654; WiFi connection attempts
 
@@ -503,7 +533,7 @@ For analog gauges only.
 
 Here you can select the readiing the "Primary" meter should give when "full". You can enter a value between 0 and 100 here. 0 will reset the "full" percentage to a default; 1-100 select a specific percentage. Values below 10 don't really make sense, though.
 
-The "full" percentage can be changed through the TCD keypad (91xx for the "Primary" gauge, 93xx for the "Pecent Power" one, and 97xx for the "Roentgens"). 9x00 resets the "full" position the a default value. Note that changing the "full" percentage through the TCD keypad is not persistent. The boot-up value are only set through the Config Portal.
+The "full" percentage can be changed through the TCD keypad (91xx for the "Primary" gauge, 93xx for the "Pecent Power" one, and 97xx for the "Roentgens"). 9x00 resets the "full" position the a default value. Note that changing the "full" percentage through the TCD keypad is not persistent. The boot-up values are only set through the Config Portal.
 
 ##### &#9654; 'Primary' empty percentage
 
@@ -531,7 +561,7 @@ Same as [this](#-primary-empty-percentage), but for the 'Roentgens' gauge
 
 For digital gauges only. 
 
-This defines the "virtual percentage" (0% being the left end of the scale, 100% being the right end of the scale) at which the gauge should switch from "full" to "empty" in animations. This value depends on the speed of pointer movement: In the time travel sequence, the pointers are slowly moved towards "Empty" in sync with the length of the sequence. If your pointers "jump" to zero quickly, a threshold of 0 is ok. If the pointers move more slowly, the threshold should by adjusted so that the pointers are at "empty" at the end of the sequence, when the "Empty" alarm goes off. Start with "50" and work your way from there.
+This defines the "virtual percentage" (0% being the left end of the scale, 100% being the right end of the scale) at which the digital gauge should switch from "full" to "empty" in animations. This value depends on the speed of pointer movement: In the time travel sequence, the pointers are virtually slowly moved from 100% towards 0% in sync with the length of the sequence. If your pointers "jump" to zero quickly, a threshold of 0 is ok. If the pointers move more slowly, the threshold should by adjusted so that the pointers are at "empty" at the end of the sequence, when the "Empty" alarm goes off. Start with "50" and work your way from there.
 
 _Note_: The current OEM control board only supports one digital output for all connected digital gauges. Therefore, they can only _all_ be "full", or _all_ be "empty", and as a result, there can only be one Threshold for all digital gauges. If you have three digital gauges connected, the Threshold configured for "Primary" has priority.
 
@@ -553,7 +583,7 @@ The Control Board has a connector for two door switches; these switches change s
 
 ##### &#9654; Switch closes when door is closed
 
-This selects what type of door switch is being used. Check this, if the switch closes contact when the door closes. Leave uncheck if the switch opens when the door closes.
+This selects what type of door switch is being used. Check this, if the switch closes contact when the door closes. Leave unchecked if the switch opens when the door closes.
 
 ##### &#9654; Door sound delay
 
@@ -611,7 +641,7 @@ then reload the page in your browser.
 
 
 
-
+_Text & images: (C) Thomas Winischhofer ("A10001986"). See LICENSE._
 
 
 
