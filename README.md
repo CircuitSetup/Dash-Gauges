@@ -9,6 +9,10 @@ This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](ht
 [<img src="img/mydg1.jpg">](img/mydg1_l.jpg)
 [<img src="img/mydg2.jpg">](img/mydg2_l.jpg)
 
+| [![Watch the video](https://img.youtube.com/vi/R2M2wp6kowQ/0.jpg)](https://youtu.be/R2M2wp6kowQ) |
+|:--:|
+| Click to watch the video |
+
 For information on the hardware, please see [here](/hardware/).
 
 Firmware features include
@@ -541,6 +545,10 @@ For analog gauges only.
 
 This allows to select the pointer position when the meter is supposed to show "empty". This should be 0 (zero), but if your hardware is either inaccurate or the pointer isn't exactly 0-adjusted, you can modify its "zero" position here. Values from 0-100 are allowed, but obviously only values < 20 make sense.
 
+##### &#9654; Slowly drain 'Primary' during TT
+
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
+
 ##### &#9654; 'Percent Power' full percentage
 
 Same as [this](#-primary-full-percentage), but for the 'Percent Power' gauge
@@ -549,6 +557,10 @@ Same as [this](#-primary-full-percentage), but for the 'Percent Power' gauge
 
 Same as [this](#-primary-empty-percentage), but for the 'Percent Power' gauge
 
+##### &#9654; Slowly drain 'Percent Power' during TT
+
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
+
 ##### &#9654; 'Roentgens' full percentage
 
 Same as [this](#-primary-full-percentage), but for the 'Roentgens' gauge. If you adjusted the pointer's zero position to the "green zero", be careful not to choose values too high; you might overshoot the pointer's physical end position.
@@ -556,6 +568,10 @@ Same as [this](#-primary-full-percentage), but for the 'Roentgens' gauge. If you
 ##### &#9654; 'Roentgens' empty percentage
 
 Same as [this](#-primary-empty-percentage), but for the 'Roentgens' gauge
+
+##### &#9654; Slowly drain 'Roentgens' during TT
+
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
 
 ##### &#9654; 'Primary' empty threshold
 
