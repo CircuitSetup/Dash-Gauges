@@ -19,12 +19,12 @@ Firmware features include
 - support for analog gauges (with software-controlled arbitrary pointer position) and digital gauges (Empty/Full, without arbitrary pointer position)
 - selectable "full" percentages per analog gauge (besides for fun, useful for adjusting inaccurate readings)
 - selectable threshold percentage for Empty/Full position for digital gauges
-- [Time Travel](#time-travel) function, triggered by button, [Time Circuits Display](https://tcd.out-a-ti.me) (TCD) or via [MQTT](#home-assistant--mqtt)
+- [Time Travel](#time-travel) function, triggered by button, [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) (TCD) or via [MQTT](#home-assistant--mqtt)
 - support for Side Switch to play "empty" and "refill" sequences
 - Automatic refill timer, automatic alarm mute timer (both optional)
 - easy expandability to support different gauges hardware (currently implemented: variable voltage (0-5V); digital [on/off, all or separate])
 - Support for door switches for playing sounds when opening/closing the car doors
-- [Wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://tcd.out-a-ti.me); used for synchonized time travels, alarm, night mode, fake power and remote control through TCD keypad
+- [Wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/); used for synchonized time travels, alarm, night mode, fake power and remote control through TCD keypad
 - [Music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly for control]
 - [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
 - Advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local, hostname configurable)
@@ -33,9 +33,9 @@ Firmware features include
 
 ## Firmware Installation
 
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/realA10001986/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)).
+If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/CircuitSetup/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)).
 
-If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
+If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/CircuitSetup/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
 
  *Important: After a firmware update, the "empty" LED might blink for short while after reboot. Do NOT unplug the device during this time.*
 
@@ -71,7 +71,7 @@ The first step is to establish access to the configuration web site ("Config Por
 
 As long as the device is unconfigured, it creates a WiFi network of its own named "DG-AP". This is called "Access point mode", or "AP-mode". 
 
-It is ok to leave the Dash Gauges in this mode, especially if it run stand-alone. In a typical home setup and/or if you also have a [Time Circuits Display](https://tcd.out-a-ti.me), however, you might want to connect the Dash Gauges to a WiFi network (in case of using it together with a TCD: to the same WiFi network the TCD is connected to). If you have your Dash Gauges, along with a Time Circuits Display, mounted in a car, you might want to connect the Dash Gauges to the TCD's very own WiFi network "TCD-AP"; see [here](#car-setup).
+It is ok to leave the Dash Gauges in this mode, especially if it run stand-alone. In a typical home setup and/or if you also have a [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/), however, you might want to connect the Dash Gauges to a WiFi network (in case of using it together with a TCD: to the same WiFi network the TCD is connected to). If you have your Dash Gauges, along with a Time Circuits Display, mounted in a car, you might want to connect the Dash Gauges to the TCD's very own WiFi network "TCD-AP"; see [here](#car-setup).
 
 In order to connect your Dash Gauges to a WiFi network, click on "Configure WiFi". The bare minimum is to select an SSID (WiFi network name) and a WiFi password.
 
@@ -302,7 +302,7 @@ While the music player is playing music, other sound effects are disabled/muted.
 
 >Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
 
-For wiring information, please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/hardware/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
+For wiring information, please see [here](https://github.com/CircuitSetup/Dash-Gauges/blob/main/hardware/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
 
 With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
 
