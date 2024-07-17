@@ -341,6 +341,7 @@ The Dash Gauges can - to some extent - be controlled through messages sent to to
 - TIMETRAVEL: Start a [time travel](#time-travel)
 - EMPTY: "Drain" Plutonium and trigger alarm
 - REFILL: Refill the Plutonium chamber
+- PLAY_DOOR_OPEN, PLAY_DOOR_CLOSED: Play respective door sounds; these commands are only executed if the option **_Play door sounds_** in the Config Portal is unchecked.
 - MP_PLAY: Starts the [Music Player](#the-music-player)
 - MP_STOP: Stops the [Music Player](#the-music-player)
 - MP_NEXT: Jump to next song
@@ -596,6 +597,8 @@ If a TCD is connected via BTTFN or MQTT, the Dash Gauges visually signals when t
 ##### &#9654; Play door sounds
 
 The Control Board has a connector for two door switches; these switches change state whenever a door is opened or closed. The firmware can play a sound for each such event. To enable door sounds, check this.
+
+This option must be unchecked in order to use the MQTT commands PLAY_DOOR_OPEN and PLAY_DOOR_CLOSED.
 
 ##### &#9654; Switch closes when door is closed
 

@@ -220,7 +220,7 @@ If you can't find a model 49 VU-meter or consider the 142 too far off, you could
 
 Many meters are rated for voltages/currents beyond what the Control Board can deliver, but often they can be modified: For instance, the **Simpson model 29 0-50V DC voltmeter** has a 50K resistor inside; bridging this resistor and putting a combination of 680R/4k7 on the Control Board makes the meter show full scale at 5V.
 
-The safest bet is a **model 29** DC _voltmeter_, although I have only tested this up to a 0-100V meter; given the simularities betwen the 0-50V and the 0-100V versions, I suspect that meters up to 300V can be modified in the same way. Model 29 _ammeters_ should work, too, but my only experience is a 0-50mA ammeter. I don't know if higher rated meters can be modified accordingly. 
+The safest bet is a **model 29** DC _voltmeter_, although I have only tested this up to a 0-100V meter; given the simularities betwen the 0-50V and the 0-100V versions, I suspect that meters up to 300V can be modified in the same way. Model 29 _ammeters_ should work, too, but my only experiences are a 0-1mA and a 0-50mA ammeter. I don't know if higher rated meters can be modified accordingly. 
 
 **Model 39** meters are RF (radio frequency) ammeters, I have no experience with those.
 
@@ -237,10 +237,11 @@ Tested meter options and configuration:
 <table>
   <tr><td><b>Meter</b></td><td><b>Modification</b></td><td><b>R5/R6</b></td><td><b>Gauge type setting</b></td></tr>
   <tr><td>Simpson Roentgens meter</td><td>Internal resistors (one axial, one that looks like a wire wrapped around paper) need to be removed, black wire from meter coil leading to v-shaped terminal in center needs to be attached to input terminal directly.</td><td>8k2/10k</td><td>Generic Analog (0-2.048V)</td></tr>  
-  <tr><td>Simpson models 49, 142 VU meters</td><td>None</td><td>330R/3k3</td><td>Standard VU-Meter</td></tr>
   <tr><td>Simpson model 29 0-50V DC voltmeter</td><td>Internal resistor needs to be bridged</td><td>680R/4k7</td><td>Generic Analog (0-5V)</td></tr>
   <tr><td>Simpson model 29 0-100V DC voltmeter</td><td>Internal resistor needs to be bridged</td><td>680R/4k7</td><td>Generic Analog (0-5V)</td></tr>
+  <tr><td>Simpson model 29 0-1.0mA DC ammeter</td><td>All built-in resistors, caps etc, if any, must be removed. The meter's input terminals must be directly connected to the meter's coil. (My "NOS" sample was configured this way when I got it, but given its 50+ years of age it could as well be that it was modified at some point.)</td><td>470R/4k7</td><td>Generic Analog (0-5V)</td></tr>
   <tr><td>Simpson model 29 0-50mA DC ammeter</td><td>Internal coil resistor (looks like wire wrapped around paper) in the rear, close to the bottom, needs to be removed: No need to take the meter apart; just cut the two blank wires leading from the terminals towards the center, the coil resistor will fall out then (be sure to bend down the remaining stubs so that they don't touch anything), the other resistor can remain.</td><td>0R/1k0</td><td>Generic Analog (0-5V)</td></tr>
+  <tr><td>Simpson models 49, 142 VU meters</td><td>None</td><td>330R/3k3</td><td>Standard VU-Meter</td></tr>
 </table>
 
 Unusable:
