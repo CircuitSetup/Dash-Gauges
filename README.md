@@ -4,7 +4,7 @@ This repository holds
 - [instructions](/hardware/) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
 - and a suitable firmware.
 
-This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://tcd.out-a-ti.me) as it relies on the TCD's keypad to control many of its functions.
+This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) as it relies on the TCD's keypad to control many of its functions.
 
 [<img src="img/mydg1.jpg">](img/mydg1_l.jpg)
 [<img src="img/mydg2.jpg">](img/mydg2_l.jpg)
@@ -218,12 +218,28 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
      <td align="left">9888xxx&#9166;</td>
     </tr>
     <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key1.mp3</a>"</td>
+     <td align="left">9001&#9166;</td>
+    </tr>
+    <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key3.mp3</a>"</td>
      <td align="left">9003&#9166;</td>
     </tr>
     <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key4.mp3</a>"</td>
+     <td align="left">9004&#9166;</td>
+    </tr>
+    <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key6.mp3</a>"</td>
      <td align="left">9006&#9166;</td>
+    </tr>
+    <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key7.mp3</a>"</td>
+     <td align="left">9007&#9166;</td>
+    </tr>
+    <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key9.mp3</a>"</td>
+     <td align="left">9009&#9166;</td>
     </tr>
     <tr>
      <td align="left">Say current IP address</td>
@@ -272,7 +288,9 @@ Your replacements need to be put in the root (top-most) directory of the SD card
 
 The firmware supports some additional user-provided sound effects, which it will load from the SD card. If the respective file is present, it will be used. If that file is absent, no sound will be played.
 
-- "key3.mp3"/"key6.mp3": Will be played when you type 9003 / 9006 on the TCD (connected through BTTFN).
+- "key1.mp3", "key3.mp3", "key4.mp3", "key6.mp3", "key7.mp3", "key9.mp3": Will be played when you type 900x (x being 1, 3, 4, 6, 7 or 9) on the TCD (connected through BTTFN).
+
+> The seemingly odd numbering is because of synchronicity with other props, especially the TCD and its keymap where the MusicPlayer occupies keys 2, 5, 8.
 
 Those files are not provided here. You can use any mp3, with a bitrate of 128kpbs or less.
 
@@ -421,11 +439,13 @@ This leads to the [Setup page](#setup-page).
 
 ##### &#9654; Update
 
-This leads to the firmware update page. 
+This leads to the firmware and audio update page. 
 
 In order to upload a new firmware binary (such as the ones published here in the install/ folder), select that image file in the top file selector and click "Update".
 
 You can also install the Dash Gauges' audio data on this page; download the current sound-pack, extract it and select the resulting DGA.bin file in the bottom file selector. Finally, click "Upload". Note that an SD card is required for this operation.
+
+Note that either a firmware or audio data can be uploaded at once, not both at the same time.
 
 ##### &#9654; Erase WiFi Config
 
@@ -616,7 +636,7 @@ If checked, the Dash Gauges will connect to the broker (if configured) and send 
 
 ##### &#9654; Broker IP[:port] or domain[:port]
 
-The broker server address. Can be a domain (eg. "myhome.me") or an IP address (eg "192.168.1.5"). The default port is 1883. If different port is to be used, it can be specified after the domain/IP and a colon ":", for example: "192.168.1.5:1884". Specifiying the IP address is preferred over a domain since the DNS call adds to the network overhead. Note that ".local" (MDNS) domains are not supported.
+The broker server address. Can be a domain (eg. "myhome.me") or an IP address (eg "192.168.1.5"). The default port is 1883. If different port is to be used, it can be specified after the domain/IP and a colon ":", for example: "192.168.1.5:1884". Specifying the IP address is preferred over a domain since the DNS call adds to the network overhead. Note that ".local" (MDNS) domains are not supported.
 
 ##### &#9654; User[:Password]
 
