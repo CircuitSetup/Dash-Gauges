@@ -1,7 +1,7 @@
 # Dash Gauges
 
-This repository holds 
-- [instructions](/hardware/) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
+This [repository](https://dg.out-a-ti.me) holds 
+- [instructions](hardware/) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
 - and a suitable firmware.
 
 This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) as it relies on the TCD's keypad to control many of its functions.
@@ -13,7 +13,7 @@ This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](ht
 |:--:|
 | Click to watch the video |
 
-For information on the hardware, please see [here](/hardware/).
+For information on the hardware, please see [here](hardware/).
 
 Firmware features include
 - support for analog gauges (with software-controlled arbitrary pointer position) and digital gauges (Empty/Full, without arbitrary pointer position)
@@ -261,7 +261,7 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
 
 ## Time travel
 
-To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](https://github.com/realA10001986/Dash-Gauges/blob/main/hardware/README.md#connecting-a-time-travel-button) for how to wire that button.
+To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](hardware/#connecting-a-time-travel-button) for how to wire that button.
 
 Other ways of triggering a time travel are available if a [Time Circuits Display](#connecting-a-time-circuits-display) is connected.
 

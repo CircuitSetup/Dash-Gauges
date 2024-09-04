@@ -3,9 +3,9 @@
 [<img src="img/mydg3.jpg">](img/mydg3_l.jpg)
 
 The Dash Gauges consist of several parts:
-- A **Control Board**: Readily available at [CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-gauge-control-board/). If you want to make it yourself, the production data is in the ["electronics"](/hardware/electronics) folder. 
+- A **Control Board**: Readily available at [CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-gauge-control-board/). If you want to make it yourself, the production data is in the ["electronics"](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/electronics) folder. 
 - The **gauges**: These are vintage meters made by Phaostron and Simpson and need to be sourced by the prop builder. In the picture above you see two modified Phaostron 631-15099 "Cyclic Trim" meters, and a Simpson model 49MC VU Meter disguised as the "Roentgens" gauge. Many other types of meters can be used.
-- Aluminium (Aluminum) **bezel**; can be purchased at [CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-plutonium-gauge-bezel/). The measurements are in the ["enclosure"](/hardware/enclosure) folder of this repository. 
+- Aluminium (Aluminum) **bezel**; can be purchased at [CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-plutonium-gauge-bezel/). The measurements are in the ["enclosure"](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/enclosure) folder of this repository. 
 
 This prop was made to be compatible with the CircuitSetup line of movie props ([Time Circuits Display](https://tcd.out-a-ti.me), [Flux Capacitor](https://fc.out-a-ti.me), [SID](https://sid.out-a-ti.me)).
 
@@ -180,7 +180,7 @@ It is hard to tell what a meter has inside and whether it's usable. Many meters 
 
 To find out suitable resistor values for R1/R2 and/or R3/R4 on the Control Board, please see [here](#appendix-a-resistors-for-gauges). The values given in the table above are verified working on my meter samples, but meters might vary, so please verify them for your meters, too.
 
-Movie-accurate dials for those gauges are available in the [hardware/faces-labels](/hardware/faces-labels) folder. In order to avoid the old dial shining through the new dial, apply the new label on the back-side of the original dial. To apply the labels properly, cut them precisely at the bottom and the right hand side (leave some extra at the top and the left hand side), then place the dial in the corner of a 90 deg angled ruler, and align the sticker at the bottom and right hand side. Slowly apply the sticker from the bottom up to avoid bubbles, and in the end, with the sticker facing down, use an Exacto knife to cut off the surplus.
+Movie-accurate dials for those gauges are available in the [faces-labels](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/faces-labels) folder. In order to avoid the old dial shining through the new dial, apply the new label on the back-side of the original dial. To apply the labels properly, cut them precisely at the bottom and the right hand side (leave some extra at the top and the left hand side), then place the dial in the corner of a 90 deg angled ruler, and align the sticker at the bottom and right hand side. Slowly apply the sticker from the bottom up to avoid bubbles, and in the end, with the sticker facing down, use an Exacto knife to cut off the surplus.
 
 ![Alignment](img/phaostron_align.jpg)
 
@@ -216,7 +216,7 @@ The only illuminated Simpson meters - apart from the Roentgens meters - were app
 
 I was lucky to score a **Simpson model 49L VU-meter** and a **Simpson model 49MC VU-meter**. both with the movie-accurate front. They are illuminated through two incandescent light bulbs. 
 
-The **model 142 VU-meters**, while perfectly usable electronically, are a bit smaller (4.25x3.9" vs 4.66x4.2") and look different on the back; their barrel is thicker (3.25" vs 2.78" in diameter), and the screws are not at the outer corners but closer to the barrel. There are special files in the [hardware/enclosure](/hardware/enclosure) folder for model 142 dimensions. Unfortunately, the barrel is so big that it does not allow for a simple hole for the "Empty" light; this must be done another way. Also, there are (at least) two versions of this meter that differ in pointer length. Avoid the version with the short pointer, it does not allow for accurate dial and "Empty" light placement.
+The **model 142 VU-meters**, while perfectly usable electronically, are a bit smaller (4.25x3.9" vs 4.66x4.2") and look different on the back; their barrel is thicker (3.25" vs 2.78" in diameter), and the screws are not at the outer corners but closer to the barrel. There are special files in the [enclosure](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/enclosure) folder for model 142 dimensions. Unfortunately, the barrel is so big that it does not allow for a simple hole for the "Empty" light; this must be done another way. Also, there are (at least) two versions of this meter that differ in pointer length. Avoid the version with the short pointer, it does not allow for accurate dial and "Empty" light placement.
 
 ![model142pointers](img/mod142pl.jpg)
 
@@ -292,18 +292,18 @@ In order to avoid the old dial shining through your new label, use the backside 
 
 #### Dial face
 
-A movie-accurate dial as well as "Empty" label is in the [hardware/faces-labels](/hardware/faces-labels) folder. To apply the dial properly, follow the instructions above for the Phaostron meters.
+A movie-accurate dial as well as "Empty" label is in the [faces-labels](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/faces-labels) folder. To apply the dial properly, follow the instructions above for the Phaostron meters.
 
 [<img src="img/roeitw4.jpg">](img/roeitw4_l.jpg)
 [<img src="img/roeitw5.jpg">](img/roeitw5_l.jpg)
 
 ## Bezel
 
-The bezel consists of three parts: The front and two side pieces. Measurements are in the [hardware/enclosure](/hardware/enclosure) folder of this repository.
+The bezel consists of three parts: The front and two side pieces. Measurements are in the [enclosure](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/enclosure) folder of this repository.
 
 You can purchase a bezel at [CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-plutonium-gauge-bezel/); note that it is made for a model 29/39/49/59/79 panel meter as 'Roentgens'; a model 142 meter won't fit.
 
-You additionally need a lever switch (single pole, maintained, ON-OFF), which is mounted on the right hand side piece (see [here](/hardware/enclosure/measurements_side.png) for its position). This switch is called "side switch" hereinafter.
+You additionally need a lever switch (single pole, maintained, ON-OFF), which is mounted on the right hand side piece (see [here](hardware/enclosure/measurements_side.png) for its position). This switch is called "side switch" hereinafter.
 
 # Appendix A: Resistors for Gauges
 
@@ -345,7 +345,7 @@ If a single resistor does the job, bridge the other position with a wire.
 In the Config Portal, set the gauge type to "Generic Analog (0-5V)".
 
 >For experts: The same procedure could be done on the Control Board directly:
->- In the Config Portal, set the ["full" percentage](https://github.com/realA10001986/Dash-Gauges#-primary-full-percentage) of the gauge to 100, and
+>- In the Config Portal, set the ["full" percentage](/#-primary-full-percentage) of the gauge to 100, and
 >- select "Generic Analog 0-5V" as Gauge Type.
 >- Connect the gauge to the Control Board, power-up and
 >- try to find the correct value by putting resistors (or wire bridges) loosely at the resistor positions on the Control Board.
