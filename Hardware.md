@@ -170,7 +170,7 @@ Tested meter options and configuration:
   <tr><td>H&P <b>631-14672</b> 0-0.5V DC voltmeter</td><td>Pointer color changed from red to black using an Edding permanent marker</td><td>470R/8k2</td><td>H&P 631-14672</td></tr>
   <tr><td>Phaostron 0-5KV DC voltmeter (<b>300-07970</b>)</td><td>None</td><td>470R/4k7</td><td>Generic Analog (0-5V)</td></tr>
   <tr><td>Phaostron "Cyclic Trim" meter (<b>631-15099</b>)</td><td>The two resistors and the pot inside the meter need to be removed, and the wire (which lead to the pot) needs to be re-attached to the input terminal.</td><td>470R/4k7</td><td>Generic Analog (0-5V)</td></tr>
-  <tr><td>Phaostron 0-75V DC voltmeter (<b>631-16471A</b>)</td><td>Internal resistor and caps need to be bridged.</td><td>470R/4k7</td><td>Generic Analog (0-5V)</td></tr>
+  <tr><td>Phaostron 0-75V DC voltmeter (<b>631-16471A</b>)</td><td>Internal resistor and caps need to be removed, the input terminals need to be connected directly to the meter's coil.</td><td>470R/4k7</td><td>Generic Analog (0-5V)</td></tr>
 </table>
 
 Unusable:
@@ -206,7 +206,7 @@ The "Primary" and "Percent Power" labels are made with a Rotex 880 label maker; 
 
 The "Roentgens" gauge is more of a challenge. The pictures above show my modified Simpson model 49 VU meters. The original in the movie was a real Roentgens meter from a CP95 radiac. Such devices are hard to find, let alone one with the correct Simpson meter. The CP95 was built over a long period of time and they used meters from different manufacturers (QVS, Specialty Assy, etc).
 
-There are a lot of Simpson meters that look similar - yet not identical - to what was seen in the movies. However: One - quite important - issue is that hardly any Simpson meters are illuminated. Non-illuminated meters have a front that is 7mm thinner than the fronts of illuminated models, the glass is closer to the dial, and, as a result, the movie-accurate "Empty" light and the red pointer won't fit. _A solution for this problem - in shape of an "extension ring" that is put between the case and the original front, elevating the front by 7mm - is in the works and will be available soon (possibly spring 2025). This extension is required to fit the "Empty" light and the red pointer as described below. It will also allow for easily illuminating a non-illuminated Simpson meter model x9. (UNC 3-48 1/2")_
+There are a lot of Simpson meters that look similar - yet not identical - to what was seen in the movies. However: One - quite important - issue is that hardly any Simpson meters are illuminated. Non-illuminated meters have a front that is 7mm thinner than the fronts of illuminated models, the glass is closer to the dial, and, as a result, the movie-accurate "Empty" light and the red pointer won't fit. _A solution for this problem - in shape of an "extension ring" that is put between the case and the original front, elevating the front by 7mm - is in the works and will be available soon (possibly spring 2025). This extension is required to fit the "Empty" light and the red pointer as described below. It will also allow for easily illuminating a non-illuminated Simpson meter model x9. (The screws required for the enclosure with the extension ring installed are UNC 3-48 1/2" with a suitable flat head)_
 
 A word on Simpson model numbers: Their main model number means mainly "case style", not "specific type of meter". "Model 49" therefore only means "4.5 inch case", but not whether this is a VU meter, a voltmeter, or what not:
 
@@ -268,6 +268,7 @@ The non-illuminated meters' front part is thinner, so be careful when enlarging 
 
 ![wirepointer](hardware/img/redpointer1.jpg)
 ![red_pointer_hole](hardware/img/rphole.jpg)
+![red_pointer_inside](hardware/img/rpinside.jpg)
 
 #### The "Empty" light
 
@@ -296,6 +297,23 @@ A movie-accurate dial as well as "Empty" label is in the [faces-labels](https://
 
 [<img src="hardware/img/roeitw4.jpg">](hardware/img/roeitw4_l.jpg)
 [<img src="hardware/img/roeitw5.jpg">](hardware/img/roeitw5_l.jpg)
+
+#### Model 29/39/49/59/79 conversion details
+
+With the red pointer mounted, and the aforementioned extension ring in place, the front's inside looks like this:
+
+[<img src="hardware/img/roeitw6.jpg">](hardware/img/roeitw6_l.jpg)
+
+Now for the backlight. I used SMD-mounted dual-LEDs (used for model trains):
+
+[<img src="hardware/img/roeitw7.jpg">](hardware/img/roeitw7_l.jpg)
+[<img src="hardware/img/roeitw8.jpg">](hardware/img/roeitw8_l.jpg)
+
+Be careful with the wires, they must not interfere with pointer movement.
+
+Final result:
+
+[<img src="hardware/img/roeitw9.jpg">](hardware/img/roeitw9_l.jpg)
 
 ## Bezel
 
