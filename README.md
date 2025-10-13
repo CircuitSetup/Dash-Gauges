@@ -73,9 +73,11 @@ Your Dash Gauges know two ways of WiFi operation: Either they create their own W
 
 As long as the device is unconfigured, it creates its own WiFi network named "DG-AP". This mode of operation is called "**Access point mode**", or "AP-mode". 
 
-It is ok to leave it in AP-mode, predominantly if used stand-alone. (To keep operating your Dash Gauges in AP-mode, do not configure a WiFi network as described below, or click on "Erase WiFi config" on the Config Portal's main page.)
+It is ok to leave it in AP-mode, predominantly if used stand-alone. (To keep operating your Dash Gauges in AP-mode, do not configure a WiFi network as described below, or check on "Forget saved WiFi network" and click "Save" on the Config Portal's "WiFi configuration" page.)
 
 >Please do not leave computers/hand helds permanently connected to the Dash Gauges' AP. These devices might think they are connected to the internet and therefore hammer your Dash Gauges with DNS and HTTP requests which might lead to packet loss and disruptions.
+
+>If you want your device to remain in AP-mode, please choose a suitable WiFi channel on the Config Portal's "WiFi Configuration" page. See [here](#-wifi-channel).
 
 >For experts: In the following, the term "WiFi network" is used for both "WiFi network" and "ip network" for simplicity reasons. However, for BTTFN/MQTT communication, the devices must (only) be on the same ip network, regardless of how they take part in it: They can be can be connected to different WiFi networks, if those WiFi networks are part of the same ip network, or, in case of the MQTT broker, by wire. If the TCD operates as access point for other props, connecting a prop to the TCD's WiFi network also takes care of suitable ip network configuration through DHCP.
 
@@ -125,9 +127,9 @@ It can be accessed as follows:
 - Connect your hand-held/computer to the same (WiFi) network to which the Dash Gauges are connected, and
 - navigate your browser to http://gauges.local
 
-  Accessing the Config Portal through this address requires the operating system of your hand-held/computer to support Bonjour/mDNS: Windows 10 version TH2     (1511) [other sources say 1703] and later, Android 13 and later; MacOS and iOS since the dawn of time.
+  >Accessing the Config Portal through this address requires the operating system of your hand-held/computer to support Bonjour/mDNS: Windows 10 version TH2     (1511) [other sources say 1703] and later, Android 13 and later; MacOS and iOS since the dawn of time.
 
-  If connecting to http://gauges.local fails due to a name resolution error, you need to find out the Gauges' IP address. In order to do so, hold "Button 1" on the Control Board for 2 seconds, and listen. The IP address will be spoken out loud. Then, on your handheld or computer, navigate to http://a.b.c.d (a.b.c.d being the IP address as just given by the Dash Gauges) in order to enter the Config Portal.
+  >If connecting to http://gauges.local fails due to a name resolution error, you need to find out the Gauges' IP address. In order to do so, hold "Button 1" on the Control Board for 2 seconds, and listen. The IP address will be spoken out loud. Then, on your handheld or computer, navigate to http://a.b.c.d (a.b.c.d being the IP address as just given by the Dash Gauges) in order to enter the Config Portal.
 
 In the main menu, click on "Settings" to configure your Dash Gauges. 
 
@@ -284,7 +286,7 @@ Other ways of triggering a time travel are available if a [Time Circuits Display
 
 ## SD card
 
-Preface note on SD cards: For unknown reasons, some SD cards simply do not work with this device. For instance, I had no luck with Sandisk Ultra 32GB and  "Intenso" cards. If your SD card is not recognized, check if it is formatted in FAT32 format (not exFAT!). Also, the size must not exceed 32GB (as larger cards cannot be formatted with FAT32). Transcend SDHC cards work fine in my experience.
+Preface note on SD cards: For unknown reasons, some SD cards simply do not work with this device. For instance, I had no luck with Sandisk Ultra 32GB and  "Intenso" cards. If your SD card is not recognized, check if it is formatted in FAT32 format (not exFAT!). Also, the size must not exceed 32GB (as larger cards cannot be formatted with FAT32). Transcend, Sandisk Industrial and Samsung Pro Endurance SDHC cards work fine in my experience.
 
 The SD card, apart from being required for [installing](#sound-pack-installation) of the sound-pack, can be used for substituting built-in sound effects and for music played back by the [Music player](#the-music-player). Also, it is _strongly recommended_ to store [secondary settings](#-save-secondary-settings-on-sd) on the SD card to minimize [Flash Wear](#flash-wear).
 
@@ -317,7 +319,7 @@ As of version 1.20 of the Dash Gauges firmware, above mentioned audio files (bot
 
 Uploading through the Config Portal works exactly like [installing the default audio files](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
 
-In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key1.mp3" from the SD card, either rename your "key1.mp3" into "delete-key1.mp3", or create a new file named "delete-key1.mp3", and upload this file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key1.mp3" from the SD card.
+In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
 
 For technical reasons, the Dash Gauges must reboot after mp3 files are uploaded in this way.
 
@@ -494,13 +496,13 @@ Through this page you can either connect your Dash Gauges to your local WiFi net
 
 #### <ins>Connecting to an existing WiFi network</ins>
 
-In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __passwort__ (WPAx).
-
+In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __passwort__ (WPAx). If there is no list displayed, click on "WiFi Scan".
+ 
 >By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty. If you connect your Dash Gauges to your Time Circuits Display acting as access point ("TCD-AP"), leave these all empty.
 
 ##### &#9654; Forget Saved WiFi Network
 
-Clicking this button (and selecting "yes" in the confirmation dialog) deletes the currently saved WiFi network (SSID and password) and reboots the device; it will restart in "access point" (AP) mode. See [here](#connecting-to-a-wifi-network).
+Checking this box (and clicking SAVE) deletes the currently saved WiFi network (SSID and password as well as static IP data) and reboots the device; it will restart in "access point" (AP) mode. See [here](#connecting-to-a-wifi-network).
 
 ##### &#9654; Hostname
 
@@ -541,7 +543,11 @@ This procedure temporarily (until a reboot) clears the WiFi password, allowing u
 
 ##### &#9654; WiFi channel
 
-Here you can select one out of 13 channels, or have the Dash Gauges choose a random channel for you. The default channel is 1.
+Here you can select one out of 13 channels, or have the Dash Gauges choose a random channel for you. The default channel is 1. Preferred are channels 1, 6 and 11.
+
+If you are in the US, please select a channel between 1 and 11. All above 11 are not legal. A future update will limit this to 11 channels.
+
+WiFI channel selection is key for a trouble-free operation. Disturbed WiFi communication can lead to disrupted sequences, packet loss, hanging or freezing props, and other problems. A good article on WiFi channel selection is [here](https://community.ui.com/questions/Choosing-the-right-Wifi-Channel-on-2-4Ghz-Why-Conventional-Wisdom-is-Wrong/ea2ffae0-8028-45fb-8fbf-60569c6d026d).
 
 ---
 
