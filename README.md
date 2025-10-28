@@ -4,7 +4,7 @@ This [repository](https://dg.out-a-ti.me) holds
 - [instructions](Hardware.md) for building a Dash Gauge panel, as seen in the Delorean Time Machine,
 - and a suitable firmware.
 
-This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) as it relies on the TCD's keypad to control many of its functions.
+This panel is meant as an add-on for the CircuitSetup [Time Circuits Display](https://tcd.out-a-ti.me) as it relies on the TCD's keypad to control many of its functions.
 
 [<img src="img/mydg1.jpg">](img/mydg1_l.jpg)
 [<img src="img/mydg2.jpg">](img/mydg2_l.jpg)
@@ -19,13 +19,12 @@ Firmware features include
 - support for analog gauges (with software-controlled arbitrary pointer position) and digital gauges (Empty/Full, without arbitrary pointer position)
 - selectable "full" percentages per analog gauge (besides for fun, useful for adjusting inaccurate readings)
 - selectable threshold percentage for Empty/Full position for digital gauges
-- [Time Travel](#time-travel) function, triggered by button, [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) (TCD) or via [MQTT](#home-assistant--mqtt)
+- [Time Travel](#time-travel) function, triggered by button, [Time Circuits Display](https://tcd.out-a-ti.me) (TCD) or via [MQTT](#home-assistant--mqtt)
 - support for Side Switch to play "empty" and "refill" sequences
 - Automatic refill timer, automatic alarm mute timer (both optional)
-- easy expandability to support different gauges hardware (currently implemented: variable voltage (0-5V); digital [on/off, all or separate])
-- Support for door switches for playing sounds when opening/closing the car doors
-- [Wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/); used for synchonized time travels, alarm, night mode, fake power and remote control through TCD keypad
-- [Music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly for control]
+- support for door switches for playing sounds when opening/closing the car doors
+- [wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://tcd.out-a-ti.me); used for synchronized time travels, alarm, night mode, fake power and remote control through TCD keypad
+- [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly for control]
 - [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
 - advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local, hostname configurable)
 - [Home Assistant](#home-assistant--mqtt) (MQTT 3.1.1) support
@@ -33,9 +32,9 @@ Firmware features include
 
 ## Firmware Installation
 
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/CircuitSetup/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)).
+If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/realA10001986/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)).
 
-If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/CircuitSetup/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
+If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
 
  *Important: After a firmware update, the "empty" light might blink for short while after reboot. Do NOT unplug the device during this time.*
 
@@ -77,17 +76,27 @@ As long as the device is unconfigured, it creates its own WiFi network named "DG
 
 It is ok to leave it in AP-mode, predominantly if used stand-alone. To keep operating your Dash Gauges in AP-mode, simply _do not configure_ a WiFi network connection as described below.
 
->Please do not leave computers/handhelds permanently connected to the Dash Gauges in AP-mode. These devices might think they are connected to the internet and therefore hammer your Dash Gauges with DNS and HTTP requests which might lead to packet loss and disruptions.
+<details>
+<summary>More...</summary>
+
+>Please do not leave computers/handhelds permanently connected to the Dash Gauges in AP-mode. These devices might think they are connected to the internet and therefore hammer your Dash Gauges with DNS and HTTP requests which might lead to disruptions.
 
 >If you wish for your device to remain in AP-mode, please select a suitable WiFi channel on the Config Portal's "WiFi Configuration" page. See [here](#-wifi-channel).
 
-#### &#9654; Home setup with a pre-existing local WiFi network
+> In AP-mode, the Dash Gauges can switch off WiFi to save power. See [here](#wifi-power-saving-features).
+
+</details>
+
+#### Home setup with a pre-existing local WiFi network
 
 In this case, you can connect your Dash Gauges to your home WiFi network. This allows for inter-prop-communication ([BTTFN](#bttf-network-bttfn)) and [HA/MQTT](#home-assistant--mqtt).
 
 ![STAmode-home](img/stamode-home.png)
 
-Click on "WiFi Configuration" and either select a network from the top of the page or enter a WiFi network name (SSID), and enter your WiFi password. After saving the WiFi network settings, the device reboots and tries to connect to your configured WiFi network. If that fails, it will again start in access point mode.
+Click on "WiFi Configuration" and either select a network from the top of the page or enter a WiFi network name (SSID), and enter your WiFi password. After saving the WiFi network settings, the device reboots and tries to connect to your configured WiFi network. 
+
+<details>
+<summary>More...</summary>
 
 >The device requests an IP address via DHCP, unless you entered valid data in the fields for static IP addresses (IP, gateway, netmask, DNS). If the device is inaccessible as a result of incorrect static IPs, 
 >- power-down the device,
@@ -100,7 +109,11 @@ Click on "WiFi Configuration" and either select a network from the top of the pa
 >
 >This procedure causes static IP data to be deleted; the device will return to DHCP after a reboot.
 
-#### &#9654; Places without WiFi network
+</details>
+
+If the Dash Gauges fail to connect, they fall back to AP-mode. You can trigger another connection attempt by briefly pressing "Button 1" (located behind the "Percent Power" gauge on the control board).
+
+#### Places without WiFi network
 
 In this case and with no [Time Circuits Display](https://tcd.out-a-ti.me) at hand, keep your Dash Gauges operating in AP-mode.
 
@@ -108,7 +121,7 @@ If you have a TCD, you can connect your Dash Gauges to the TCD's own WiFi networ
 
 ![STAmode-car](img/stamode-car.png)
 
-Run the TCD in AP-Mode, and on your Dash Gauges' Config Portal, click on "WiFi Configuration" and either select "TCD-AP" from the top of the page or enter "TCD-AP" under *Network name (SSID)*. If you password-protected your TCD-AP, enter this password below. See [here](#car-setup) for more details.
+This setup is meant for cars, but suitable for any place with no WiFi network. See [here](#car-setup) for details.
 
 After completing this step, your Dash Gauges are ready to be configured through the "Config Portal".
 
@@ -131,11 +144,11 @@ It can be accessed as follows:
 #### If Dash Gauges are connected to a WiFi network
 
 - Connect your handheld/computer to the same (WiFi) network to which the Dash Gauges are connected, and
-- navigate your browser to http://gauges.local
+- navigate your browser to http://gauges.local  <details><summary>More...</summary>
 
   >Accessing the Config Portal through this address requires the operating system of your handheld/computer to support Bonjour/mDNS: Windows 10 version TH2     (1511) [other sources say 1703] and later, Android 13 and later; MacOS and iOS since the dawn of time.
 
-  >If connecting to http://gauges.local fails due to a name resolution error, you need to find out the Gauges' IP address. In order to do so, hold "Button 1" on the Control Board for 2 seconds, and listen. The IP address will be spoken out loud. Then, on your handheld or computer, navigate to http://a.b.c.d (a.b.c.d being the IP address as just given by the Dash Gauges) in order to enter the Config Portal.
+  >If connecting to http://gauges.local fails due to a name resolution error, you need to find out the Gauges' IP address. In order to do so, hold "Button 1" on the Control Board for 2 seconds, and listen. The IP address will be spoken out loud. Then, on your handheld or computer, navigate to http://a.b.c.d (a.b.c.d being the IP address as just given by the Dash Gauges) in order to enter the Config Portal.</details>
 
 In the main menu, click on "Settings" to configure your Dash Gauges. 
 
@@ -167,9 +180,106 @@ There is little to play with when the Dash Gauges aren't connected to a TCD:
 
 The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as well. The TCD is of special importance: When connected through BTTFN, the TCD can act as a remote control for the Dash Gauges.
 
-## TCD remote command reference
+## Time travel
 
-### Remote control reference
+To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](hardware/#connecting-a-time-travel-button) for how to wire that button.
+
+Other ways of triggering a time travel are available if a [Time Circuits Display](#connecting-a-time-circuits-display) is connected.
+
+## SD card
+
+Preface note on SD cards: For unknown reasons, some SD cards simply do not work with this device. For instance, I had no luck with Sandisk Ultra 32GB and  "Intenso" cards. If your SD card is not recognized, check if it is formatted in FAT32 format (not exFAT!). Also, the size must not exceed 32GB (as larger cards cannot be formatted with FAT32). Transcend, Sandisk Industrial, Verbatim Premium and Samsung Pro Endurance SDHC cards work fine in my experience.
+
+The SD card, apart from being required for [installing](#sound-pack-installation) of the sound-pack, can be used for substituting built-in sound effects and for music played back by the [Music player](#the-music-player). Also, it is _strongly recommended_ to store [secondary settings](#-save-secondary-settings-on-sd) on the SD card to minimize [Flash Wear](#flash-wear).
+
+Note that the SD card must be inserted before powering up the device. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the device is powered.
+
+### Sound substitution
+
+The Dash Gauges' built-in sound effects can be substituted by your own sound files on a FAT32-formatted SD card. These files will be played back directly from the SD card during operation, so the SD card has to remain in the slot.
+
+Your replacements need to be put in the root (top-most) directory of the SD card, be in mp3 format (128kbps max) and named as follows:
+- "startup.mp3". Played when the Dash Gauges are connected to power and finished booting;
+- "refill.mp3". Played during the "refill"-sequence;
+- "alarm.mp3". Played when the alarm sounds (triggered by a Time Circuits Display via BTTFN or MQTT);
+- "0.mp3" through "9.mp3", "dot.mp3": Numbers for IP address read-out.
+- "dooropen.mp3"/"doorclose.mp3": Played when the state of the door switch changes.
+
+### Additional Custom Sounds
+
+The firmware supports some additional user-provided sound effects, which it will load from the SD card. If the respective file is present, it will be used. If that file is absent, no sound will be played.
+
+- "key1.mp3", "key3.mp3", "key4.mp3", "key6.mp3", "key7.mp3", "key9.mp3": Will be played when you type 900x (x being 1, 3, 4, 6, 7 or 9) on the TCD (connected through BTTFN).
+
+> The seemingly odd numbering is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8.
+
+Those files are not provided here. You can use any mp3, with a bitrate of 128kpbs or less.
+
+### Installing Custom & Replacement Audio Files
+
+Replacements and custom sounds can either be copied to the SD card using a computer, or uploaded through the Config Portal.
+
+Uploading through the Config Portal works exactly like [installing the default audio files](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
+
+In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
+
+For technical reasons, the Dash Gauges must reboot after mp3 files are uploaded in this way.
+
+Please remember that the maximum bitrate for mp3 files is 128kbps. Also note that the uploaded file is stored to the root folder of the SD card, so this way of uploading cannot be used to upload songs for the Music Player. 
+
+## The Music Player
+
+The firmware contains a simple music player to play mp3 files located on the SD card. This player requires a TCD connected through BTTFN for control.
+
+In order to be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, ie the player starts searching for music in folder *music0*. This folder number can be changed in the Config Portal or through the TCD keypad (905x).
+
+The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). *The maximum bitrate is 128kpbs.*
+
+Since manually renaming mp3 files is somewhat cumbersome, the firmware can do this for you - provided you can live with the files being sorted in alphabetical order: Just copy your files with their original filenames to the music folder; upon boot or upon selecting a folder containing such files, they will be renamed following the 3-digit name scheme (as mentioned: in alphabetic order). You can also add files to a music folder later, they will be renamed properly; when you do so, delete the file "TCD_DONE.TXT" from the music folder on the SD card so that the firmware knows that something has changed. The renaming process can take a while (10 minutes for 1000 files in bad cases). Mac users are advised to delete the ._ files from the SD before putting it back into the control board as this speeds up the process.
+
+To start and stop music playback, enter 9005 followed by ENTER on your TCD. Entering 9002 jumps to the previous song, 9008 to the next one.
+
+By default, the songs are played in order, starting at 000.mp3, followed by 001.mp3 and so on. By entering 9555 on the TCD, you can switch to shuffle mode, in which the songs are played in random order. Type 9222 followed by ENTER to switch back to consecutive mode.
+
+Entering 9888 followed by OK re-starts the player at song 000, and 9888xxx (xxx = three-digit number) jumps to song #xxx.
+
+See [here](#remote-control-reference) for a list of controls of the music player.
+
+While the music player is playing music, other sound effects are disabled/muted. Initiating a time travel stops the music player. The TCD-triggered alarm will, if so configured, sound and stop the music player.
+
+## Connecting a Time Circuits Display
+
+### BTTF-Network ("BTTFN")
+
+The TCD can communicate with the Dash Gauges wirelessly, via the built-in "**B**asic-**T**elematics-**T**ransmission-**F**ramework" over WiFi. It can send out information about a time travel and an alarm. Furthermore, the TCD's keypad can be used to remote-control the Dash Gauges.
+
+| [![Watch the video](https://img.youtube.com/vi/u9oTVXUIOXA/0.jpg)](https://youtu.be/u9oTVXUIOXA) |
+|:--:|
+| Click to watch the video |
+
+BTTFN requires the props all to be connected to the same network, such as, for example, your home WiFi network. BTTFN does not work over the Internet.
+
+![STAmode-bttfn](img/stamode-bttfn.png)
+
+<details>
+<summary>More...</summary>
+
+>The term "WiFi network" is used for both "WiFi network" and "ip subnet" here for simplicity reasons. However, for BTTFN communication, the devices must be on the same IP subnet, regardless of how they take part in it: They can be connected to different WiFi networks, if those WiFi networks are part of the same ip subnet.
+
+</details>
+
+In order to connect your Dash Gauges to the TCD using BTTFN, just enter the TCD's IP address or hostname in the **_IP address or hostname of TCD_** field in the Dash Gauges' Config Portal. On the TCD, no special configuration is required.
+  
+Afterwards, the Dash Gauges and the TCD can communicate wirelessly and 
+- play time travel sequences in sync,
+- both play an alarm-sequence when the TCD's alarm occurs,
+- the Dash Gauges can be remote controlled through the TCD's keypad (command codes 9xxx),
+- the Dash Gauges queries the TCD for fake power and night mode, in order to react accordingly if so configured,
+- pressing the dash gauges' Time Travel button can trigger a synchronized Time Travel on all BTTFN-connected devices, just like if that Time Travel was triggered through the TCD.
+
+You can use BTTF-Network and MQTT at the same time, see [below](#home-assistant--mqtt).
+
+#### TCD remote command reference
 
 <table>
     <tr>
@@ -284,110 +394,6 @@ The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as 
 
 [Here](https://github.com/realA10001986/Dash-Gauges/blob/main/CheatSheet.pdf) is a cheat sheet for printing or screen-use. (Note that MacOS' preview application has a bug that scrambles the links in the document. Acrobat Reader does it correctly.)
 
-## Time travel
-
-To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](hardware/#connecting-a-time-travel-button) for how to wire that button.
-
-Other ways of triggering a time travel are available if a [Time Circuits Display](#connecting-a-time-circuits-display) is connected.
-
-## SD card
-
-Preface note on SD cards: For unknown reasons, some SD cards simply do not work with this device. For instance, I had no luck with Sandisk Ultra 32GB and  "Intenso" cards. If your SD card is not recognized, check if it is formatted in FAT32 format (not exFAT!). Also, the size must not exceed 32GB (as larger cards cannot be formatted with FAT32). Transcend, Sandisk Industrial, Verbatim Premium and Samsung Pro Endurance SDHC cards work fine in my experience.
-
-The SD card, apart from being required for [installing](#sound-pack-installation) of the sound-pack, can be used for substituting built-in sound effects and for music played back by the [Music player](#the-music-player). Also, it is _strongly recommended_ to store [secondary settings](#-save-secondary-settings-on-sd) on the SD card to minimize [Flash Wear](#flash-wear).
-
-Note that the SD card must be inserted before powering up the device. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the device is powered.
-
-### Sound substitution
-
-The Dash Gauges' built-in sound effects can be substituted by your own sound files on a FAT32-formatted SD card. These files will be played back directly from the SD card during operation, so the SD card has to remain in the slot.
-
-Your replacements need to be put in the root (top-most) directory of the SD card, be in mp3 format (128kbps max) and named as follows:
-- "startup.mp3". Played when the Dash Gauges are connected to power and finished booting;
-- "refill.mp3". Played during the "refill"-sequence;
-- "alarm.mp3". Played when the alarm sounds (triggered by a Time Circuits Display via BTTFN or MQTT);
-- "0.mp3" through "9.mp3", "dot.mp3": Numbers for IP address read-out.
-- "dooropen.mp3"/"doorclose.mp3": Played when the state of the door switch changes.
-
-### Additional Custom Sounds
-
-The firmware supports some additional user-provided sound effects, which it will load from the SD card. If the respective file is present, it will be used. If that file is absent, no sound will be played.
-
-- "key1.mp3", "key3.mp3", "key4.mp3", "key6.mp3", "key7.mp3", "key9.mp3": Will be played when you type 900x (x being 1, 3, 4, 6, 7 or 9) on the TCD (connected through BTTFN).
-
-> The seemingly odd numbering is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8.
-
-Those files are not provided here. You can use any mp3, with a bitrate of 128kpbs or less.
-
-### Installing Custom & Replacement Audio Files
-
-Replacements and custom sounds can either be copied to the SD card using a computer, or uploaded through the Config Portal.
-
-Uploading through the Config Portal works exactly like [installing the default audio files](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
-
-In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
-
-For technical reasons, the Dash Gauges must reboot after mp3 files are uploaded in this way.
-
-Please remember that the maximum bitrate for mp3 files is 128kbps. Also note that the uploaded file is stored to the root folder of the SD card, so this way of uploading cannot be used to upload songs for the Music Player. 
-
-## The Music Player
-
-The firmware contains a simple music player to play mp3 files located on the SD card. This player requires a TCD connected through BTTFN for control.
-
-In order to be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, ie the player starts searching for music in folder *music0*. This folder number can be changed in the Config Portal or through the TCD keypad (905x).
-
-The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). *The maximum bitrate is 128kpbs.*
-
-Since manually renaming mp3 files is somewhat cumbersome, the firmware can do this for you - provided you can live with the files being sorted in alphabetical order: Just copy your files with their original filenames to the music folder; upon boot or upon selecting a folder containing such files, they will be renamed following the 3-digit name scheme (as mentioned: in alphabetic order). You can also add files to a music folder later, they will be renamed properly; when you do so, delete the file "TCD_DONE.TXT" from the music folder on the SD card so that the firmware knows that something has changed. The renaming process can take a while (10 minutes for 1000 files in bad cases). Mac users are advised to delete the ._ files from the SD before putting it back into the control board as this speeds up the process.
-
-To start and stop music playback, enter 9005 followed by ENTER on your TCD. Entering 9002 jumps to the previous song, 9008 to the next one.
-
-By default, the songs are played in order, starting at 000.mp3, followed by 001.mp3 and so on. By entering 9555 on the TCD, you can switch to shuffle mode, in which the songs are played in random order. Type 9222 followed by ENTER to switch back to consecutive mode.
-
-Entering 9888 followed by OK re-starts the player at song 000, and 9888xxx (xxx = three-digit number) jumps to song #xxx.
-
-See [here](#remote-control-reference) for a list of controls of the music player.
-
-While the music player is playing music, other sound effects are disabled/muted. Initiating a time travel stops the music player. The TCD-triggered alarm will, if so configured, sound and stop the music player.
-
-## Connecting a Time Circuits Display
-
-### Connecting a TCD by wire
-
->Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
-
-For wiring information, please see [here](https://github.com/CircuitSetup/Dash-Gauges/blob/main/hardware/README.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
-
-With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
-
->You can connect both the TCD and a Time Travel button to the Dash Gauges. But the button should not be pressed when the option **_TCD connected by wire_** is set, as it might yield unwanted results.
-
-### BTTF-Network ("BTTFN")
-
-The TCD can communicate with the Dash Gauges wirelessly, via the built-in "**B**asic-**T**elematics-**T**ransmission-**F**ramework" over WiFi. It can send out information about a time travel and an alarm. Furthermore, the TCD's keypad can be used to remote-control the Dash Gauges.
-
-| [![Watch the video](https://img.youtube.com/vi/u9oTVXUIOXA/0.jpg)](https://youtu.be/u9oTVXUIOXA) |
-|:--:|
-| Click to watch the video |
-
-BTTFN requires the props all to be connected to the same network, such as, for example, your home WiFi network. BTTFN does not work over the Internet.
-
-![STAmode-bttfn](img/stamode-bttfn.png)
-
->The term "WiFi network" is used for both "WiFi network" and "ip subnet" here for simplicity reasons. However, for BTTFN communication, the devices must be on the same IP subnet, regardless of how they take part in it: They can be connected to different WiFi networks, if those WiFi networks are part of the same ip subnet.
-
-In order to connect your Dash Gauges to the TCD using BTTFN, just enter the TCD's IP address or hostname in the **_IP address or hostname of TCD_** field in the Dash Gauges' Config Portal. On the TCD, no special configuration is required.
-  
-Afterwards, the Dash Gauges and the TCD can communicate wirelessly and 
-- play time travel sequences in sync,
-- both play an alarm-sequence when the TCD's alarm occurs,
-- the Dash Gauges can be remote controlled through the TCD's keypad (command codes 9xxx),
-- the Dash Gauges queries the TCD for fake power and night mode, in order to react accordingly if so configured,
-- pressing the dash gauges' Time Travel button can trigger a synchronized Time Travel on all BTTFN-connected devices, just like if that Time Travel was triggered through the TCD.
-
-You can use BTTF-Network and MQTT at the same time, see [below](#home-assistant--mqtt).
-
 ### Connecting a TCD by wire
 
 >Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
@@ -396,7 +402,12 @@ For wiring information, please see [here](hardware/#connecting-a-tcd-to-the-dash
 
 With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
 
+<details>
+<summary>More...</summary>
+
 >You can connect both the TCD and a Time Travel button to the Dash Gauges. However, the button should not be pressed when the option **_TCD connected by wire_** is set, as it might yield unwanted results.
+
+</details>
 
 ## Home Assistant / MQTT
 
@@ -469,6 +480,16 @@ By default, the "Door Open" sound is played when the switch is closed; "Door clo
 
 In the Config Portal, you can invert this setting, so that the "Door Open" sound is played when the switch is closed.
 
+## WiFi power saving features
+
+The Config Portal offers an option for WiFi power saving for AP-mode (ie when the device acts as an access point). This option configures a timer after whose expiration WiFi is switched off; the device is no longer transmitting or receiving data over WiFi.
+
+The timer can be set to 0 (which disables it; WiFi is never switched off; this is the default), or 10-99 minutes. 
+
+After WiFi has been switched off due to timer expiration, it can be re-enabled by briefly pressing Button 1, in which case the timers are restarted (ie WiFi is again switched off after timer expiration). Button 1 is located behind the "Percent Power" gauge on the control board.
+
+> Briefly pressing Button 1 also triggers a re-connection attempt in case your configured WiFi network was not available when the Dash Gauges were trying to connect, see [here](#-home-setup-with-a-pre-existing-local-wifi-network).
+
 ## Flash Wear
 
 Flash memory has a somewhat limited lifetime. It can be written to only between 10.000 and 100.000 times before becoming unreliable. The firmware writes to the internal flash memory when saving settings and other data. Every time you change settings, data is written to flash memory.
@@ -479,15 +500,15 @@ In order to reduce the number of write operations and thereby prolong the life o
 
 ### Main page
 
-##### &#9654; WiFi Configuration
+##### &#9193; WiFi Configuration
 
 This leads to the [WiFi configuration page](#wifi-configuration)
 
-##### &#9654; Settings
+##### &#9193; Settings
 
 This leads to the [Settings page](#settings).
 
-##### &#9654; Update
+##### &#9193; Update
 
 This leads to the firmware and audio upload page. 
 
@@ -509,11 +530,11 @@ In order to connect your Dash Gauges to your WiFi network, all you need to do is
  
 >By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty. If you connect your Dash Gauges to your Time Circuits Display acting as access point ("TCD-AP"), leave these all empty.
 
-##### &#9654; Forget Saved WiFi Network
+##### &#9193; Forget Saved WiFi Network
 
 Checking this box (and clicking SAVE) deletes the currently saved WiFi network (SSID and password as well as static IP data) and reboots the device; it will restart in "access point" (AP) mode. See [here](#connecting-to-a-wifi-network).
 
-##### &#9654; Hostname
+##### &#9193; Hostname
 
 The device's hostname in the WiFi network. Defaults to 'gauges'. This also is the domain name at which the Config Portal is accessible from a browser in the same local network. The URL of the Config Portal then is http://<i>hostname</i>.local (the default is http://gauges.local)
 
@@ -521,21 +542,21 @@ If you have several Dash Gauges in your local network, please give them unique h
 
 _This setting applies to both AP-mode and when your Dash Gauges are connected to a WiFi network._ 
 
-##### &#9654; WiFi connection attempts
+##### &#9193; WiFi connection attempts
 
 Number of times the firmware tries to reconnect to a WiFi network, before falling back to AP-mode. See [here](#connecting-to-a-wifi-network)
 
-##### &#9654; WiFi connection timeout
+##### &#9193; WiFi connection timeout
 
 Number of seconds before a timeout occurs when connecting to a WiFi network. When a timeout happens, another attempt is made (see immediately above), and if all attempts fail, the device falls back to AP-mode. See [here](#connecting-to-a-wifi-network)
 
 #### <ins>Settings for AP-mode</ins>
 
-##### &#9654; Network name (SSID) appendix
+##### &#9193; Network name (SSID) appendix
 
 By default, when the Dash Gauges create a WiFi network of its own ("AP-mode"), this network is named "DG-AP". In case you have multiple Dash Gauges in your vicinity, you can have a string appended to create a unique network name. If you, for instance, enter "-ABC" here, the WiFi network name will be "DG-AP-ABC". Characters A-Z, a-z, 0-9 and - are allowed.
 
-##### &#9654; Password
+##### &#9193; Password
 
 By default, and if this field is empty, the Dash Gauges' own WiFi network ("DG-AP") will be unprotected. If you want to protect your access point, enter your password here. It needs to be 8 characters in length and only characters A-Z, a-z, 0-9 and - are allowed.
 
@@ -550,7 +571,7 @@ If you forget this password and are thereby locked out of your Dash Gauges,
 
 This procedure temporarily (until a reboot) clears the WiFi password, allowing unprotected access to the Config Portal. (Note that this procedure also deletes static IP address data; the device will return to using DHCP after a reboot.)
 
-##### &#9654; WiFi channel
+##### &#9193; WiFi channel
 
 Here you can select one out of 11 channels, or have the Dash Gauges choose a random channel for you. The default channel is 1. Preferred are channels 1, 6 and 11.
 
@@ -561,7 +582,11 @@ If a WiFi Scan was done (which can be triggered by clicking "WiFI Scan"),
 - a list of networks is displayed at the top of the page; click "Show All" to list all networks including their channel;
 - a "proposed channel" is displayed near the "WiFi channel" drop-down, based on a rather simple heuristic. The banner is green when a channel is excellent, grey when it is impeded by overlapping channels, and when that banner is red operation in AP mode is not recommended due to channels all being used.
 
-The channel proposition is based on all WiFi networks found; it does not take non-WiFi equipment (baby monitors, cordless phones, Bluetooth devices, microwave ovens, etc) into account. 
+The channel proposition is based on all WiFi networks found; it does not take non-WiFi equipment (baby monitors, cordless phones, Bluetooth devices, microwave ovens, etc) into account.
+
+##### &#9193; Power save timer
+
+See [here](#wifi-power-saving-features).
 
 ---
 
@@ -569,19 +594,19 @@ The channel proposition is based on all WiFi networks found; it does not take no
 
 #### <ins>Basic settings</ins>
 
-##### &#9654; Auto-refill timer
+##### &#9193; Auto-refill timer
 
 After a time travel, the plutonium is depleted, and the chamber needs to be refilled. This timer allows for an automatic "Refill" after the given number of seconds; 0 means never. In the latter case, a manual Refill is in order: Either flip the side switch, or enter "009" on the TCD (if connected wirelessly).
 
-##### &#9654; Mute 'empty' alarm timer
+##### &#9193; Mute 'empty' alarm timer
 
 The "empty" alarm's sound can be annoying if played for longer periods. This timer allows to mute it after the given number of seconds. 0 means never.
 
-##### &#9654; Play TCD-alarm sounds
+##### &#9193; Play TCD-alarm sounds
 
 If a TCD is connected via BTTFN or MQTT, the Dash Gauges visually signals when the TCD's alarm sounds. If you want to play an alarm sound, check this option.
 
-##### &#9654; Screen saver timer
+##### &#9193; Screen saver timer
 
 Enter the number of minutes until the Screen Saver should become active when the Dash Gauges are idle.
 
@@ -593,7 +618,7 @@ The music player will continue to run.
 
 #### <ins>Visual options</ins>
 
-##### &#9654; 'Primary' full percentage
+##### &#9193; 'Primary' full percentage
 
 For analog gauges only. 
 
@@ -601,41 +626,41 @@ Here you can select the reading the "Primary" meter should give when "full". You
 
 The "full" percentage can be changed through the TCD keypad (91xx for the "Primary" gauge, 93xx for the "Percent Power" one, and 97xx for the "Roentgens"). 9x00 resets the "full" position the default value. Note that changing the "full" percentage through the TCD keypad is not persistent. The boot-up values are only set through the Config Portal.
 
-##### &#9654; 'Primary' empty percentage
+##### &#9193; 'Primary' empty percentage
 
 For analog gauges only. 
 
 This allows to select the pointer position when the meter is supposed to show "empty". This should be 0 (zero), but if your hardware is either inaccurate or the pointer isn't exactly 0-adjusted, you can modify its "zero" position here. Values from 0-100 are allowed, but obviously only values < 20 make sense.
 
-##### &#9654; Slowly drain 'Primary' during TT
+##### &#9193; Slowly drain 'Primary' during TT
 
 For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
 
-##### &#9654; 'Percent Power' full percentage
+##### &#9193; 'Percent Power' full percentage
 
 Same as [this](#-primary-full-percentage), but for the 'Percent Power' gauge
 
-##### &#9654; 'Percent Power' empty percentage
+##### &#9193; 'Percent Power' empty percentage
 
 Same as [this](#-primary-empty-percentage), but for the 'Percent Power' gauge
 
-##### &#9654; Slowly drain 'Percent Power' during TT
+##### &#9193; Slowly drain 'Percent Power' during TT
 
 For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
 
-##### &#9654; 'Roentgens' full percentage
+##### &#9193; 'Roentgens' full percentage
 
 Same as [this](#-primary-full-percentage), but for the 'Roentgens' gauge. If you adjusted the pointer's zero position to the "green zero", be careful not to choose values too high; you might overshoot the pointer's physical end position.
 
-##### &#9654; 'Roentgens' empty percentage
+##### &#9193; 'Roentgens' empty percentage
 
 Same as [this](#-primary-empty-percentage), but for the 'Roentgens' gauge
 
-##### &#9654; Slowly drain 'Roentgens' during TT
+##### &#9193; Slowly drain 'Roentgens' during TT
 
 For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
 
-##### &#9654; 'Primary' empty threshold
+##### &#9193; 'Primary' empty threshold
 
 For digital gauges only. 
 
@@ -643,11 +668,11 @@ This defines the "virtual percentage" (0% being the left end of the scale, 100% 
 
 _Note_: The current OEM control board only supports one digital output for all connected digital gauges. Therefore, they can only _all_ be "full", or _all_ be "empty", and as a result, there can only be one Threshold for all digital gauges. If you have three digital gauges connected, the Threshold configured for "Primary" has priority.
 
-##### &#9654; 'Percent Power' empty threshold
+##### &#9193; 'Percent Power' empty threshold
 
 Same as [this](#-primary-empty-threshold), but for the 'Percent Power' gauge. In light of the _Note_ above, this value is only used, if your "Primary" gauge is of analog kind, and the "Percent Power" gauge is the first digital gauge (counting from the left).
 
-##### &#9654; 'Roentgens' empty threshold
+##### &#9193; 'Roentgens' empty threshold
 
 Same as [this](#-primary-empty-threshold), but for the 'Roentgens' gauge. In light of the _Note_ above, this value is only used, if your "Roentgens" gauge is your only digital gauge.
 
@@ -661,53 +686,53 @@ This can also be set/changed through a TCD keypad via BTTFN (9300 - 9319). Such 
 
 #### <ins>Music Player settings</ins>
 
-##### &#9654; Music folder
+##### &#9193; Music folder
 
 Selects the current music folder, can be 0 through 9. 
 
 This can also be set/changed through a TCD keypad via BTTFN (9050 - 9059). Such a change will be saved immediately.
 
-##### &#9654; Shuffle at startup
+##### &#9193; Shuffle at startup
 
 When checked, songs are shuffled when the device is booted. When unchecked, songs will be played in order.
 
 #### <ins>Settings for BTTFN communication</ins>
 
-##### &#9654; IP address or hostname of TCD
+##### &#9193; IP address or hostname of TCD
 
 If you want to have your Dash Gauges to communicate with a Time Circuits Display wirelessly ("BTTF-Network"), enter the TCD's hostname - usually 'timecircuits' - or IP address here.
 
 If you connect your Dash Gauges to the TCD's access point ("TCD-AP"), the TCD's IP address is 192.168.4.1.
 
-##### &#9654; Follow TCD night-mode
+##### &#9193; Follow TCD night-mode
 
 If this option is checked, and your TCD goes into night mode, the Dash Gauges will activate the Screen Saver with a very short timeout, and reduce its audio volume.
 
-##### &#9654; Follow TCD fake power
+##### &#9193; Follow TCD fake power
 
 If this option is checked, and your TCD is equipped with a fake power switch, the Dash Gauges will also fake-power up/down. If fake power is off, no LED is active and the Dash Gauges will ignore all input.
 
-##### &#9654; TT button trigger BTTFN-wide TT
+##### &#9193; TT button trigger BTTFN-wide TT
 
 If the dash gauges are connected to a TCD through BTTFN, this option allows to trigger a synchronized time travel on all BTTFN-connected devices when pressing the Time Travel button, just as if the Time Travel was triggered by the TCD. If this option is unchecked, pressing the Time Travel button only triggers a Time Travel sequence on the dash gauges.
 
 #### <ins>Home Assistant / MQTT settings</ins>
 
-##### &#9654; Use Home Assistant (MQTT 3.1.1)
+##### &#9193; Use Home Assistant (MQTT 3.1.1)
 
 If checked, the Dash Gauges will connect to the broker (if configured) and send and receive messages via [MQTT](#home-assistant--mqtt)
 
-##### &#9654; Broker IP[:port] or domain[:port]
+##### &#9193; Broker IP[:port] or domain[:port]
 
 The broker server address. Can be a domain (eg. "myhome.me") or an IP address (eg "192.168.1.5"). The default port is 1883. If different port is to be used, it can be specified after the domain/IP and a colon ":", for example: "192.168.1.5:1884". Specifying the IP address is preferred over a domain since the DNS call adds to the network overhead. Note that ".local" (MDNS) domains are not supported.
 
-##### &#9654; User[:Password]
+##### &#9193; User[:Password]
 
 The username (and optionally the password) to be used when connecting to the broker. Can be left empty if the broker accepts anonymous logins.
 
 #### <ins>Settings for wired connections</ins>
 
-##### &#9654; TCD connected by wire
+##### &#9193; TCD connected by wire
 
 Check this if you have a Time Circuits Display connected by wire. Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place.
 
@@ -715,7 +740,7 @@ While you can connect both a button and the TCD to the "time travel" connector o
 
 Do NOT check this option if your TCD is connected wirelessly (BTTFN, MQTT).
 
-##### &#9654; TCD signals Time Travel without 5s lead
+##### &#9193; TCD signals Time Travel without 5s lead
 
 Usually, the TCD signals a time travel with a 5 second lead, in order to give a prop a chance to play an acceleration sequence before the actual time travel takes place. Since this 5 second lead is unique to CircuitSetup props, and people sometimes want to connect third party props to the TCD, the TCD has the option of skipping this 5 second lead. If that is the case, and your Dash Gauges are connected by wire, you need to set this option.
 
@@ -723,7 +748,7 @@ If your Dash Gauges are connected wirelessly, this option has no effect.
 
 #### <ins>Other settings</ins>
 
-##### &#9654; Save secondary settings on SD
+##### &#9193; Save secondary settings on SD
 
 If this is checked, some settings (volume, etc) are stored on the SD card (if one is present). This helps to minimize write operations to the internal flash memory and to prolong the lifetime of your Dash Gauges. See [Flash Wear](#flash-wear).
 
@@ -740,23 +765,23 @@ This procedure ensures that all your settings are copied from the old to the new
 
 #### <ins>Door Switches Hardware settings</ins>
 
-##### &#9654; Play door sounds
+##### &#9193; Play door sounds
 
 The Control Board has a connector for two door switches; these switches change state whenever a door is opened or closed. The firmware can play a sound for each such event. To enable door sounds, check this.
 
 This option must be unchecked in order to use the MQTT commands PLAY_DOOR_OPEN and PLAY_DOOR_CLOSED.
 
-##### &#9654; Switch closes when door is closed
+##### &#9193; Switch closes when door is closed
 
 This selects what type of door switch is being used. Check this, if the switch closes contact when the door closes. Leave unchecked if the switch opens when the door closes.
 
-##### &#9654; Door sound delay
+##### &#9193; Door sound delay
 
 Depending on the position of the switch and its reaction point, a delay for sound playback might be desired. You can configure such a delay here. Enter the number of milliseconds into the text field; 0 means no delay. The maximum is 5000ms (=5 seconds).
 
 #### <ins>Gauge Hardware settings</ins>
 
-##### &#9654; Gauges hardware type
+##### &#9193; Gauges hardware type
 
 This selects the type of gauge hardware and the way of connection. In order to protect your props, this is locked by default. To unlock this setting
 
