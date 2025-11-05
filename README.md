@@ -430,9 +430,9 @@ The Dash Gauges can - to some extent - be controlled through messages sent to to
 
 ### Receive commands from Time Circuits Display
 
-If both TCD and Dash Gauges are connected to the same broker, and the option **_Send event notifications_** is checked on the TCD's side, the Dash Gauges will receive information on time travel and alarm and play their sequences in sync with the TCD. Unlike BTTFN, however, no other communication takes place.
+If both TCD and Dash Gauges are connected to the same broker, and the option **_Send time travel/alarm event notifications_** is checked on the TCD's side, the Dash Gauges will receive information on time travel and alarm and play their sequences in sync with the TCD. Unlike BTTFN, however, no other communication takes place.
 
-MQTT and BTTFN can co-exist. However, the TCD only sends out time travel and alarm notifications through either MQTT or BTTFN, never both. If you have other MQTT-aware devices listening to the TCD's public topic (bttf/tcd/pub) in order to react to time travel or alarm messages, use MQTT (ie check **_Send event notifications_**). If only BTTFN-aware devices are to be used, uncheck this option to use BTTFN as it has less latency.
+MQTT and BTTFN can co-exist. However, the TCD only sends out time travel and alarm notifications through either MQTT or BTTFN, never both. If you have other MQTT-aware devices listening to the TCD's public topic (bttf/tcd/pub) in order to react to time travel or alarm messages, use MQTT (ie check **_Send time travel/alarm event notifications_**). If only BTTFN-aware devices are to be used, uncheck this option to use BTTFN as it has less latency.
 
 ### Setup
 
@@ -488,7 +488,7 @@ The timer can be set to 0 (which disables it; WiFi is never switched off; this i
 
 After WiFi has been switched off due to timer expiration, it can be re-enabled by briefly pressing Button 1, in which case the timers are restarted (ie WiFi is again switched off after timer expiration). Button 1 is located behind the "Percent Power" gauge on the control board.
 
-> Briefly pressing Button 1 also triggers a re-connection attempt in case your configured WiFi network was not available when the Dash Gauges were trying to connect, see [here](#-home-setup-with-a-pre-existing-local-wifi-network).
+> Briefly pressing Button 1 also triggers a re-connection attempt in case your configured WiFi network was not available when the Dash Gauges were trying to connect, see [here](#home-setup-with-a-pre-existing-local-wifi-network).
 
 ## Flash Wear
 
