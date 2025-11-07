@@ -24,7 +24,7 @@ Firmware features include
 - Automatic refill timer, automatic alarm mute timer (both optional)
 - support for door switches for playing sounds when opening/closing the car doors
 - [wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://tcd.out-a-ti.me); used for synchronized time travels, alarm, night mode, fake power and remote control through TCD keypad
-- [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly for control]
+- [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly or HA/MQTT for control]
 - [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
 - advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local, hostname configurable)
 - [Home Assistant](#home-assistant--mqtt) (MQTT 3.1.1) support
@@ -32,7 +32,7 @@ Firmware features include
 
 ## Firmware Installation
 
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/realA10001986/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)).
+If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update" and select the pre-compiled binary file provided in this repository ([install/dashgauges-A10001986.ino.nodemcu-32s.bin](https://github.com/realA10001986/Dash-Gauges/blob/main/install/dashgauges-A10001986.ino.nodemcu-32s.bin)) in the top file selector.
 
 If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
 
@@ -42,7 +42,7 @@ If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](http
 
 The firmware comes with a sound-pack which needs to be installed separately. The sound-pack is not updated as often as the firmware itself. If you have previously installed the latest version of the sound-pack, you normally don't have to re-install it when you update the firmware. Only if the "Empty" LED signals "SOS" (three short blinks, three long blinks, three short blinks) during boot, a re-installation/update is needed.
 
-The first step is to download "install/sound-pack-xxxxxxxx.zip" and extract it. It contains one file named "DGA.bin".
+The first step is to download "install/sound-pack-dgXX.zip" and extract it. It contains one file named "DGA.bin".
 
 Then there are two alternative ways to proceed. Note that both methods *require an SD card*.
 
@@ -176,15 +176,9 @@ As mentioned, the Dash Gauges are an add-on for a Time Circuits Display. Their b
 
 There is little to play with when the Dash Gauges aren't connected to a TCD:
 - To quickly trigger the "empty" sequence, flip the side switch of your Dash Gauges. To "refill", flip that switch again.
-- Press the time travel button to trigger a simple "surge" sequence.
+- Press the time travel button to trigger a simple "surge" sequence. The time travel button is located behind the "Primary" gauge on the rear of the Control Board, next to the SD card reader; you can also connect an [external button](Hardware.md#connecting-a-time-travel-button).
 
 The Dash Gauges are way more fun when other props (TCD, FC, SID) are present as well. The TCD is of special importance: When connected through BTTFN, the TCD can act as a remote control for the Dash Gauges.
-
-## Time travel
-
-To trigger a "time travel" stand-alone, you need to install a "Time Travel" button. Pressing that button briefly will let the Dash Gauges play their time travel sequence. Please see [here](hardware/#connecting-a-time-travel-button) for how to wire that button.
-
-Other ways of triggering a time travel are available if a [Time Circuits Display](#connecting-a-time-circuits-display) is connected.
 
 ## SD card
 
@@ -209,9 +203,9 @@ Your replacements need to be put in the root (top-most) directory of the SD card
 
 The firmware supports some additional user-provided sound effects, which it will load from the SD card. If the respective file is present, it will be used. If that file is absent, no sound will be played.
 
-- "key1.mp3", "key3.mp3", "key4.mp3", "key6.mp3", "key7.mp3", "key9.mp3": Will be played when you type 900x (x being 1, 3, 4, 6, 7 or 9) on the TCD (connected through BTTFN).
+- "key1.mp3" - "key9.mp3": Will be played when you type 900x (x being 1, 3, 4, 6, 7 or 9) or 950x (1-9) on the TCD (connected through BTTFN).
 
-> The seemingly odd numbering is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8.
+> The seemingly odd numbering for the 900x range is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8. Likewise, 9002, 9005 and 9008 control the Dash Gauges' Music Player (prev, play/stop, next).
 
 Those files are not provided here. You can use any mp3, with a bitrate of 128kpbs or less.
 
@@ -219,7 +213,7 @@ Those files are not provided here. You can use any mp3, with a bitrate of 128kpb
 
 Replacements and custom sounds can either be copied to the SD card using a computer, or uploaded through the Config Portal.
 
-Uploading through the Config Portal works exactly like [installing the default audio files](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
+Uploading through the Config Portal works exactly like [installing the sound-pack](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
 
 In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
 
@@ -243,7 +237,7 @@ By default, the songs are played in order, starting at 000.mp3, followed by 001.
 
 Entering 9888 followed by OK re-starts the player at song 000, and 9888xxx (xxx = three-digit number) jumps to song #xxx.
 
-See [here](#remote-control-reference) for a list of controls of the music player.
+See [here](#tcd-remote-command-reference) for a list of controls of the music player.
 
 While the music player is playing music, other sound effects are disabled/muted. Initiating a time travel stops the music player. The TCD-triggered alarm will, if so configured, sound and stop the music player.
 
@@ -287,7 +281,7 @@ You can use BTTF-Network and MQTT at the same time, see [below](#home-assistant-
     </tr>
    <tr><td>Function</td><td>Code on TCD</td></tr>
     <tr>
-     <td align="left">"Refill"</td>
+     <td align="left">"Refill"<sup>1</sup></td>
      <td>009&#9166;</td>
     </tr>
    <tr>
@@ -352,38 +346,49 @@ You can use BTTF-Network and MQTT at the same time, see [below](#home-assistant-
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key1.mp3</a>"</td>
-     <td align="left">9001&#9166;</td>
+     <td align="left">9001&#9166; / 9501&#9166;</td>
+    </tr>
+    <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key2.mp3</a>"</td>
+     <td align="left">9502&#9166;</td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key3.mp3</a>"</td>
-     <td align="left">9003&#9166;</td>
+     <td align="left">9003&#9166; / 9503&#9166;</td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key4.mp3</a>"</td>
-     <td align="left">9004&#9166;</td>
+     <td align="left">9004&#9166; / 9504&#9166;</td>
+    </tr>
+    <tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key5.mp3</a>"</td>
+     <td align="left">9505&#9166;</td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key6.mp3</a>"</td>
-     <td align="left">9006&#9166;</td>
+     <td align="left">9006&#9166; / 9506&#9166;</td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key7.mp3</a>"</td>
-     <td align="left">9007&#9166;</td>
+     <td align="left">9007&#9166; / 9507&#9166;</td>
+    </tr>
+     <td align="left">Play "<a href="#additional-custom-sounds">key8.mp3</a>"</td>
+     <td align="left">9508&#9166;</td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key9.mp3</a>"</td>
-     <td align="left">9009&#9166;</td>
+     <td align="left">9009&#9166; / 9509&#9166;</td>
     </tr>
     <tr>
      <td align="left">Say current IP address</td>
      <td align="left">9090&#9166;</td>
     </tr>   
     <tr>
-     <td align="left">Reboot the device</td>
+     <td align="left">Reboot the device<sup>1</sup></td>
      <td align="left">9064738&#9166;</td>
     </tr>
     <tr>
-     <td align="left">Delete static IP address<br>and WiFi-AP password</td>
+     <td align="left">Delete static IP address<br>and WiFi-AP password<sup>1</sup></td>
      <td align="left">9123456&#9166;</td>
     </tr>
     <tr>
@@ -392,13 +397,15 @@ You can use BTTF-Network and MQTT at the same time, see [below](#home-assistant-
     </tr>
 </table>
 
+1: Not supported through HA/MQTT [_INJECT_](#the-inject_x-command) command
+
 [Here](https://github.com/realA10001986/Dash-Gauges/blob/main/CheatSheet.pdf) is a cheat sheet for printing or screen-use. (Note that MacOS' preview application has a bug that scrambles the links in the document. Acrobat Reader does it correctly.)
 
 ### Connecting a TCD by wire
 
 >Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
 
-For wiring information, please see [here](hardware/#connecting-a-tcd-to-the-dash-gauges-by-wire).
+For wiring information, please see [here](Hardware.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
 
 With the wiring in place, head to the Config Portal and set the option **_TCD connected by wire_**. On the TCD, the option "Control props connected by wire" must be set.
 
@@ -415,8 +422,8 @@ The Dash Gauges support the MQTT protocol version 3.1.1 for the following featur
 
 ### Control the Dash Gauges via MQTT
 
-The Dash Gauges can - to some extent - be controlled through messages sent to topic **bttf/dg/cmd**. Supported commands are
-- TIMETRAVEL: Start a [time travel](#time-travel)
+The Dash Gauges can be controlled through messages sent to topic **bttf/dg/cmd**. Supported commands are
+- TIMETRAVEL: Start a time travel
 - EMPTY: "Drain" Plutonium and trigger alarm
 - REFILL: Refill the Plutonium chamber
 - PLAY_DOOR_OPEN, PLAY_DOOR_CLOSED: Play respective door sounds; these commands are only executed if the option **_Play door sounds_** in the Config Portal is unchecked.
@@ -427,6 +434,21 @@ The Dash Gauges can - to some extent - be controlled through messages sent to to
 - MP_SHUFFLE_ON: Enables shuffle mode in [Music Player](#the-music-player)
 - MP_SHUFFLE_OFF: Disables shuffle mode in [Music Player](#the-music-player)
 - MP_FOLDER_x: x being 0-9, set folder number for [Music Player](#the-music-player)
+- PLAYKEY_x: Play keyX.mp3 (from SD card), X being in the range from 1 to 9.
+- STOPKEY: Stop playback of keyX file. Does nothing if no keyX file is currently played back.
+- INJECT_x: See immediately below.
+
+#### The INJECT_x command
+
+This command allows remote control of the Dash Gauges through HA/MQTT in the same way as through the TCD keypad by injecting commands in the Dash Gauges command queue (hence the name). Commands are listed [here](#tcd-remote-command-reference); nearly all with a leading "9" are supported, but are to be entered _minus 9000_. For example:
+
+To set "full" percentage of "Percent Power" gauge to 50% (9450), issue the following command: **INJECT_450**
+
+To play "key2.mp3" (9502), issue **INJECT_502**
+
+To select the 'music1' folder (9051), issue **INJECT_51**
+
+_The Refill (009) command is not supported through INJECT; use the REFILL MQTT-command instead._
 
 ### Receive commands from Time Circuits Display
 
@@ -712,9 +734,9 @@ If this option is checked, and your TCD goes into night mode, the Dash Gauges wi
 
 If this option is checked, and your TCD is equipped with a fake power switch, the Dash Gauges will also fake-power up/down. If fake power is off, no LED is active and the Dash Gauges will ignore all input.
 
-##### &#9193; TT button trigger BTTFN-wide TT
+##### &#9193; TT button triggers BTTFN-wide TT
 
-If the dash gauges are connected to a TCD through BTTFN, this option allows to trigger a synchronized time travel on all BTTFN-connected devices when pressing the Time Travel button, just as if the Time Travel was triggered by the TCD. If this option is unchecked, pressing the Time Travel button only triggers a Time Travel sequence on the dash gauges.
+If the dash gauges are connected to a TCD through BTTFN, this option allows to trigger a synchronized time travel on all BTTFN-connected devices when pressing the Time Travel button, just as if the Time Travel was triggered by the TCD. If this option is unchecked, pressing the Time Travel button only triggers a Time Travel sequence on the Dash Gauges.
 
 #### <ins>Home Assistant / MQTT settings</ins>
 
