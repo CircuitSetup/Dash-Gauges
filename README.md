@@ -32,31 +32,7 @@ Firmware features include
 
 >This [repository](https://dg.out-a-ti.me) is the upstream source for CircuitSetup's releases. The only difference is that both code and documentation [here](https://dg.out-a-ti.me) might be ahead in development.
 
-## Firmware Installation
-
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on *Update*, select the pre-compiled binary file ("xxx.bin") provided in the Release package, and click on *Update*.
-
-If you are using a fresh ESP32 board, please see [dashgauges-A10001986.ino](https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino) for detailed build and upload information, or, if you don't want to deal with source code, compilers and all that nerd stuff, go [here](https://install.out-a-ti.me) and follow the instructions.
-
-*After a firmware update, the "empty" light might blink for short while after reboot. Do NOT unplug the device during this time.*
-
-### Sound-pack installation
-
-The firmware comes with a sound-pack which needs to be installed separately. The sound-pack is not updated as often as the firmware itself. If you have previously installed the latest version of the sound-pack, you normally don't have to re-install it when you update the firmware. Only if the "Empty" LED signals "SOS" (three short blinks, three long blinks, three short blinks) during boot, a re-installation/update is needed.
-
-The first step is to extract "sound-pack-dgXX.zip" (which is included in the Release package). It contains one file, named "DGA.bin".
-
-Next, head to the [Config Portal](#the-config-portal), click on *Update*, select the "DGA.bin" file in the bottom file selector and click on *Upload*.
-
-<details>
-<summary>More...</summary>
-
-Alternatively, you can install the sound-pack the following way:
-- Using a computer, copy "DGA.bin" to the root directory of a FAT32 formatted SD card;
-- power down the Dash Gauges,
-- insert this SD card into the slot and 
-- power up the Dash Gauges; the sound-pack will be installed automatically.
-</details>
+For information on updating the firmware on your Dash Gauges, see [here](#firmware-installation--firmware-update).
 
 ## Initial Configuration
 
@@ -502,9 +478,9 @@ This "car setup" can also be used in a  setup with no local WiFi network present
 
 The Dash Gauges have a connector for two door switches. These switches trigger door open/close sounds.
 
-By default, the "Door Open" sound is played when the switch is closed; "Door close" is played when the switch opens.
+For information on wiring, see [here](Hardware.md#door-switches), section "Door switches".
 
-In the Config Portal, you can invert this setting, so that the "Door Open" sound is played when the switch is closed.
+There are several options for door sounds in the Config Portal, please see [here](#door-switches-hardware-settings).
 
 ## WiFi power saving features
 
@@ -521,6 +497,38 @@ After WiFi has been switched off due to timer expiration, it can be re-enabled b
 Flash memory has a somewhat limited lifetime. It can be written to only between 10.000 and 100.000 times before becoming unreliable. The firmware writes to the internal flash memory when saving settings and other data. Every time you change settings, data is written to flash memory.
 
 In order to reduce the number of write operations and thereby prolong the life of your Dash Gauges, it is recommended to use a good-quality SD card and to check **_[Save secondary settings on SD](#-save-secondary-settings-on-sd)_** in the Config Portal; secondary settings (eg current volume) are then stored on the SD card (which also suffers from wear but is easy to replace). See [here](#-save-secondary-settings-on-sd) for more information.
+
+## Firmware Installation / Firmware Update
+
+If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update", select the pre-compiled binary file ("**dashgauges-A10001986.ino.nodemcu-32s.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases), and click on *Update*.
+
+<details>
+<summary>Installing on a fresh ESP32...</summary>
+If you are using a fresh ESP32, please go <a href="https://install.out-a-ti.me">here</a> and follow the instructions, or - if you are a nerd and want to deal with source code, compilers'n'stuff - see <a href="https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino">dashgauges-A10001986.ino</a> for detailed build and upload information.
+</details>
+
+*After a firmware update, the "empty" light might blink for short while after reboot. Do NOT unplug the device during this time.*
+
+### Sound-pack installation
+
+The firmware comes with a sound-pack which needs to be installed separately. The sound-pack is not updated as often as the firmware itself. There will be a message in the Config Portal and the "Empty" LED will signal "SOS" (three short blinks, three long blinks, three short blinks) during boot when/if the sound-pack needs to be updated.
+
+_Note that installing the sound-pack requires an [SD card](#sd-card)._
+
+The first step is to extract "sound-pack-dgXX.zip" (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)). It contains one file, named "DGA.bin".
+
+Next, head to the [Config Portal](#the-config-portal), click on "Update", select the "DGA.bin" file in the _bottom_ file selector and click on *Upload*.
+
+<details>
+<summary>Alternative way</summary>
+Alternatively, you can install the sound-pack the following way:
+- Using a computer, copy "DGA.bin" to the root directory of a FAT32 formatted SD card;
+- power down the Dash Gauges,
+- insert this SD card into the slot and 
+- power up the Dash Gauges; the sound-pack will be installed automatically.
+</details>
+
+---
 
 ## Appendix A: The Config Portal
 
@@ -540,13 +548,15 @@ This leads to the [HomeAssistant/MQTT Settings page](#hamqtt-settings).
 
 ##### &#9193; Update
 
-This leads to the firmware and audio upload page. 
+This leads to the firmware update and audio upload page.
 
-In order to upload a new firmware binary (such as the ones published here in the install/ folder), select that image file in the top file selector and click "Update".
+In order to upload a new firmware, such as published in the [Release packages](https://github.com/realA10001986/Dash-Gauges/releases), select the "**dashgauges-A10001986.ino.nodemcu-32s.bin**" or "**Dash-Gauges_vX.YY.bin**" file as contained in the Release package in the _top_ file selector and click *Update*.
 
-You can also install the Dash Gauges' sound-pack on this page; download the current sound-pack, extract it and select the resulting DGA.bin file in the bottom file selector. Finally, click "Upload". Note that an SD card is required for this operation.
+You can also install the Dash Gauges' sound-pack on this page; download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click "Upload". Note that an SD card is required for this operation.
 
-Finally, this page is also for uploading [custom or replacement sound files](#installing-custom--replacement-audio-files) to the SD card. Select an mp3 file in the bottom file selector and click upload. (Requires firmware 1.20 or later. Maximum 16 files at a time.)
+See also [here](#firmware-installation--firmware-update).
+
+Finally, this page is also for uploading [custom or replacement sound files](#installing-custom--replacement-audio-files) to the SD card. Select an mp3 file in the _bottom_ file selector and click *Upload*. (Maximum 16 files at a time.)
 
 ---
 
@@ -789,7 +799,7 @@ This option must be unchecked in order to use the MQTT commands PLAY_DOOR_OPEN a
 
 ##### &#9193; Switch closes when door is closed
 
-This selects what type of door switch is being used. Check this, if the switch closes contact when the door closes. Leave unchecked if the switch opens when the door closes.
+This selects what type of door switch is being used. Check this option if the switch closes contact when the door closes. Leave this option unchecked if the switch opens when the door closes.
 
 ##### &#9193; Play sound only when TCD is fake-off
 
@@ -845,6 +855,8 @@ This selects the type of gauge hardware and the way of connection. In order to p
 
 then reload the page in your browser.
 
+---
+
 ### HA/MQTT Settings
 
 ##### &#9193; Home Assistant support (MQTT)
@@ -862,6 +874,33 @@ The firmware supports MQTT 3.1.1 and 5.0. There is no difference in features, so
 ##### &#9193; User[:Password]
 
 The username (and optionally the password) to be used when connecting to the broker. Can be left empty if the broker accepts anonymous logins.
+
+## Appendix B: LED signals
+
+The "Empty" light is used for the following signals:
+
+<table>
+    <tr>
+     <td align="left">Blinking at 2Hz</td>
+     <td align="left">Please wait, busy</td>
+    </tr>
+    <tr>
+     <td align="left">4 1-second-blinks</td>
+     <td align="left"><a href="#receive-commands-from-time-circuits-display">Alarm</a> (from TCD via BTTFN/MQTT)</td>
+    </tr>
+    <tr>
+     <td align="left">3 long blinks, 3 short blinks, 3 long blinks (SOS in morse)</td>
+     <td align="left">Error: Sound pack <a href="#sound-pack-installation">not installed</a> or outdated</td>
+    </tr>
+    <tr>
+     <td align="left">2 brief blinks, 1 second pause, repeat</td>
+     <td align="left">Error: Sound pack installation error</td>
+    </tr>
+    <tr>
+     <td align="left">6 very quick blinks</td>
+     <td align="left">Firmware update available; shown briefly at power-up (optional)</td>
+    </tr>
+</table>
 
 ---
 _Text & images: (C) Thomas Winischhofer ("A10001986"). See LICENSE._ Source: https://dg.out-a-ti.me  
