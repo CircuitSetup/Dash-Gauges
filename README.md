@@ -22,7 +22,7 @@ Firmware features include
 - [Time Travel](#basic-operation) function, triggered by button, [Time Circuits Display](https://tcd.out-a-ti.me) (TCD) or via [MQTT](#home-assistant--mqtt)
 - support for Side Switch to play "empty" and "refill" sequences
 - Automatic refill timer, automatic alarm mute timer (both optional)
-- support for door switches for playing sounds when opening/closing the car doors, optionally through the TCD
+- support for [door switches](#door-switches) for playing sounds when opening/closing the car doors, optionally through the TCD (and hence through your stereo)
 - [wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://tcd.out-a-ti.me); used for synchronized time travels, alarm, night mode, fake power and remote control through TCD keypad
 - [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly or HA/MQTT for control]
 - [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
@@ -75,6 +75,8 @@ Click on "WiFi Configuration" and either select a network from the top of the pa
 
 <details>
 <summary>More...</summary>
+
+>If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it, or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 >The device requests an IP address via DHCP, unless you entered valid data in the fields for static IP addresses (IP, gateway, netmask, DNS). If the device is inaccessible as a result of incorrect static IPs, 
 >- power-down the device,
@@ -191,7 +193,7 @@ Those files are not provided here. You can use any mp3, with a bitrate of 128kpb
 
 Replacements and custom sounds can either be copied to the SD card using a computer, or uploaded through the Config Portal.
 
-Uploading through the Config Portal works exactly like [installing the sound-pack](#sound-pack-installation); on the main menu, click "UPDATE". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
+Uploading through the Config Portal works exactly like [installing the sound-pack](#sound-pack-installation); on the main menu, click "Update & Upload". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
 
 In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
 
@@ -467,14 +469,14 @@ Enter the Config Portal on the Dash Gauges (as described above), click on *Setti
 
 After the Dash Gauges have restarted, re-enter the Dash Gauges' Config Portal (while the TCD is powered and in *car mode*) and
   - click on *WiFi Configuration*,
-  - select the TCD's access point name in the list at the top ("TCD-AP"; if there is no list, click on "WiFi Scan") or enter *TCD-AP* into the *Network name (SSID)* field; if you password-protected your TCD's AP, enter this password in the *password* field. Leave all other fields empty,
+  - select the TCD's access point name in the list at the top ("TCD-AP"; if there is no list, click on "Scan For Networks") or enter *TCD-AP* into the *Network name (SSID)* field; if you password-protected your TCD's AP, enter this password in the *password* field. Leave all other fields empty,
   - click on *Save*.
 
 In order to access the Dash Gauges' Config Portal in your car, connect your handheld or computer to the TCD's WiFi access point ("TCD-AP"), and direct your browser to http://gauges.local ; if that does not work, go to the TCD's keypad menu, press ENTER until "BTTFN CLIENTS" is shown, hold ENTER, and look for the Dash Gauges' IP address there; then direct your browser to that IP by using the URL http://a.b.c.d (a-d being the IP address displayed on the TCD display).
 
 This "car setup" can also be used in a  setup with no local WiFi network present.
 
-### Door Switches
+## Door Switches
 
 The Dash Gauges have a connector for two door switches. These switches trigger door open/close sounds.
 
@@ -500,7 +502,7 @@ In order to reduce the number of write operations and thereby prolong the life o
 
 ## Firmware Installation / Firmware Update
 
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update", select the pre-compiled binary file ("**dashgauges-A10001986.ino.nodemcu-32s.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases), and click on *Update*.
+If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update & Upload", select the pre-compiled binary file ("**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases), and click on *Update*.
 
 <details>
 <summary>Installing on a fresh ESP32...</summary>
@@ -517,7 +519,7 @@ _Note that installing the sound-pack requires an [SD card](#sd-card)._
 
 The first step is to extract "sound-pack-dgXX.zip" (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)). It contains one file, named "DGA.bin".
 
-Next, head to the [Config Portal](#the-config-portal), click on "Update", select the "DGA.bin" file in the _bottom_ file selector and click on *Upload*.
+Next, head to the [Config Portal](#the-config-portal), click on "Update & Upload", select the "DGA.bin" file in the _bottom_ file selector and click on *Upload*.
 
 <details>
 <summary>Alternative way</summary>
@@ -546,13 +548,13 @@ This leads to the [Settings page](#settings).
 
 This leads to the [HomeAssistant/MQTT Settings page](#hamqtt-settings).
 
-##### &#9193; Update
+##### &#9193; Update & Upload
 
 This leads to the firmware update and audio upload page.
 
-In order to upload a new firmware, such as published in the [Release packages](https://github.com/realA10001986/Dash-Gauges/releases), select the "**dashgauges-A10001986.ino.nodemcu-32s.bin**" or "**Dash-Gauges_vX.YY.bin**" file as contained in the Release package in the _top_ file selector and click *Update*.
+In order to upload a new firmware, such as published in the [Release packages](https://github.com/realA10001986/Dash-Gauges/releases), select the "**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**" file as contained in the Release package in the _top_ file selector and click *Update*.
 
-You can also install the Dash Gauges' sound-pack on this page; download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click "Upload". Note that an SD card is required for this operation.
+You can also install the Dash Gauges' sound-pack on this page: Download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click *Upload*. Note that an SD card is required for this operation.
 
 See also [here](#firmware-installation--firmware-update).
 
@@ -566,9 +568,11 @@ Through this page you can either connect your Dash Gauges to your local WiFi net
 
 #### <ins>Connecting to an existing WiFi network</ins>
 
-In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __password__ (WPAx). If there is no list displayed, click on "WiFi Scan".
+In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __password__ (WPAx). If there is no list displayed, click on "Scan for networks".
  
 >By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty. If you connect your Dash Gauges to your Time Circuits Display acting as access point ("TCD-AP"), leave these all empty.
+
+If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it, or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 ##### &#9193; Forget Saved WiFi Network
 
@@ -585,10 +589,6 @@ _This setting applies to both AP-mode and when your Dash Gauges are connected to
 ##### &#9193; WiFi connection attempts
 
 Number of times the firmware tries to reconnect to a WiFi network, before falling back to AP-mode. See [here](#connecting-to-a-wifi-network)
-
-##### &#9193; WiFi connection timeout
-
-Number of seconds before a timeout occurs when connecting to a WiFi network. When a timeout happens, another attempt is made (see immediately above), and if all attempts fail, the device falls back to AP-mode. See [here](#connecting-to-a-wifi-network)
 
 #### <ins>Settings for AP-mode</ins>
 
@@ -617,7 +617,7 @@ Here you can select one out of 11 channels, or have the Dash Gauges choose a ran
 
 WiFI channel selection is key for a trouble-free operation. Disturbed WiFi communication can lead to disrupted sequences, packet loss, hanging or freezing props, and other problems. A good article on WiFi channel selection is [here](https://community.ui.com/questions/Choosing-the-right-Wifi-Channel-on-2-4Ghz-Why-Conventional-Wisdom-is-Wrong/ea2ffae0-8028-45fb-8fbf-60569c6d026d).
 
-If a WiFi Scan was done (which can be triggered by clicking "WiFI Scan"), 
+If a WiFi Scan was done (which can be triggered by clicking "Scan for networks"), 
 
 - a list of networks is displayed at the top of the page; click "Show All" to list all networks including their channel;
 - a "proposed channel" is displayed near the "WiFi channel" drop-down, based on a rather simple heuristic. The banner is green when a channel is excellent, grey when it is impeded by overlapping channels, and when that banner is red operation in AP mode is not recommended due to channels all being used.
@@ -732,9 +732,11 @@ Selects the current music folder, can be 0 through 9.
 
 This can also be set/changed through a TCD keypad via BTTFN (9050 - 9059). Such a change will be saved immediately.
 
-##### &#9193; Shuffle at startup
+##### &#9193; Shuffle mode enabled
 
-When checked, songs are shuffled when the device is booted. When unchecked, songs will be played in order.
+When checked, songs are shuffled. When unchecked, songs will be played in order.
+
+This can also be set/changed through a TCD keypad via BTTFN (9222 / 9555). Such a change will be saved immediately.
 
 #### <ins>Settings for BTTFN communication</ins>
 
@@ -837,7 +839,8 @@ Please do not power any peripheral through this pin; instead, use a relay, and c
 
 <details>
 <summary>Advanced...</summary>
-  
+
+
 You can grab the +5V also from the Control Board, if you connect all three joints of the "Light Power" solder jumper; +5V will then be on the left pin of the "Ext. Light Pwr" connector; of course, this connector cannot be used for external light power after this modification.
 
 ![D2RelayModule](img/d2ttoutscrm.png)
