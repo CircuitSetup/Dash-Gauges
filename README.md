@@ -26,7 +26,7 @@ Firmware features include
 - [wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/); used for synchronized time travels, alarm, night mode, fake power and remote control through TCD keypad
 - [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly or HA/MQTT for control]
 - [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
-- advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local, hostname configurable)
+- advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local)
 - [Home Assistant](#home-assistant--mqtt) (MQTT) support
 - built-in OTA installer for firmware updates and audio files
 
@@ -46,9 +46,9 @@ The first step is to establish access to the configuration web site ("Config Por
 
 ### Connecting to a WiFi network
 
-Your Dash Gauges know two ways of WiFi operation: Either they create their own WiFi network, or they connect to a pre-existing WiFi network.
+Your Dash Gauges know two ways of WiFi operation: Either they create their own WiFi network or they connect to a pre-existing WiFi network.
 
-As long as the device is unconfigured, it creates its own WiFi network named "DG-AP". This mode of operation is called "**Access point mode**", or **"AP-mode"**. In this mode, computers/handhelds can connect to your Dash Gauges in order to access the Config Portal, but ways of communication end right here. There is no inter-prop-communication ([BTTFN](#bttf-network-bttfn)) and no [HA/MQTT](#home-assistant--mqtt).
+As long as the device is unconfigured, it creates its own WiFi network named "DG-AP". This mode of operation is called "**Access point mode**" or **"AP-mode"**. In this mode, computers/handhelds can connect to your Dash Gauges in order to access the Config Portal, but ways of communication end right here. There is no inter-prop-communication ([BTTFN](#bttf-network-bttfn)) and no [HA/MQTT](#home-assistant--mqtt).
 
 ![APmode](img/apmode.png)
 
@@ -76,7 +76,7 @@ Click on "WiFi Configuration" and either select a network from the top of the pa
 <details>
 <summary>More...</summary>
 
->If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it, or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
+>If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 >The device requests an IP address via DHCP, unless you entered valid data in the fields for static IP addresses (IP, gateway, netmask, DNS). If the device is inaccessible as a result of incorrect static IPs, 
 >- power-down the device,
@@ -191,11 +191,11 @@ Those files are not provided here. You can use any mp3, with a bitrate of 128kpb
 
 ### Installing Custom & Replacement Audio Files
 
-Replacements and custom sounds can either be copied to the SD card using a computer, or uploaded through the Config Portal.
+Replacements and custom sounds can either be uploaded through the Config Portal or copied to the SD card using a computer.
 
 Uploading through the Config Portal works exactly like [installing the sound-pack](#sound-pack-installation); on the main menu, click "Update & Upload". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
 
-In order to delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
+To delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
 
 For technical reasons, the Dash Gauges must reboot after mp3 files are uploaded in this way.
 
@@ -246,7 +246,7 @@ BTTFN requires the props all to be connected to the same network, such as, for e
 
 </details>
 
-In order to connect your Dash Gauges to the TCD, just enter the TCD's hostname - usually "timecircuits" - in the **_Hostname or IP address of TCD_** field in the Dash Gauges' Config Portal. On the TCD, no special configuration is required. 
+To connect your Dash Gauges to the TCD, just enter the TCD's hostname - usually "timecircuits" - in the **_Hostname or IP address of TCD_** field in the Dash Gauges' Config Portal. On the TCD, no special configuration is required. 
   
 Afterwards, the Dash Gauges and the TCD can communicate wirelessly and 
 - play time travel sequences in sync,
@@ -485,7 +485,7 @@ If everything is in place, you can enable Car mode on the Dash Gauges by holding
 
 You can switch between your "normal" (home, iPhone, ..) WiFi connection and Car Mode holding _Button 1_ for six seconds as described, or through the Config Portal.
 
-In order to access the Dash Gauges' Config Portal in Car mode, connect your handheld or computer to the TCD's WiFi network ("TCD-AP"), and direct your browser to http://gauges.local.
+To access the Dash Gauges' Config Portal in Car mode, connect your handheld or computer to the TCD's WiFi network ("TCD-AP"), and direct your browser to http://gauges.local.
 
   ><details><summary>If that fails...</summary>
   >If connecting to http://gauges.local fails due to a name resolution error, go to the TCD's keypad menu, navigate to "BTTFN CLIENTS", and look for the Dash Gauges' IP address there; then direct your browser to that IP by using the URL http://a.b.c.d (a-d being the IP address displayed on the TCD display)</details>
@@ -502,7 +502,7 @@ There are several options for door sounds in the Config Portal, please see [here
 
 The Config Portal offers an option for WiFi power saving for AP-mode (ie when the device acts as an access point). This option configures a timer after whose expiration WiFi is switched off; the device is no longer transmitting or receiving data over WiFi.
 
-The timer can be set to 0 (which disables it; WiFi is never switched off; this is the default), or 10-99 minutes. 
+The timer can be set to 0 (which disables it; WiFi is never switched off; this is the default) or 10-99 minutes. 
 
 After WiFi has been switched off due to timer expiration, it can be re-enabled by briefly pressing _Button 1_, in which case the timers are restarted (ie WiFi is again switched off after timer expiration). _Button 1_ is located behind the "Percent Power" gauge on the control board.
 
@@ -578,15 +578,15 @@ Finally, this page is also for uploading [custom or replacement sound files](#in
 
 ### WiFi Configuration
 
-Through this page you can either connect your Dash Gauges to your local WiFi network, or configure AP mode. 
+Through this page you can either connect your Dash Gauges to your local WiFi network or configure AP mode. 
 
 #### <ins>Connecting to an existing WiFi network</ins>
 
 In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __password__ (WPAx). If there is no list displayed, click on "Scan for networks".
  
->By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty. If you connect your Dash Gauges to your Time Circuits Display acting as access point ("TCD-AP"), leave these all empty.
+>By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty.
 
-If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it, or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
+If there are several APs with identical SSID in your area, you can select a specific AP to use by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 ##### &#9193; Forget Saved WiFi Network
 
@@ -637,7 +637,7 @@ This procedure temporarily (until a reboot) clears the WiFi password, allowing u
 
 ##### &#9193; WiFi channel
 
-Here you can select one out of 11 channels, or have the Dash Gauges choose a random channel for you. The default channel is 1. Preferred are channels 1, 6 and 11.
+Here you can select one out of 11 channels or have the Dash Gauges choose a random channel for you. The default channel is 1. Preferred are channels 1, 6 and 11.
 
 WiFI channel selection is key for a trouble-free operation. Disturbed WiFi communication can lead to disrupted sequences, packet loss, hanging or freezing props, and other problems. A good article on WiFi channel selection is [here](https://community.ui.com/questions/Choosing-the-right-Wifi-Channel-on-2-4Ghz-Why-Conventional-Wisdom-is-Wrong/ea2ffae0-8028-45fb-8fbf-60569c6d026d).
 
@@ -660,7 +660,7 @@ See [here](#wifi-power-saving-features).
 
 ##### &#9193; Auto-refill timer
 
-After a time travel, the plutonium is depleted, and the chamber needs to be refilled. This timer allows for an automatic "Refill" after the given number of seconds; 0 means never. In the latter case, a manual Refill is in order: Either flip the side switch, or enter "009" on the TCD (if connected wirelessly).
+After a time travel, the plutonium is depleted, and the chamber needs to be refilled. This timer allows for an automatic "Refill" after the given number of seconds; 0 means never. In the latter case, a manual Refill is in order: Either flip the side switch or enter "009" on the TCD (if connected wirelessly).
 
 ##### &#9193; Mute 'empty' alarm timer
 
@@ -698,7 +698,7 @@ This allows to select the pointer position when the meter is supposed to show "e
 
 ##### &#9193; Slowly drain 'Primary' during TT
 
-For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel or jump to zero after the time travel.
 
 ##### &#9193; 'Percent Power' full percentage
 
@@ -710,7 +710,7 @@ Same as [this](#-primary-empty-percentage), but for the 'Percent Power' gauge
 
 ##### &#9193; Slowly drain 'Percent Power' during TT
 
-For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel or jump to zero after the time travel.
 
 ##### &#9193; 'Roentgens' full percentage
 
@@ -722,7 +722,7 @@ Same as [this](#-primary-empty-percentage), but for the 'Roentgens' gauge
 
 ##### &#9193; Slowly drain 'Roentgens' during TT
 
-For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel, or jump to zero after the time travel.
+For analog gauges only. This selects whether the meter should slowly move towards zero during a time travel or jump to zero after the time travel.
 
 ##### &#9193; 'Primary' empty threshold
 
@@ -730,7 +730,7 @@ For digital gauges only.
 
 This defines the "virtual percentage" (0% being the left end of the scale, 100% being the right end of the scale) at which the digital gauge should switch from "full" to "empty" in animations. This value depends on the speed of pointer movement: In the time travel sequence, the pointers are virtually slowly moved from 100% towards 0% in sync with the length of the sequence. If your pointers "jump" to zero quickly, a threshold of 0 is ok. If the pointers move more slowly, the threshold should by adjusted so that the pointers are at "empty" at the end of the sequence, when the "Empty" alarm goes off. Start with "50" and work your way from there.
 
-_Note_: The current OEM control board only supports one digital output for all connected digital gauges. Therefore, they can only _all_ be "full", or _all_ be "empty", and as a result, there can only be one Threshold for all digital gauges. If you have three digital gauges connected, the Threshold configured for "Primary" has priority.
+_Note_: The current OEM control board only supports one digital output for all connected digital gauges. Therefore, they can only _all_ be "full" or _all_ be "empty", and as a result, there can only be one Threshold for all digital gauges. If you have three digital gauges connected, the Threshold configured for "Primary" has priority.
 
 ##### &#9193; 'Percent Power' empty threshold
 
@@ -875,7 +875,7 @@ You can grab the +5V also from the Control Board, if you connect all three joint
 
 This selects the type of gauge hardware and the way of connection. In order to protect your props, this is locked by default. To unlock this setting
 
-- either hold the Time Travel button for 5 seconds, or
+- either hold the Time Travel button for 5 seconds or
 - enter 9317931 on a wirelessly connected TCD,
 
 then reload the page in your browser.
