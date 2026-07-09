@@ -166,7 +166,7 @@ Other features require a CircuitSetup [Time Circuits Display](#bttf-network-bttf
 
 The SD card, apart from being required for [installing](#sound-pack-installation) of the sound-pack, can be used for substituting built-in sound effects and for music played back by the [Music player](#the-music-player). Also, it is _strongly recommended_ to store [secondary settings](#-save-secondary-settings-on-sd) on the SD card to minimize [Flash Wear](#flash-wear).
 
-Note that the SD card must be inserted before powering up the device. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the device is powered.
+The SD card must be inserted before powering up the device. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the device is powered.
 
 ### Sound substitution
 
@@ -199,25 +199,31 @@ To delete a file from the SD card, upload a file whose name is prefixed with "de
 
 For technical reasons, the Dash Gauges must reboot after mp3 files are uploaded in this way.
 
-Please remember that the maximum bitrate for mp3 files is 128kbps. Also note that the uploaded file is stored to the root folder of the SD card, so this way of uploading cannot be used to upload songs for the Music Player. 
+The maximum bitrate for mp3 files is 128kbps. 
+
+The uploaded files are stored to the root folder of the SD card, so this way of uploading cannot be used to upload tracks for the Music Player. 
 
 ## The Music Player
 
-The firmware contains a simple music player to play mp3 files located on the SD card. This player requires a TCD connected through BTTFN for control.
+The firmware contains a simple music player to play mp3 files located on the SD card. This player is controlled by a TCD connected through BTTFN, or through [HA/MQTT](#control-the-dash-gauges-via-mqtt).
 
-In order to be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, ie the player starts searching for music in folder *music0*. This folder number can be changed in the Config Portal or through the TCD keypad (905x).
+*The maximum bitrate is __128kpbs__. The free [Adapter](https://macroplant.com/adapter/audio-converter) tool can re-encode your mp3 files in batches.*
 
-The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). *The maximum bitrate is 128kpbs.*
+To be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, i.e. the player starts searching for music in folder *music0*. To select a different folder, select it in the Config Portal ("Settings"), through the TCD (905x) or HA/MQTT (MP_FOLDER_x).
 
-Since manually renaming mp3 files is somewhat cumbersome, the firmware can do this for you - provided you can live with the files being sorted in alphabetical order: Just copy your files with their original filenames to the music folder; upon boot or upon selecting a folder containing such files, they will be renamed following the 3-digit name scheme (as mentioned: in alphabetic order). You can also add files to a music folder later, they will be renamed properly; when you do so, delete the file "TCD_DONE.TXT" from the music folder on the SD card so that the firmware knows that something has changed. The renaming process can take a while (11 minutes for 1000 files in bad cases). Mac users are advised to delete the ._ files from the SD before putting it back into the control board as this speeds up the process. _While the renaming is in progress, the Dash Gauges' right-most analog gauge shows the percentage of files yet to be processed._
+The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). 
 
-To start and stop music playback, enter 9005 followed by ENTER on your TCD. Entering 9002 jumps to the previous song, 9008 to the next one.
+Since manually renaming mp3 files is somewhat cumbersome, the firmware can do this for you: Just copy your files with their original filenames to a music folder of your choice; when selecting that folder, the files will be sorted alphabetically and renamed according to the 3-digit name scheme. (If you want your tracks in a specific order, you must rename them, for instance by inserting a letter or number at the start.) The renaming process can take a while (11 minutes for 1000 files in bad cases). Mac users are advised to delete the ._ files from the SD before putting it back into the Dash Gauges as this speeds up the process. While the renaming is in progress, the Dash Gauges' right-most analog gauge shows the percentage of files yet to be processed.
 
-By default, the songs are played in order, starting at 000.mp3, followed by 001.mp3 and so on. By entering 9555 on the TCD, you can switch to shuffle mode, in which the songs are played in random order. Type 9222 followed by ENTER to switch back to consecutive mode.
+To add files to a music folder later, just copy them to the folder and delete the file "TCD_DONE.TXT" (so that the firmware knows that something has changed). 
 
-Entering 9888 followed by OK re-starts the player at song 000, and 9888xxx (xxx = three-digit number) jumps to song #xxx.
+To start and stop music playback, enter 9005 followed by ENTER on your TCD. Entering 9002 jumps to the previous track, 9008 to the next one.
 
-See [here](#tcd-remote-command-reference) for a list of controls of the music player.
+By default, the tracks are played in order, starting at 000.mp3, followed by 001.mp3 and so on. By entering 9555 on the TCD, you can switch to shuffle mode, in which the tracks are played in random order. Type 9222 followed by ENTER to switch back to consecutive mode.
+
+Entering 9888 followed by OK re-starts the player at track 000, and 9888xxx (xxx = three-digit number) jumps to track #xxx.
+
+See [here](#tcd-remote-command-reference) and [here](#control-the-dash-gauges-via-mqtt) for a list of controls of the music player.
 
 While the music player is playing music, other sound effects are disabled/muted. Initiating a time travel stops the music player. The TCD-triggered alarm will, if so configured, sound and stop the music player.
 
@@ -255,8 +261,6 @@ Afterwards, the Dash Gauges and the TCD can communicate wirelessly and
 - the Dash Gauges queries the TCD for fake power and night mode, in order to react accordingly if so configured,
 - pressing the dash gauges' Time Travel button can trigger a synchronized Time Travel on all BTTFN-connected devices, just like if that Time Travel was triggered through the TCD.
 
-You can use BTTF-Network and MQTT at the [same time](#receive-commands-from-time-circuits-display).
-
 #### TCD remote command reference
 
 <table>
@@ -293,19 +297,19 @@ You can use BTTF-Network and MQTT at the [same time](#receive-commands-from-time
      <td align="left">9700&#9166;</td>
     </tr>    
     <tr>
-     <td align="left">Set volume level (00-19)</td>
-     <td align="left">9300&#9166; - 9319&#9166;</td>
+     <td align="left">Set volume level (00-20)</td>
+     <td align="left">9300&#9166; - 9320&#9166;</td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Play/Stop</td>
      <td align="left">9005&#9166;</td>
     </tr>
     <tr>
-     <td align="left"><a href="#the-music-player">Music Player</a>: Previous song</td>
+     <td align="left"><a href="#the-music-player">Music Player</a>: Previous track</td>
      <td align="left">9002&#9166;</td>
     </tr>
     <tr>
-     <td align="left"><a href="#the-music-player">Music Player</a>: Next song</td>
+     <td align="left"><a href="#the-music-player">Music Player</a>: Next track</td>
      <td align="left">9008&#9166;</td>
     </tr>
     <tr>
@@ -321,11 +325,11 @@ You can use BTTF-Network and MQTT at the [same time](#receive-commands-from-time
      <td align="left">9555&#9166;</td>
     </tr> 
     <tr>
-     <td align="left"><a href="#the-music-player">Music Player</a>: Go to song 0</td>
+     <td align="left"><a href="#the-music-player">Music Player</a>: Go to track 0</td>
      <td align="left">9888&#9166;</td>
     </tr>
     <tr>
-     <td align="left"><a href="#the-music-player">Music Player</a>: Go to song xxx</td>
+     <td align="left"><a href="#the-music-player">Music Player</a>: Go to track xxx</td>
      <td align="left">9888xxx&#9166;</td>
     </tr>
     <tr>
@@ -391,11 +395,11 @@ You can use BTTF-Network and MQTT at the [same time](#receive-commands-from-time
 
 1: Not supported through HA/MQTT [_INJECT_](#the-inject_x-command) command
 
-[Here](CheatSheet.pdf) is a cheat sheet for printing or screen-use. (Note that MacOS' preview application has a bug that scrambles the links in the document. Acrobat Reader does it correctly.)
+[Here](CheatSheet.pdf) is a cheat sheet for printing or screen-use.
 
 ### Connecting a TCD by wire
 
->Note that a wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
+>A wired connection only allows for synchronized time travel sequences, no other communication takes place, and there is no way to remote-control the Gauges through the TCD by wire. A wireless connection over BTTFN/WiFi is much more powerful and therefore recommended over a wired connection.
 
 For wiring information, please see [here](Hardware.md#connecting-a-tcd-to-the-dash-gauges-by-wire).
 
@@ -410,7 +414,9 @@ With the wiring in place, head to the Config Portal and set the option **_TCD co
 
 ## Home Assistant / MQTT
 
-The Dash Gauges support MQTT protocol versions 3.1.1 and 5.0 for the following features:
+By means of MQTT, the Dash Gauges can be remote controlled through commands sent to **bttf/dg/cmd**.
+
+The Dash Gauges support MQTT protocol versions 3.1.1 and 5.0.
 
 ### Control the Dash Gauges via MQTT
 
@@ -421,11 +427,14 @@ The Dash Gauges can be controlled through messages sent to topic **bttf/dg/cmd**
 - PLAY_DOOR_OPEN, PLAY_DOOR_CLOSED: Play respective door sounds; these commands are only executed if the option **_Enable use of door switches_** in the Config Portal is unchecked. The sound is played through the TCD if so configured in the Config Portal.
 - MP_PLAY: Starts the [Music Player](#the-music-player)
 - MP_STOP: Stops the [Music Player](#the-music-player)
-- MP_NEXT: Jump to next song
-- MP_PREV: Jump to previous song
+- MP_NEXT: Jump to next track
+- MP_PREV: Jump to previous track
 - MP_SHUFFLE_ON: Enables shuffle mode in [Music Player](#the-music-player)
 - MP_SHUFFLE_OFF: Disables shuffle mode in [Music Player](#the-music-player)
 - MP_FOLDER_x: x being 0-9, set folder number for [Music Player](#the-music-player)
+- MP_REQSTATUS: Publish current [music player status](#-publish-music-player-status-to-bttfdgmpstatus) to bttf/dg/mpstatus
+- VOLUME_UP, VOLUME_DOWN: Increase/decrease volume by a notch
+- VOLUME_SET_x: Set volume to x% (x=0-100)
 - PLAYKEY_x: Play keyX.mp3 (from SD card), X being in the range from 1 to 9.
 - STOPKEY: Stop playback of keyX file. Does nothing if no keyX file is currently played back.
 - INJECT_x: See immediately below.
@@ -441,12 +450,6 @@ To play "key2.mp3" (9502), issue **INJECT_9502**
 To select the 'music1' folder (9051), issue **INJECT_9051**
 
 _The Refill (009) command is not supported through INJECT; use the REFILL MQTT-command instead._
-
-### Receive commands from Time Circuits Display
-
-If both TCD and Dash Gauges are connected to the same broker, and the option **_Publish time travel and alarm events_** is checked on the TCD's side, the Dash Gauges will receive information on time travel and alarm and play their sequences in sync with the TCD. Unlike BTTFN, however, no other communication takes place.
-
-MQTT and BTTFN can co-exist. However, the TCD only sends out time travel and alarm notifications through either MQTT or BTTFN, never both. If you have other MQTT-aware devices listening to the TCD's public topic (bttf/tcd/pub) in order to react to time travel or alarm messages, use MQTT (ie check **_Publish time travel and alarm events_**). If only BTTFN-aware devices are to be used, uncheck this option to use BTTFN as it has less latency.
 
 ### Setup
 
@@ -478,7 +481,7 @@ This configuration can easily achieved by putting both the TCD and the Dash Gaug
 #### Dash Gauges
 
 One-time configuration steps:
-- Enter the Config Portal on the Dash Gauges, click on *Settings* and check that the hostname of the TCD (usually "timecircuits") is present in the  **_Hostname or IP address of TCD_** under *Wireless communication (BTTF-Network)* settings; do not use an IP address.
+- Enter the Config Portal on the Dash Gauges, click on *Settings* and check that the hostname of the TCD (usually "timecircuits") is present in the  **_Hostname or IP address of TCD_** under *Wireless communication (BTTF-Network)* settings; do _not_ use an IP address.
 - Furthermore, on the *WiFi Configuration* page, check that the TCD's WiFi network name (SSID; usually "TCD-AP") and password (if the TCD is configured with a password) are present under *Car mode settings*.
 
 If everything is in place, you can enable Car mode on the Dash Gauges by holding _Button 1_ for six seconds, until a triple-beep sounds, and then release it. The Dash Gauges will reboot and attempt to connect to the TCD's AP. (_Button 1_ is located behind the "Percent Power" gauge on the control board.)
@@ -529,7 +532,7 @@ If you are using a fresh ESP32, please go <a href="https://install.out-a-ti.me">
 
 The firmware comes with a sound-pack which needs to be installed separately. The sound-pack is not updated as often as the firmware itself. There will be a message in the Config Portal and the "Empty" LED will signal "SOS" (three short blinks, three long blinks, three short blinks) during boot when/if the sound-pack needs to be updated.
 
-_Note that installing the sound-pack requires an [SD card](#sd-card)._
+_Installing the sound-pack requires an [SD card](#sd-card)._
 
 The first step is to extract "sound-pack-dgXX.zip" (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)). It contains one file, named "DGA.bin".
 
@@ -568,7 +571,7 @@ This leads to the firmware update and audio upload page.
 
 In order to upload a new firmware, such as published in the [Release packages](https://github.com/realA10001986/Dash-Gauges/releases), select the "**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**" file as contained in the Release package in the _top_ file selector and click *Update*.
 
-You can also install the Dash Gauges' sound-pack on this page: Download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click *Upload*. Note that an SD card is required for this operation.
+You can also install the Dash Gauges' sound-pack on this page: Download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click *Upload*. An SD card is required for this operation.
 
 See also [here](#firmware-installation--firmware-update).
 
@@ -742,11 +745,11 @@ Same as [this](#-primary-empty-threshold), but for the 'Roentgens' gauge. In lig
 
 #### <ins>Volume settings</ins>
 
-##### Volume level (0-19)
+##### Volume level (0-20)
 
-Enter a value between 0 (mute) or 19 (very loud) here.
+Enter a value between 0 (mute) or 20 (very loud) here.
 
-This can also be set/changed through a TCD keypad via BTTFN (9300 - 9319). Such a change will be saved 10 seconds after it occurred.
+This can also be set/changed through a TCD keypad via BTTFN (9300 - 9320). Such a change will be saved 10 seconds after it occurred.
 
 #### <ins>Music Player settings</ins>
 
@@ -758,7 +761,7 @@ This can also be set/changed through a TCD keypad via BTTFN (9050 - 9059). Such 
 
 ##### &#9193; Shuffle mode enabled
 
-When checked, songs are shuffled. When unchecked, songs will be played in order.
+When checked, tracks are shuffled. When unchecked, tracks will be played in order.
 
 This can also be set/changed through a TCD keypad via BTTFN (9222 / 9555). Such a change will be saved immediately.
 
@@ -890,7 +893,7 @@ If checked, the Dash Gauges will connect to the broker (if configured) and send 
 
 ##### &#9193; Broker IP[:port] or domain[:port]
 
-The broker server address. Can be a domain (eg. "my.me") or an IP address (eg "192.168.1.5"). The default port is 1883. If a different port is to be used, it can be specified after the domain/IP and a colon ":", for example: "192.168.1.5:1884". Specifying the IP address is preferred over a domain since the DNS call adds to the network overhead. Note that ".local" (MDNS) domains are not supported.
+The broker server address. Can be a domain (eg. "my.me") or an IP address (eg "192.168.1.5"). The default port is 1883. If a different port is to be used, it can be specified after the domain/IP and a colon ":", for example: "192.168.1.5:1884". Specifying the IP address is preferred over a domain since the DNS call adds to the network overhead. ".local" (MDNS) domains are not supported.
 
 ##### &#9193; Protocol version
 
@@ -899,6 +902,27 @@ The firmware supports MQTT 3.1.1 and 5.0. There is no difference in features, so
 ##### &#9193; User[:Password]
 
 The username (and optionally the password) to be used when connecting to the broker. Can be left empty if the broker accepts anonymous logins.
+
+##### &#9193; Publish Music Player status to bttf/dg/mpstatus
+
+This option enables the Music Player's backchannel. The backchannel carries feedback and status information on the Music Player which can be used to comfortably remote-control the Dash Gauges' Music Player through HomeAssistant/MQTT.
+
+This option should be left unchecked if not used.
+
+Backchannel data is sent to _bttf/dg/mpstatus_ on every change. It can also be triggered at any point by sending __MP_REQSTATUS__ to _bttf/dg/cmd_.
+
+The data published on the backchannel is a JSON object, containing the following keys:
+- __S__: State. _Value_ can be "P" for playing, "I" for idle, and "O" for off/busy. In 'off' state, the Dash Gauges do not take commands.
+- __C__: Current track. _Value_ is an unsigned integer >= 0 as a string.
+- __F__: First track. This tells the remote control where to start counting track numbers. _Value_ is always 0 (zero) as a string.
+- __L__: Last track. This tells the remote control the last and highest possible track number. _Value_ is an unsigned integer >= 0 and <= 999 as a string.
+- __V__: Volume. This is an integer as a string. If -1, volume control is unavailable. Otherwise 0-100.
+- __SH__: Shuffle. This is an integer as a string, either "0" for 'off', or "1" for 'on'.
+
+Example: __{"S":"I","C":"1","V":"20","F":"0","L":"67","SH":"0"}__
+
+The backchannel is used/required by the upcoming A10001986 [Lou's Cafe Jukebox](https://jb.out-a-ti.me).
+
 
 ## Appendix B: LED signals
 
@@ -929,6 +953,6 @@ The "Empty" light is used for the following signals:
 
 ---
 _Text & images: (C) Thomas Winischhofer ("A10001986"). See LICENSE._ [Source](https://dg.out-a%2dti.me)  
-_Other props: [Time Circuits Display](https://tcd.out-a%2dti.me) ... [Flux Capacitor](https://fc.out-a%2dti.me) ... [SID](https://sid.out-a%2dti.me) ... [VSR](https://vsr.out-a%2dti.me) ... [Remote Control](https://remote.out-a%2dti.me) ... [TFC](https://tfc.out-a%2dti.me)_
+_Other props: [Time Circuits Display](https://tcd.out-a%2dti.me) ... [Flux Capacitor](https://fc.out-a%2dti.me) ... [SID](https://sid.out-a%2dti.me) ... [VSR](https://vsr.out-a%2dti.me) ... [Remote Control](https://remote.out-a%2dti.me) ... [TFC](https://tfc.out-a%2dti.me) ... [Jukebox](https://jb.out-a%2dti.me)_
 
 
