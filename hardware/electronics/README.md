@@ -1,6 +1,8 @@
 
 ## The Control Board
 
+_[CircuitSetup](https://circuitsetup.us/product/delorean-time-machine-dash-gauge-control-board/) has an updated version of the Control Board for sale. There is no difference in features._
+
 To have [JCLPCB](https://jlcpcb.com) make your board:
 1) Create an account at jlcpcb.com
 2) Click "Upload Gerber file" or "order now"
@@ -28,7 +30,7 @@ To have [JCLPCB](https://jlcpcb.com) make your board:
 4) RELAY1, RELAY2 are either FRT5-5V, [Panasonic TQ2-5V](https://www.mouser.com/ProductDetail/Panasonic-Industrial-Devices/TQ2-5V?qs=HLLy2pIPwutHaTSpVfb1kw%3D%3D) or [Kemet EA2-5Nx](https://www.mouser.com/ProductDetail/KEMET/EA2-5NU?qs=UeqeubEbzTX2QGWq8LyCiw%3D%3D). You will probably have to source and solder those yourself.
 
 #### You additionally need
-1) NodeMCU ESP32 devboard, preferably with CP2102 USB-to-UART converter. 38pin, 25mm wide. For example: [This one](https://www.waveshare.com/nodemcu-32s.htm)
+1) NodeMCU ESP32 devboard, preferably with CP2102 USB-to-UART converter. 38pin, 25mm wide. [Specs](https://wiki.geekworm.com/NodeMCU-32S)
 2) 2x LED. For example: [5mm yellow (595nm, >=3000mcd) LED](https://www.mouser.com/ProductDetail/Kingbright/WP7113SYT?qs=58z0TXQGVSR5GO%2FDcefd%2FA%3D%3D).
 
 
