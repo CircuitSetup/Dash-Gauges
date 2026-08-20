@@ -80,12 +80,12 @@ Click on "WiFi Configuration" and either select a network from the top of the pa
 
 >The device requests an IP address via DHCP, unless you entered valid data in the fields for static IP addresses (IP, gateway, netmask, DNS). If the device is inaccessible as a result of incorrect static IPs, 
 >- power-down the device,
->- hold the Time Travel button,
->- power-up the device (while still holding the Time Travel button)
+>- hold the _Time Travel_ button,
+>- power-up the device (while still holding the _Time Travel_ button)
 >- wait until the "Empty" LED flashes briefly,
 >- flip the Side Switch twice within 10 seconds,
 >- wait until the "Empty" LED lights up,
->- then release the Time Travel button.
+>- then release the _Time Travel_ button.
 >
 >This procedure causes static IP data to be deleted; the device will return to DHCP after a reboot.
 
@@ -143,7 +143,7 @@ A full reference of the Config Portal is [here](#appendix-a-the-config-portal).
 The firmware needs to know the type of gauges installed; by default, power output to the gauges is disabled.
 
 In order to configure the Dash Gauges for your specific hardware,
-- hold the "Time Travel" button for 5 seconds (until a beep is emitted),
+- hold the _Time Travel_ button for 5 seconds (until a beep is emitted),
 - then enter the Config Portal as described above, and click on "Settings".
 
 Near the bottom of this page, there are three drop-down widgets, one for each gauge. Carefully select the type for each of your gauges, and click on "Save".
@@ -156,7 +156,7 @@ The Dash Gauges' basic function is to show some values on its gauges, and to pla
 
 If the Dash Gauges are operated stand-alone:
 - To quickly trigger the "empty" sequence, flip the side switch of your Dash Gauges. To "refill", flip that switch again.
-- To trigger a Time Travel sequence, press the time travel button located behind the "Primary" gauge on the rear of the Control Board, next to the SD card reader; you can also connect an [external button](Hardware.md#connecting-a-time-travel-button).
+- To trigger a Time Travel sequence, press the _Time Travel_ button located behind the "Primary" gauge on the rear of the Control Board, next to the SD card reader; you can also connect an [external button](Hardware.md#connecting-a-time-travel-button).
 
 Other features require a CircuitSetup [Time Circuits Display](#bttf-network-bttfn) and/or a connection to [Home Assistant](#home-assistant--mqtt) for control.
 
@@ -176,16 +176,15 @@ Your replacements need to be put in the root (top-most) directory of the SD card
 - "startup.mp3". Played when the Dash Gauges are connected to power and finished booting;
 - "refill.mp3". Played during the "refill"-sequence;
 - "alarm.mp3". Played when the alarm sounds (triggered by a Time Circuits Display via BTTFN or MQTT);
-- "0.mp3" through "9.mp3", "dot.mp3": Numbers for IP address read-out.
 - "dooropen.mp3"/"doorclose.mp3": Played when the state of the door switch changes.
 
 ### Additional Custom Sounds
 
 The firmware supports some additional user-provided sound effects, which it will load from the SD card. If the respective file is present, it will be used. If that file is absent, no sound will be played.
 
-- "key1.mp3" - "key9.mp3": Will be played when you issue a 900x (x being 1, 3, 4, 6, 7 or 9) or 950x (1-9) command on the [TCD](#tcd-remote-command-reference) or through [HA/MQTT](#control-the-dash-gauges-via-mqtt).
+- "key1.mp3" - "key9.mp3": Will be played when you issue a ```950x``` (x = 1-9) or 900x (x being 1, 3, 4, 6, 7 or 9) command on the [TCD](#tcd-remote-command-reference) or through [HA/MQTT](#control-the-dash-gauges-via-mqtt).
 
-> The seemingly odd way of accessing keyX files in the 900x range is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8. Likewise, 9002, 9005 and 9008 control the Dash Gauges' Music Player (prev, play/stop, next).
+> The seemingly odd way of accessing keyX files in the 900x range is because of synchronicity with other props, especially the TCD and its keymap where the Music Player occupies keys 2, 5, 8. Likewise, ```9002```, ```9005``` and ```9008``` control the Dash Gauges' Music Player (prev, play/stop, next).
 
 Those files are not provided here. You can use any mp3, with a bitrate of 128kpbs or less.
 
@@ -209,7 +208,7 @@ The firmware contains a simple music player to play mp3 files located on the SD 
 
 *The maximum bitrate is __128kpbs__. The free [Adapter](https://macroplant.com/adapter/audio-converter) tool can re-encode your mp3 files in batches.*
 
-To be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, i.e. the player starts searching for music in folder *music0*. To select a different folder, select it in the Config Portal ("Settings"), through the TCD (905x) or HA/MQTT (MP_FOLDER_x).
+To be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, i.e. the player starts searching for music in folder *music0*. The folder number can be changed in the Config Portal ("Settings") or through the TCD keypad (```905x```) or HA/MQTT (```MP_FOLDER_x```).
 
 The names of the audio files must only consist of three-digit numbers, starting at 000.mp3, in consecutive order. No numbers should be left out. Each folder can hold up to 1000 files (000.mp3-999.mp3). 
 
@@ -217,11 +216,11 @@ Since manually renaming mp3 files is somewhat cumbersome, the firmware can do th
 
 To add files to a music folder later, just copy them to the folder and delete the file "TCD_DONE.TXT" (so that the firmware knows that something has changed). 
 
-To start and stop music playback, enter 9005 followed by ENTER on your TCD. Entering 9002 jumps to the previous track, 9008 to the next one.
+To start and stop music playback, enter keypad command ```9005``` on your TCD. Keypad command ```9002``` jumps to the previous track, ```9008``` to the next one.
 
-By default, the tracks are played in order, starting at 000.mp3, followed by 001.mp3 and so on. By entering 9555 on the TCD, you can switch to shuffle mode, in which the tracks are played in random order. Type 9222 followed by ENTER to switch back to consecutive mode.
+By default, the tracks are played in order, starting at 000.mp3, followed by 001.mp3 and so on. Through keypad command ```9555``` on the TCD, you can switch to shuffle mode, in which the tracks are played in random order. Keypad command ```9222``` switches back to consecutive mode.
 
-Entering 9888 followed by OK re-starts the player at track 000, and 9888xxx (xxx = three-digit number) jumps to track #xxx.
+Keypad command ```9888``` re-starts the player at track 000, and ```9888xxx``` (xxx = three-digit number) jumps to track #xxx.
 
 See [here](#tcd-remote-command-reference) and [here](#control-the-dash-gauges-via-mqtt) for a list of controls of the music player.
 
@@ -259,137 +258,134 @@ Afterwards, the Dash Gauges and the TCD can communicate wirelessly and
 - both play an alarm-sequence when the TCD's alarm occurs,
 - the Dash Gauges can be remote controlled through the TCD's keypad (command codes 9xxx),
 - the Dash Gauges queries the TCD for fake power and night mode, in order to react accordingly if so configured,
-- pressing the dash gauges' Time Travel button can trigger a synchronized Time Travel on all BTTFN-connected devices, just like if that Time Travel was triggered through the TCD.
+- pressing the dash gauges' _Time Travel_ button can trigger a synchronized Time Travel on all BTTFN-connected devices, just like if that Time Travel was triggered through the TCD.
 
 #### TCD remote command reference
 
 <table>
-    <tr>
-     <td align="center" colspan="2">Special sequences<br>(&#9166; = ENTER key)</td>
-    </tr>
-   <tr><td>Function</td><td>Code on TCD</td></tr>
+   <tr><td align="center">Function</td><td align="center">Code on TCD</td></tr>
     <tr>
      <td align="left">"Refill"<sup>1</sup></td>
-     <td>009&#9166;</td>
+     <td align="left"><code>009</code></td>
     </tr>
    <tr>
      <td align="left">Set "full" percentage of "Primary" gauge (01-99%)</td>
-     <td>9101&#9166; - 9199&#9166;</td>
+     <td align="left"><code>9101</code> - <code>9199</code></td>
     </tr>
     <tr>
      <td align="left">Reset "full" percentage of "Primary" gauge</td>
-     <td align="left">9100&#9166;</td>
+     <td align="left"><code>9100</code></td>
     </tr>
     <tr>
      <td align="left">Set "full" percentage of "Percent Power" gauge (01-99%)</td>
-     <td align="left">9401&#9166; - 9499&#9166;</td>
+     <td align="left"><code>9401</code> - <code>9499</code></td>
     </tr>
     <tr>
      <td align="left">Reset "full" percentage of "Percent Power" gauge</td>
-     <td align="left">9400&#9166;</td>
+     <td align="left"><code>9400</code></td>
     </tr>
     <tr>
      <td align="left">Set "full" percentage of "Roentgens" gauge (01-99%)</td>
-     <td align="left">9701&#9166; - 9799&#9166;</td>
+     <td align="left"><code>9701</code> - <code>9799</code></td>
     </tr>
     <tr>
      <td align="left">Reset "full" percentage of "Roentgens" gauge</td>
-     <td align="left">9700&#9166;</td>
+     <td align="left"><code>9700</code></td>
     </tr>    
     <tr>
      <td align="left">Set volume level (00-20)</td>
-     <td align="left">9300&#9166; - 9320&#9166;</td>
+     <td align="left"><code>9300</code> - <code>9320</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Play/Stop</td>
-     <td align="left">9005&#9166;</td>
+     <td align="left"><code>9005</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Previous track</td>
-     <td align="left">9002&#9166;</td>
+     <td align="left"><code>9002</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Next track</td>
-     <td align="left">9008&#9166;</td>
+     <td align="left"><code>9008</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Select music folder (0-9)</td>
-     <td align="left">9050&#9166; - 9059&#9166;</td>
+     <td align="left"><code>9050</code> - <code>9059</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Shuffle off</td>
-     <td align="left">9222&#9166;</td>
+     <td align="left"><code>9222</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Shuffle on</td>
-     <td align="left">9555&#9166;</td>
+     <td align="left"><code>9555</code></td>
     </tr> 
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Go to track 0</td>
-     <td align="left">9888&#9166;</td>
+     <td align="left"><code>9888</code></td>
     </tr>
     <tr>
      <td align="left"><a href="#the-music-player">Music Player</a>: Go to track xxx</td>
-     <td align="left">9888xxx&#9166;</td>
+     <td align="left"><code>9888xxx</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key1.mp3</a>"</td>
-     <td align="left">9001&#9166; / 9501&#9166;</td>
+     <td align="left"><code>9501</code> / <code>9001</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key2.mp3</a>"</td>
-     <td align="left">9502&#9166;</td>
+     <td align="left"><code>9502</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key3.mp3</a>"</td>
-     <td align="left">9003&#9166; / 9503&#9166;</td>
+     <td align="left"><code>9503</code> / <code>9003</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key4.mp3</a>"</td>
-     <td align="left">9004&#9166; / 9504&#9166;</td>
+     <td align="left"><code>9504</code> / <code>9004</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key5.mp3</a>"</td>
-     <td align="left">9505&#9166;</td>
+     <td align="left"><code>9505</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key6.mp3</a>"</td>
-     <td align="left">9006&#9166; / 9506&#9166;</td>
+     <td align="left"><code>9506</code> / <code>9006</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key7.mp3</a>"</td>
-     <td align="left">9007&#9166; / 9507&#9166;</td>
+     <td align="left"><code>9507</code> / <code>9007</code></td>
     </tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key8.mp3</a>"</td>
-     <td align="left">9508&#9166;</td>
+     <td align="left"><code>9508</code></td>
     </tr>
     <tr>
      <td align="left">Play "<a href="#additional-custom-sounds">key9.mp3</a>"</td>
-     <td align="left">9009&#9166; / 9509&#9166;</td>
+     <td align="left"><code>9509</code> / <code>9009</code></td>
     </tr>
     <tr>
      <td align="left">Say current IP address</td>
-     <td align="left">9090&#9166;</td>
+     <td align="left"><code>9090</code></td>
     </tr>
     <tr>
      <td align="left">Disable <a href='#car-setup'>Car mode</a><sup>1</sup></td>
-     <td align="left">9990&#9166;</td>
+     <td align="left"><code>9990</code></td>
     </tr>   
     <tr>
      <td align="left">Enable <a href='#car-setup'>Car mode</a><sup>1</sup></td>
-     <td align="left">9991&#9166;</td>
+     <td align="left"><code>9991</code></td>
     </tr>   
     <tr>
      <td align="left">Reboot the device<sup>1</sup></td>
-     <td align="left">9064738&#9166;</td>
+     <td align="left"><code>9064738</code></td>
     </tr>
     <tr>
      <td align="left">Delete static IP address<br>and WiFi-AP password<sup>1</sup></td>
-     <td align="left">9123456&#9166;</td>
+     <td align="left"><code>9123456</code></td>
     </tr>
     <tr>
      <td align="left">Unlock "gauge type" selection in Config Portal</td>
-     <td align="left">9317931&#9166;</td>
+     <td align="left"><code>9317931</code></td>
     </tr>
 </table>
 
@@ -421,49 +417,49 @@ The Dash Gauges support MQTT protocol versions 3.1.1 and 5.0.
 ### Control the Dash Gauges via MQTT
 
 The Dash Gauges can be controlled through messages sent to topic **bttf/dg/cmd**. Supported commands are
-- TIMETRAVEL: Start a time travel
-- EMPTY: "Drain" Plutonium and trigger alarm
-- REFILL: Refill the Plutonium chamber
-- PLAY_DOOR_OPEN, PLAY_DOOR_CLOSED: Play respective door sounds; these commands are only executed if the option **_Enable use of door switches_** in the Config Portal is unchecked. The sound is played through the TCD if so configured in the Config Portal.
-- MP_PLAY: Starts the [Music Player](#the-music-player)
-- MP_STOP: Stops the [Music Player](#the-music-player)
-- MP_NEXT: Jump to next track
-- MP_PREV: Jump to previous track
-- MP_SHUFFLE_ON: Enables shuffle mode in [Music Player](#the-music-player)
-- MP_SHUFFLE_OFF: Disables shuffle mode in [Music Player](#the-music-player)
-- MP_FOLDER_x: x being 0-9, set folder number for [Music Player](#the-music-player)
-- MP_REQSTATUS: Publish current [music player status](#-publish-music-player-status-to-bttfdgmpstatus) to bttf/dg/mpstatus
-- VOLUME_UP, VOLUME_DOWN: Increase/decrease volume by a notch
-- VOLUME_SET_x: Set volume to x% (x=0-100)
-- PLAYKEY_x: Play keyX.mp3 (from SD card), X being in the range from 1 to 9.
-- STOPKEY: Stop playback of keyX file. Does nothing if no keyX file is currently played back.
-- INJECT_x: See immediately below.
+- ```TIMETRAVEL```: Start a time travel
+- ```EMPTY```: "Drain" Plutonium and trigger alarm
+- ```REFILL```: Refill the Plutonium chamber
+- ```PLAY_DOOR_OPEN```, ```PLAY_DOOR_CLOSED```: Play respective door sound; these commands are only executed if the option **_Enable use of door switches_** in the Config Portal is unchecked. The sound is played through the TCD if so configured in the Config Portal.
+- ```MP_PLAY```: Starts the [Music Player](#the-music-player)
+- ```MP_STOP```: Stops the [Music Player](#the-music-player)
+- ```MP_NEXT```: Jump to next track
+- ```MP_PREV```: Jump to previous track
+- ```MP_SHUFFLE_ON```: Enables shuffle mode in [Music Player](#the-music-player)
+- ```MP_SHUFFLE_OFF```: Disables shuffle mode in [Music Player](#the-music-player)
+- ```MP_FOLDER_x```: x being 0-9, set folder number for [Music Player](#the-music-player)
+- ```MP_REQSTATUS```: Publish current [music player status](#-publish-music-player-status-to-bttfdgmpstatus) to bttf/dg/mpstatus
+- ```VOLUME_UP```, ```VOLUME_DOWN```: Increase/decrease volume by a notch
+- ```VOLUME_SET_x```: Set volume to x% (x=0-100)
+- ```PLAYKEY_x```: Play keyX.mp3 (from SD card), X being in the range from 1 to 9.
+- ```STOPKEY```: Stop playback of keyX file. Does nothing if no keyX file is currently played back.
+- ```INJECT_x```: See immediately below.
 
 #### The INJECT_x command
 
 This command allows remote control of the Dash Gauges through HA/MQTT in the same way as through the TCD keypad by injecting commands in the Dash Gauges' command queue (hence the name). Commands are listed [here](#tcd-remote-command-reference); nearly all are supported. For example:
 
-To set "full" percentage of "Percent Power" gauge to 50% (9450), issue the following command: **INJECT_9450**
+To set "full" percentage of "Percent Power" gauge to 50% (```9450```), issue the following command: ```INJECT_9450```
 
-To play "key2.mp3" (9502), issue **INJECT_9502**
+To play "key2.mp3" (```9502```), issue ```INJECT_9502```
 
-To select the 'music1' folder (9051), issue **INJECT_9051**
+To select the 'music1' folder (```9051```), issue ```INJECT_9051```
 
-_The Refill (009) command is not supported through INJECT; use the REFILL MQTT-command instead._
+_The Refill (```009```) command is not supported through INJECT; use the ```REFILL``` MQTT-command instead._
 
 ### Setup
 
-MQTT requires a "broker" (such as [mosquitto](https://mosquitto.org/), [EMQ X](https://www.emqx.io/), [Cassandana](https://github.com/mtsoleimani/cassandana), [RabbitMQ](https://www.rabbitmq.com/), [Ejjaberd](https://www.ejabberd.im/), [HiveMQ](https://www.hivemq.com/) to name a few).
+MQTT requires a "broker" such as [mosquitto](https://mosquitto.org/), [Cassandana](https://github.com/mtsoleimani/cassandana), [RabbitMQ](https://www.rabbitmq.com/), [Ejjaberd](https://www.ejabberd.im/), [HiveMQ](https://www.hivemq.com/) or [EMQX](https://www.emqx.com/), to name a few. For proper operation with low latency, running the broker on your local network is recommended.
 
 ![STAmode-mqtt](img/stamode-mqtt.png)
 
-The broker's address needs to be configured in the Config Portal. It can be specified either by domain or IP (IP preferred, spares us a DNS call). The default port is 1883. If a different port is to be used, append a ":" followed by the port number to the domain/IP, such as "192.168.1.5:1884". 
+The broker's address needs to be configured in the Config Portal. It can be specified by either domain or IP (IP preferred). The default port is 1883. If a different port is to be used, append a ":" followed by the port number to the domain/IP, such as "192.168.1.5:1884". 
 
 If your broker supports protocol version 3.1.1, stick with 3.1.1. Version 5.0 has no advantages, but more overhead.
 
 If your broker does not allow anonymous logins, a username and password can be specified.
 
-Limitations: TLS/SSL not supported; ".local" domains (MDNS) not supported; server/broker must respond to PING (ICMP) echo requests. For proper operation with low latency, it is recommended that the broker is on your local network. MQTT is disabled when the Dash Gauges are operated in AP-mode or when connected to the TCD run in AP-Mode (TCD-AP).
+Limitations: TLS/SSL not supported; ".local" domains (MDNS, Bonjour) not supported; the machine running the broker must respond to PING (ICMP) echo requests. MQTT is disabled when the Dash Gauges are operated in AP-mode or when connected to the TCD run in AP-Mode (TCD-AP).
 
 ## Car Setup
 
@@ -471,12 +467,12 @@ If your Dash Gauges, along with a [Time Circuits Display](https://tcd.out-a-ti.m
 
 ![STAmode-car](img/stamode-car2.png)
 
-This configuration can easily achieved by putting both the TCD and the Dash Gauges in *Car Mode*:
+This configuration can easily be achieved by putting both the TCD and the Dash Gauges in *Car Mode*:
 
 #### TCD
 
 - Set **_Power save timer_** to 0 (zero) in the "AP-mode settings" section on the *WiFi Configuration* page
-- Put your TCD in [*Car Mode*](https://tcd.out-a-ti.me/#car-mode) by issuing keypad command 991.
+- Put your TCD in [*Car Mode*](https://tcd.out-a-ti.me/#car-mode) by issuing keypad command ```991```.
 
 #### Dash Gauges
 
@@ -491,7 +487,7 @@ You can switch between your "normal" (home, iPhone, ..) WiFi connection and Car 
 To access the Dash Gauges' Config Portal in Car mode, connect your handheld or computer to the TCD's WiFi network ("TCD-AP"), and direct your browser to http://gauges.local.
 
   ><details><summary>If that fails...</summary>
-  >If connecting to http://gauges.local fails due to a name resolution error, go to the TCD's keypad menu, navigate to "BTTFN CLIENTS", and look for the Dash Gauges' IP address there; then direct your browser to that IP by using the URL http://a.b.c.d (a-d being the IP address displayed on the TCD display)</details>
+  >If connecting to http://gauges.local fails due to a name resolution error, hold _Button 1_ for 2 seconds and listen, or go to the TCD's keypad menu, navigate to "BTTFN CLIENTS", and look for the Dash Gauges' IP address there; then direct your browser to the IP by using the URL http://a.b.c.d (a-d being the IP address spoken or displayed on the TCD display)</details>
 
 ## Door Switches
 
@@ -540,11 +536,14 @@ Next, head to the [Config Portal](#the-config-portal), click on "Update & Upload
 
 <details>
 <summary>Alternative way</summary>
+<br>
 Alternatively, you can install the sound-pack the following way:
-- Using a computer, copy "DGA.bin" to the root directory of a FAT32 formatted SD card;
-- power down the Dash Gauges,
-- insert this SD card into the slot and 
-- power up the Dash Gauges; the sound-pack will be installed automatically.
+<ul>
+<li>Using a computer, copy "DGA.bin" to the root directory of a FAT32 formatted SD card;</li>
+<li>power down the Dash Gauges,</li>
+<li>insert this SD card into the slot and</li>
+<li>power up the Dash Gauges; the sound-pack will be installed automatically.</li>
+</ul>
 </details>
 
 ---
@@ -601,9 +600,9 @@ In Car mode, the device connects to the TCD-AP as configured here instead of the
 
 Enter your TCD's network name (usually "TCD-AP") in **_Network name (SSID) of TCD-AP_** and the TCD's AP password (if configured on the TCD) in **_Password for TCD-AP_**. 
 
->In the unlikely case that multiple TCD's are in range, you can single out your TCD by its BSSID. The TCD displays its BSSID on its *WiFi Configuration* page (starting version 3.23).
+>In the unlikely case that multiple TCD's are in range, you can single out your TCD by its BSSID. The TCD displays its BSSID on its *WiFi Configuration* page.
 
-If you want to enter Car mode immediately, check **_Enable car mode_**. You can also later enable Car mode by holding _Button 1_ for six seconds (until a triple-beep is emitted).
+If you want to enter Car mode immediately after saving your settings, check **_Enable car mode now_**. You can also later enable Car mode by holding _Button 1_ for six seconds (until a triple-beep is emitted).
 
 ##### &#9193; Hostname
 
@@ -629,12 +628,12 @@ By default, and if this field is empty, the Dash Gauges' own WiFi network ("DG-A
 
 If you forget this password and are thereby locked out of your Dash Gauges, 
 - power-down the device,
-- hold the Time Travel button,
-- power-up the device (while still holding the Time Travel button)
+- hold the _Time Travel_ button,
+- power-up the device (while still holding the _Time Travel_ button)
 - wait until the "Empty" LED flashes briefly,
 - flip the Side Switch twice within 10 seconds,
 - wait until the "Empty" LED lights up,
-- then release the Time Travel button.
+- then release the _Time Travel_ button.
 
 This procedure temporarily (until a reboot) clears the WiFi password, allowing unprotected access to the Config Portal. (Note that this procedure also deletes static IP address data; the device will return to using DHCP after a reboot.)
 
@@ -663,7 +662,7 @@ See [here](#wifi-power-saving-features).
 
 ##### &#9193; Auto-refill timer
 
-After a time travel, the plutonium is depleted, and the chamber needs to be refilled. This timer allows for an automatic "Refill" after the given number of seconds; 0 means never. In the latter case, a manual Refill is in order: Either flip the side switch or enter "009" on the TCD (if connected wirelessly).
+After a time travel, the plutonium is depleted, and the chamber needs to be refilled. This timer allows for an automatic "Refill" after the given number of seconds; 0 means never. In the latter case, a manual Refill is in order: Either flip the side switch or enter ```009``` on the TCD (if connected wirelessly).
 
 ##### &#9193; Mute 'empty' alarm timer
 
@@ -678,7 +677,7 @@ If a TCD is connected via BTTFN or MQTT, the Dash Gauges visually signals when t
 Enter the number of minutes until the Screen Saver should become active when the Dash Gauges are idle.
 
 The Screen Saver, when active, stops the "empty" alarm sound and disables all gauges and lights, until 
-- the time travel button is briefly pressed (the first press when the screen saver is active will not trigger a time travel),
+- the _Time Travel_ button is briefly pressed (the first press when the screen saver is active will not trigger a time travel),
 - on a connected TCD, a destination date is entered (only if TCD is wirelessly connected) or a time travel event is triggered (also when wired).
 
 The music player will continue to run.
@@ -691,7 +690,7 @@ For analog gauges only.
 
 Here you can select the reading the "Primary" meter should give when "full". You can enter a value between 0 and 100 here. 0 will reset the "full" percentage to a default; 1-100 select a specific percentage. Values below 10 don't really make sense, though.
 
-The "full" percentage can be changed through the TCD keypad (91xx for the "Primary" gauge, 93xx for the "Percent Power" one, and 97xx for the "Roentgens"). 9x00 resets the "full" position the default value. Note that changing the "full" percentage through the TCD keypad is not persistent. The boot-up values are only set through the Config Portal.
+The "full" percentage can be changed through the TCD keypad (```91xx``` for the "Primary" gauge, ```93xx``` for the "Percent Power" one, and ```97xx``` for the "Roentgens"). ```9x00``` resets the "full" position the default value. Note that changing the "full" percentage through the TCD keypad is not persistent. The boot-up values are only set through the Config Portal.
 
 ##### &#9193; 'Primary' empty percentage
 
@@ -749,7 +748,7 @@ Same as [this](#-primary-empty-threshold), but for the 'Roentgens' gauge. In lig
 
 Enter a value between 0 (mute) or 20 (very loud) here.
 
-This can also be set/changed through a TCD keypad via BTTFN (9300 - 9320). Such a change will be saved 10 seconds after it occurred.
+This can also be set/changed through a TCD keypad via BTTFN (```9300``` - ```9320```). Such a change will be saved 10 seconds after it occurred.
 
 #### <ins>Music Player settings</ins>
 
@@ -757,13 +756,13 @@ This can also be set/changed through a TCD keypad via BTTFN (9300 - 9320). Such 
 
 Selects the current music folder, can be 0 through 9. 
 
-This can also be set/changed through a TCD keypad via BTTFN (9050 - 9059). Such a change will be saved immediately.
+This can also be set/changed through a TCD keypad via BTTFN (```9050``` - ```9059```). Such a change will be saved immediately.
 
 ##### &#9193; Shuffle mode enabled
 
 When checked, tracks are shuffled. When unchecked, tracks will be played in order.
 
-This can also be set/changed through a TCD keypad via BTTFN (9222 / 9555). Such a change will be saved immediately.
+This can also be set/changed through a TCD keypad via BTTFN (```9222``` / ```9555```). Such a change will be saved immediately.
 
 #### <ins>Settings for BTTFN communication</ins>
 
@@ -781,7 +780,7 @@ If this option is checked, and your TCD is equipped with a fake power switch, th
 
 ##### &#9193; TT button triggers BTTFN-wide TT
 
-If the dash gauges are connected to a TCD through BTTFN, this option allows to trigger a synchronized time travel on all BTTFN-connected devices when pressing the Time Travel button, just as if the Time Travel was triggered by the TCD. If this option is unchecked, pressing the Time Travel button only triggers a Time Travel sequence on the Dash Gauges.
+If the dash gauges are connected to a TCD through BTTFN, this option allows to trigger a synchronized time travel on all BTTFN-connected devices when pressing the _Time Travel_ button, just as if the Time Travel was triggered by the TCD. If this option is unchecked, pressing the _Time Travel_ button only triggers a Time Travel sequence on the Dash Gauges.
 
 #### <ins>Settings for wired connections</ins>
 
@@ -822,7 +821,7 @@ This procedure ensures that all your settings are copied from the old to the new
 
 The Control Board has a connector for two door switches; these switches change state whenever a door is opened or closed. The firmware can play a sound for each such event. To enable the use of those switches (if connected), check this.
 
-This option must be unchecked in order to use the MQTT commands PLAY_DOOR_OPEN and PLAY_DOOR_CLOSED.
+This option must be unchecked in order to use the MQTT commands ```PLAY_DOOR_OPEN``` and ```PLAY_DOOR_CLOSED```.
 
 ##### &#9193; Switch closes when door is closed
 
@@ -858,15 +857,17 @@ Depending on the position of the switch and its reaction point, a delay for soun
 
 ##### &#9193; "Door 2" pin
 
-The connector for "Door 2" can, instead of for a door switch, also be used as an output to signal a time travel. The pin goes HIGH on entering the temporal displacement, and "LOW" on re-entry.
+The connector for "Door 2" can, instead of for a door switch, also be used as an output to signal a time travel. The pin goes HIGH (2.7-3.3V) on entering the temporal displacement, and LOW on re-entry.
 
-Please do not power any peripheral through this pin; instead, use a relay, and connect "C"(=GND) and "D2" as relay triggers. In case of a standard "Aruino relay module", connect "C" to GND, "D2" to "S"(or "IN"), and 5V as well as GND to a 5V power supply.
+Please do not power any peripheral through this pin; instead, use a relay ("1 Channel 5V relay module" or "Arduino 1 channel relay module"), and connect 
+- "COM" on the Control Board to "-"/"DC-"/"GND" on the relay module,
+- "D2" on the Control Board to "S"/"IN" on the relay module,
+- if the Control board is powered by a 5V power supply: the power supply's 5V wire at the Control Board's 5V input to "+"/"DC+"/"VCC"/"5V" on the relay module.
 
 <details>
 <summary>Advanced...</summary>
 
-
-You can grab the +5V also from the Control Board, if you connect all three joints of the "Light Power" solder jumper; +5V will then be on the left pin of the "Ext. Light Pwr" connector; of course, this connector cannot be used for external light power after this modification.
+If you are using a 12V power supply or want to avoid cramming two wires into the 5V input connector, you can grab +5V also from the Control Board's "Ext. Light Pwr" connector: To do so, connect all three joints of the "Light Power" solder jumper; +5V will then be on the left pin of the "Ext. Light Pwr" connector; of course, this connector cannot be used for external light power after this modification.
 
 ![D2RelayModule](img/d2ttoutscrm.png)
 
@@ -878,7 +879,7 @@ You can grab the +5V also from the Control Board, if you connect all three joint
 
 This selects the type of gauge hardware and the way of connection. In order to protect your props, this is locked by default. To unlock this setting
 
-- either hold the Time Travel button for 5 seconds or
+- either hold the _Time Travel_ button for 5 seconds or
 - enter 9317931 on a wirelessly connected TCD,
 
 then reload the page in your browser.
@@ -909,7 +910,7 @@ This option enables the Music Player's backchannel. The backchannel carries feed
 
 This option should be left unchecked if not used.
 
-Backchannel data is sent to _bttf/dg/mpstatus_ on every change. It can also be triggered at any point by sending __MP_REQSTATUS__ to _bttf/dg/cmd_.
+Backchannel data is sent to _bttf/dg/mpstatus_ on every change. It can also be triggered at any point by sending ```MP_REQSTATUS``` to _bttf/dg/cmd_.
 
 The data published on the backchannel is a JSON object, containing the following keys:
 - __S__: State. _Value_ can be "P" for playing, "I" for idle, and "O" for off/busy. In 'off' state, the Dash Gauges do not take commands.
@@ -919,7 +920,7 @@ The data published on the backchannel is a JSON object, containing the following
 - __V__: Volume. This is an integer as a string. If -1, volume control is unavailable. Otherwise 0-100.
 - __SH__: Shuffle. This is an integer as a string, either "0" for 'off', or "1" for 'on'.
 
-Example: __{"S":"I","C":"1","V":"20","F":"0","L":"67","SH":"0"}__
+Example: ```{"S":"I","C":"1","V":"20","F":"0","L":"67","SH":"0"}```
 
 The backchannel is used/required by the A10001986 [Lou's Cafe Jukebox](https://jb.out-a-ti.me).
 
