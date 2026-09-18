@@ -207,7 +207,8 @@ The uploaded files are stored to the root folder of the SD card, so this way of 
 
 The firmware contains a simple music player to play mp3 files located on the SD card. This player is controlled by a TCD connected through BTTFN, or through [HA/MQTT](#control-the-dash-gauges-via-mqtt).
 
-*The maximum bitrate is __128kpbs__. The free [Adapter](https://macroplant.com/adapter/audio-converter) tool can re-encode your mp3 files in batches.*
+> [!NOTE]
+> The maximum mp3 bitrate is __128kpbs__. The free [Adapter](https://macroplant.com/adapter/audio-converter) tool can re-encode your mp3 files in batches.
 
 To be recognized, your mp3 files need to be organized in music folders named *music0* through *music9*. The folder number is 0 by default, i.e. the player starts searching for music in folder *music0*. The folder number can be changed in the Config Portal ("Settings") or through the TCD keypad (```905x```) or HA/MQTT (```MP_FOLDER_x```).
 
@@ -516,7 +517,7 @@ In order to reduce the number of write operations and thereby prolong the life o
 
 ## Firmware Installation / Firmware Update
 
-If a previous version of the Dash Gauges firmware is installed on your device's ESP32, you can update easily using the pre-compiled binary. Enter the [Config Portal](#the-config-portal), click on "Update & Upload", select the pre-compiled binary file ("**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases), and click on *Update*.
+To update the firmware of your Dash Gauges, enter the [Config Portal](#the-config-portal), click on "Update & Upload", select the pre-compiled binary file ("**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases) and click on *Update*.
 
 <details>
 <summary>Installing on a fresh ESP32...</summary>
@@ -932,24 +933,24 @@ The "Empty" light is used for the following signals:
 
 <table>
     <tr>
-     <td align="left">Blinking at 2Hz</td>
-     <td align="left">Please wait, busy</td>
+     <td align="left"><img src="img/s_wait.png" title="Blinking at 2Hz"></td>
+     <td align="left">Busy, please wait</td>
     </tr>
     <tr>
-     <td align="left">4 1-second-blinks</td>
-     <td align="left"><a href="#receive-commands-from-time-circuits-display">Alarm</a> (from TCD via BTTFN/MQTT)</td>
+     <td align="left"><img src="img/s_alm.png" title="4 1-second-blinks"></td>
+     <td align="left"><a href="#bttf-network-bttfn">Alarm</a> (from TCD via BTTFN/MQTT)</td>
     </tr>
     <tr>
-     <td align="left">3 long blinks, 3 short blinks, 3 long blinks (SOS in morse)</td>
-     <td align="left">Error: Sound pack <a href="#sound-pack-installation">not installed</a> or outdated</td>
+     <td align="left"><img src="img/s_sos.png" title="3 short blinks, 3 long blinks, 3 short blinks (SOS in morse)"></td>
+     <td align="left">Error: Sound pack <a href="#sound-pack-installation">not installed</a> or outdated. Shown briefly at power-up.</td>
     </tr>
     <tr>
-     <td align="left">2 brief blinks, 1 second pause, repeat</td>
+     <td align="left"><img src="img/s_errsp.png" title="2 brief blinks, 1 second pause, repeat"></td>
      <td align="left">Error: Sound pack installation error</td>
     </tr>
     <tr>
-     <td align="left">6 very quick blinks</td>
-     <td align="left">Firmware update available; shown briefly at power-up (optional)</td>
+     <td align="left"><img src="img/s_upd.png" title="6 very quick blinks"></td>
+     <td align="left">Firmware update available. Shown briefly at power-up.</td>
     </tr>
 </table>
 

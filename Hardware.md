@@ -30,7 +30,7 @@ The terms "analog" and "digital" have the following meaning in this document:
 
 "Analog" gauges are ones that the Control Board can control to show arbitrary values, ie move their pointers to arbitrary positions by using variable voltages. Real Phaostron/Simpson meters will most likely be run as analog meters; best suited are voltmeters, (modified) ammeters or - for the Roentgens gauge: - VU-meters. Meters can be usually driven with minimal voltages, even if their scale is far beyond that. It is mostly a matter of removing the meter's internal resistor(s)/caps/etc, and putting suitable resistors on the Control Board. The Control Board can provide up to 5V and has room for two through-the-hole resistors per meter.
 
-"Digital" gauges are ones that can only be controlled by power-on and power-off for "full" and "empty" pointer positions, respectively; this is useful if the meter needs voltages beyond what the Control Board can provide (which is, as said, 5V), and is driven using external power and through a relay. Alternatively, one might also come up with the idea to create a gauge replica using a stepper motor and some logic to move the pointer to a fixed position on power-on, and move it back to the "empty" position on power-loss, using a large capacitor to power the motor after power-loss.
+"Digital" gauges are ones that can only be controlled by power-on and power-off for "full" and "empty" pointer positions, respectively; this is useful if the meter needs voltages beyond what the Control Board can provide (which is, as said, 5V), and is driven using external power and through a relay. One might also come up with the idea to create a gauge replica using a stepper motor and some logic to move the pointer to a fixed position on power-on, and move it back to the "empty" position on power-loss, using a large capacitor to power the motor after power-loss.
 
 ### Control Board Hardware Configuration
 
@@ -42,17 +42,17 @@ In order to make the Control Board as versatile as possible, there are some sold
 
 #### Main connectors (red numbers):
 - Red_1: 5V input for analog gauges and electronics
-- Red_2: 12V input for electronics ("+"/"-" pins) and for digital gauges ("DG+"/"-" pins)
-- Red_3: [Time Travel button](#connecting-a-time-travel-button): To trigger a time travel, the button must connect "TT" to "3V3". The connector is also used to connect the Dash Gauges to a TCD [by wire](#connecting-a-tcd-to-the-dash-gauges-by-wire).
+- Red_2: 12V input for electronics (```+```/```-``` pins) and for digital gauges (```DG+```/```-``` pins)
+- Red_3: [Time Travel button](#connecting-a-time-travel-button): To trigger a time travel, the button must connect ```TT``` to ```3V3```. The connector is also used to connect the Dash Gauges to a TCD [by wire](#connecting-a-tcd-to-the-dash-gauges-by-wire).
 - Red_4: Door switches: See [here](#door-switches)
 
 #### Power supply:
 
-The electronics can be run off 5V or 12V ("+"/"-" pins of connectors [red_1] or [red_2]). If you are using analog gauges only, the choice is yours.
+The electronics can be run on 5V or 12V connected to the ```+```/```-``` pins of connectors [red_1] or [red_2]). If you are using analog gauges only, the choice is yours.
 
-Digital gauges, as well as connecting anything to connector [green_6], require 12V on the "DG+" pin of the 12V power connector [red_2]. If you want to power everything with 12V, connect the power supply to connector [red_2] ("+"/"-" pins), and bridge the "+" and "DG+" pins with a short wire, as indicated by the arc printed on the board.
+Digital gauges, as well as connecting anything to connector [green_6], require 12V on the ```DG+``` pin of the 12V power connector [red_2]. If you want to power everything with 12V, connect the power supply to connector [red_2] (```+```/```-``` pins), and bridge the ```+``` and ```DG+``` pins with a short wire, as indicated by the arc printed on the board.
 
->For experts: To power the electronics with 5V, but the digital gauges with 12V, put 12V on "DG+" and "-" of the 12V connector [red_2], and 5V on the 5V connector [red_1] or on the ESP32 via USB. Do NOT bridge the "+" and "DG+" pins on [red_2].
+>For experts: To power the electronics with 5V, but the digital gauges with 12V, put 12V on ```DG+``` and ```-``` of the 12V connector [red_2], and 5V on the 5V connector [red_1] or on the ESP32 via USB. Do NOT bridge the ```+``` and ```DG+``` pins on [red_2].
 
 #### Other connectors (green numbers):
 - Green_1: Speaker for audio output
@@ -64,15 +64,15 @@ Digital gauges, as well as connecting anything to connector [green_6], require 1
 
 #### Configuration for analog gauges (purple numbers):
 - Left gauge ("Primary"):
-  - Purple_3: Resistors R3, R4: Populate depending on gauge and supply voltage; see [here](#appendix-a-resistors-for-gauges).
+  - Purple_3: Resistors R3, R4: Populate depending on gauge; see [here](#appendix-a-resistors-for-gauges).
   - Purple_4: Close ANA4 solder jumper; DIG4 [blue_4] must be open
   - Leave "DIG3" [blue_3] unconnected/open
 - Center Gauge ("Percent Power"):
-  - Purple_1: Resistors R1, R2: Populate depending on gauge and supply voltage; see [here](#appendix-a-resistors-for-gauges).
+  - Purple_1: Resistors R1, R2: Populate depending on gauge; see [here](#appendix-a-resistors-for-gauges).
   - Purple_2: Close ANA2 solder jumper; DIG2 [blue_2] must be open
   - Leave "DIG1" [blue_1] unconnected/open
 - "Roentgens" gauge, connected to "Analog Roentgens" connector [green_3]:
-  - Purple_5: Resistors R5, R6: Populate depending on gauge and supply voltage; see [here](#appendix-a-resistors-for-gauges).
+  - Purple_5: Resistors R5, R6: Populate depending on gauge; see [here](#appendix-a-resistors-for-gauges).
   - (DIG5 [blue_5]: Does not matter, has no influence on this connector)
  
 Example for configuration for three analog gauges:
@@ -86,15 +86,15 @@ _Note: CircuitSetup-produced boards are pre-configured for analog gauges; they h
 #### Configuration for digital gauges (blue numbers):
 - Left gauge:
   - Blue_3: Bridge DIG3 by wire
-  - Blue_4: Close DIG4 solder jumper (ANA4 [purple 4] must be open)
+  - Blue_4: Close DIG4 solder jumper (ANA4 [purple_4] must be open)
   - (R3, R4 [purple_3]: Leave unpopulated or remove)
 - Center gauge:    
   - Blue_1: Bridge DIG1 by wire
-  - Blue_2: Close DIG2 solder jumper; ANA2 (purple_2) must be open
+  - Blue_2: Close DIG2 solder jumper; ANA2 [purple_2] must be open
   - (R1, R2: [purple_1]: Leave unpopulated or remove)
-- Roentgens gauge (connected to "Digital Roentgens" connector [green 6]:
+- Roentgens gauge (connected to "Digital Roentgens" connector [green_6]:
   - Blue_5: Bridge DIG5 by wire
-  - (R5/R6 [purple 5]: Don't matter, have no influence on this connector)
+  - (R5/R6 [purple_5]: Don't matter, have no influence on this connector)
 
 Example for configuration for three digital gauges:
 
@@ -104,7 +104,7 @@ Example for configuration for three digital gauges:
 
 _Note: CircuitSetup-produced boards have trimpots pre-installed at positions [purple_3], [purple_1] and [purple_5]. These must be removed in order to use digital gauges. Also, ANAx [purple_4, purple_2] solder-joints must be opened, and the DIGx solder-joints [blue_4, blue_2] must be closed for using digital gauges._
 
-You can mix different types of analog and digital gauges; the firmware provides a type selection for each single gauge. In "full digital" configuration, as depicted above, the Control Board can directly replace a 3rd party manufacturer's board in order to integrate "alien" Dash Gauges with other CircuitSetup props. Videos of the board in action with various meters are [here](https://www.facebook.com/61553801874212/videos/pcb.122144723798126729/1554617305398184) (Phaostron 631-14672(H&P), 300-07970; 3rd party digital Roentgens replica) and [here](https://www.facebook.com/61553801874212/videos/pcb.122144723798126729/974052394455407) (3rd party digital Phaostron replicas, Simpson model 29 0-50mA ammeter).
+You can mix different types of analog and digital gauges; the firmware provides a type selection for each single gauge. In "full digital" configuration, as depicted above, the Control Board can directly replace a certain 3rd party manufacturer's board in order to integrate "alien" Dash Gauges with other CircuitSetup props. Videos of the board in action with various meters are [here](https://www.facebook.com/61553801874212/videos/pcb.122144723798126729/1554617305398184) (Phaostron 631-14672(H&P), 300-07970; 3rd party digital Roentgens replica) and [here](https://www.facebook.com/61553801874212/videos/pcb.122144723798126729/974052394455407) (3rd party digital Phaostron replicas, Simpson model 29 0-50mA ammeter).
 
 #### Gauge illumination [yellow numbers]:
 
@@ -118,16 +118,16 @@ INT is probably sufficient for most setups. The panel depicted above is running 
 
 Legend:
 - Yellow_1 (R7), yellow_2 (R8): Resistors for backlight LEDs of left and center gauge. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT). The resistor value depends on LED type and desired brightness. Example: 150R for yellow LEDs at 5V (INT). A calculator for the resistor value is [here](https://www.digikey.at/en/resources/conversion-calculators/conversion-calculator-led-series-resistor).
-- Yellow_3 (R11): Resistor for Roentgens backlight on "Roentgens Light" connector [green 2]. In case of using incandescent light bulbs, just bridge this with a wire. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT).
-- Yellow_4 ("Light Power"): Solder jumpers for selecting internal or external gauge illumination power: Connect either INT or EXT. For 5V lighting, close INT. To use external power (max. 12V), close EXT and connect the power supply to "Ext. Light Power" [yellow 5]. 
+- Yellow_3 (R11): Resistor for Roentgens backlight on "Roentgens Light" connector [green_2]. In case of using incandescent light bulbs, just bridge this with a wire. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT).
+- Yellow_4 ("Light Power"): Solder jumpers for selecting internal or external gauge illumination power: Connect either INT or EXT. For 5V lighting, close INT. To use external power (max. 12V), close EXT and connect the power supply to "Ext. Light Power" [yellow_5]. 
 - Yellow_5 ("Ext. light power" connector): Connector for power supply for "EXT" setting.
 - LED1, LED2: Backlight LEDs for left and center gauge. These are soldered to the back of the Control Board so they directly reach into the gauge's enclosure.
 
-Note: The "Digital Roentgens" connector [green 6] also has pins for illuminating the Roentgens gauge. These are always 12V, regardless of INT/EXT, and require 12V input on the DG+/- pins of power connector [red_2].
+Note: The "Digital Roentgens" connector [green_6] also has pins for illuminating the Roentgens gauge. These are always 12V, regardless of INT/EXT, and require 12V input on the ```DG+```/```-``` pins of power connector [red_2].
 
 #### Connecting a Time Travel button
 
-The Control Board has a Time Travel button (marked "TT"). If you want to connect an external Time Travel button, connect it to the "TT" and "3V3" pins of the "Time Travel" connector [red_3].
+The Control Board has a Time Travel button (marked "TT"). If you want to connect an external Time Travel button, connect it to the ```TT``` and ```3V3``` pins of the "Time Travel" connector [red_3].
 
 #### Door switches
 
@@ -135,9 +135,9 @@ The Control Board has two connectors for switches meant to signal when a car doo
 
 "Door 1" is the left hand side door, "Door 2" on the right hand side. This is important because the sound can optionally be played through the TCD's line-out in stereo, and it can be configured to play door sounds on only one stereo channel matching the door location.
 
-The switches need to short/open "D1" and "COM", and "D2" and "COM" respectively.
+The switches need to short/open ```D1``` and ```COM```, and ```D2``` and ```COM``` respectively.
 
-The D2 pin can **alternatively** be used to output a **signal on time travel**; the pin goes HIGH at the start of the temporal displacement, and LOW on "re-entry". This can be used to connect, for instance, flux bands to light up during the "time travel". Please do not use the pin to power the connected prop, use a relay instead. A standard single-channel "Arduino relay module" works fine, and can be connected as depicted below. (Those relays need 5V, which you can grab from the connector for External lighting [yellow_5] after closing all three solder joints. Of course, you must not connect any power source to [yellow_5] after this modification.)
+The ```D2``` pin can **alternatively** be used to output a **signal on time travel**; the pin goes HIGH at the start of the temporal displacement, and LOW on "re-entry". This can be used to connect, for instance, flux bands to light up during the "time travel". Please do not use the pin to power the connected prop, use a relay instead. A standard single-channel "Arduino relay module" works fine, and can be connected as depicted below. (Those relays need 5V, which you can grab from the connector for External lighting [yellow_5] after closing all three solder joints. Of course, you must not connect any power source to [yellow_5] after this modification.)
 
 ![D2RelayModule](img/d2ttoutscrm.png)
 
@@ -152,18 +152,18 @@ If you want to connect a TCD to the Dash Gauges (for synchronized time travel se
      <td align="center"><b>TCD with control board 1.2</b></td> 
     </tr>
    <tr>
-     <td align="center">GND</td>
-     <td align="center">GND of "Time Travel" connector</td>
-     <td align="center">GND of "IO14" connector</td>
+     <td align="center"><code>GND</code></td>
+     <td align="center"><code>GND</code> of "Time Travel" connector</td>
+     <td align="center"><code>GND</code> of "IO14" connector</td>
     </tr>
     <tr>
-     <td align="center">TT</td>
-     <td align="center">TT OUT of "Time Travel" connector</td>
-     <td align="center">IO14 of "IO14" connector</td>
+     <td align="center"><code>TT</td>
+     <td align="center"><code>TT OUT</code> of "Time Travel" connector</td>
+     <td align="center"><code>IO14</code> of "IO14" connector</td>
     </tr>
 </table>
 
-_Do not connect 3V3 to the TCD!_
+_Do not connect ```3V3``` to the TCD!_
 
 ## Gauges
 
