@@ -34,7 +34,7 @@ The terms "analog" and "digital" have the following meaning in this document:
 
 ### Control Board Hardware Configuration
 
-In order to make the Control Board as versatile as possible, there are some solder jumpers (ie adjacent solder pads which are connected using solder), and easy-to-solder through-the-hole resistors which need to be added depending on the other hardware used.
+In order to make the Control Board as versatile as possible, there are some solder jumpers (ie adjacent solder pads which are connected using solder), and easy-to-solder through-the-hole resistors which need to be added depending on the other hardware used. Recent CircuitSetup boards have jumpers instead of solder-jumpers, and trimpots instead of holes for resistors. The picture below show the old version.
 
 | [<img src="hardware/img/cb-analog-s.jpg">](hardware/img/cb-analog.jpg) |
 |:--:| 
@@ -117,8 +117,8 @@ Solder jumper [yellow_4] selects whether INT or EXT is to be used; in case of EX
 INT is probably sufficient for most setups. The panel depicted above is running on INT with LEDs for the smaller gauges and 6V incandescent light bulbs for the Roentgens gauge. 
 
 Legend:
-- Yellow_1 (R7), yellow_2 (R8): Resistors for backlight LEDs of left and center gauge. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT). The resistor value depends on LED type and desired brightness. Example: 150R for yellow LEDs at 5V (INT). A calculator for the resistor value is [here](https://www.digikey.at/en/resources/conversion-calculators/conversion-calculator-led-series-resistor).
-- Yellow_3 (R11): Resistor for Roentgens backlight on "Roentgens Light" connector [green_2]. In case of using incandescent light bulbs, just bridge this with a wire. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT).
+- Yellow_1 (R7), yellow_2 (R8): Resistors for backlight LEDs of left and center gauge. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT). The resistor value depends on LED type and desired brightness. Examples: 150R for a yellow LED (2.0V forward voltage, 20mA), 82R for a white LED (3.3V forward voltage, 20mA) at 5V (INT). A calculator for the resistor value is [here](https://www.digikey.at/en/resources/conversion-calculators/conversion-calculator-led-series-resistor). "Supply voltage" is 5V (INT) or whatever you connect to EXT; "Forward voltage/current" depending on LED.
+- Yellow_3 (R11): Resistor for Roentgens backlight on "Roentgens Light" connector [green_2]. In case of using incandescent light bulbs or 5V LED-modules, just bridge this with a wire. The supply voltage is either 5V (INT), or whatever you connect to "Ext. Light Power" [yellow_5] (EXT).
 - Yellow_4 ("Light Power"): Solder jumpers for selecting internal or external gauge illumination power: Connect either INT or EXT. For 5V lighting, close INT. To use external power (max. 12V), close EXT and connect the power supply to "Ext. Light Power" [yellow_5]. 
 - Yellow_5 ("Ext. light power" connector): Connector for power supply for "EXT" setting.
 - LED1, LED2: Backlight LEDs for left and center gauge. These are soldered to the back of the Control Board so they directly reach into the gauge's enclosure.
@@ -196,6 +196,7 @@ To find out suitable resistor values for R1/R2 and/or R3/R4 on the Control Board
 Movie-accurate dials for those gauges are available in the [faces-labels](https://github.com/realA10001986/Dash-Gauges/tree/main/hardware/faces-labels) folder. In order to avoid the old dial shining through the new dial, apply the new label on the back-side of the original dial. To apply the labels properly, cut them precisely at the bottom and the right hand side (leave some extra at the top and the left hand side), then place the dial in the corner of a 90 deg angled ruler, and align the sticker at the bottom and right hand side. Slowly apply the sticker from the bottom up to avoid bubbles, and in the end, with the sticker facing down, use an Exacto knife to cut off the surplus.
 
 ![Alignment](hardware/img/phaostron_align.jpg)
+![Alignment](hardware/img/phaostron_align2.jpg)
 
 For illumination, there are LEDs mounted on the back of the Control Board that reach into the enclosures of the gauges. These require a 6mm hole in the rear of the metal enclosure (center: 7mm from barrel bottom edge). I used a 5mm yellow LED (590nm). Most replicas use white LEDs, but I think on the A-Car as shown in the Petersen Museum, there are yellow ones used, and I found white ones too bright. 
 
