@@ -41,16 +41,18 @@ In order to make the Control Board as versatile as possible, there are some sold
 | *Click for hi-res image* |
 
 #### Main connectors (red numbers):
-- Red_1: 5V input for analog gauges and electronics
-- Red_2: 12V input for electronics (```+```/```-``` pins) and for digital gauges (```DG+```/```-``` pins)
+- Red_1: 5V input. Used for electronics and analog gauges.
+- Red_2: 12V input. Used for electronics (```+```/```-``` pins) and required for digital gauges (```DG+```/```-``` pins).
 - Red_3: [Time Travel button](#connecting-a-time-travel-button): To trigger a time travel, the button must connect ```TT``` to ```3V3```. The connector is also used to connect the Dash Gauges to a TCD [by wire](#connecting-a-tcd-to-the-dash-gauges-by-wire).
 - Red_4: Door switches: See [here](#door-switches)
 
 #### Power supply:
 
-The electronics can be run on 5V or 12V connected to the ```+```/```-``` pins of connectors [red_1] or [red_2]). If you are using analog gauges only, the choice is yours.
+The Dash Gauges can be run on __either__ 5V __or__ 12V, connected to the ```+```/```-``` pins of connectors [red_1] __or__ [red_2].
 
-Digital gauges, as well as connecting anything to connector [green_6], require 12V on the ```DG+``` pin of the 12V power connector [red_2]. If you want to power everything with 12V, connect the power supply to connector [red_2] (```+```/```-``` pins), and bridge the ```+``` and ```DG+``` pins with a short wire, as indicated by the arc printed on the board.
+If you are using analog gauges only, the choice is yours. It's either 5V or 12V.
+
+A 12V power supply, however, is *required* for digital gauges (as well as when connecting anything to connector [green_6]). Feed 12V to the ```+```/```-``` pins of [red_2] and bridge the ```+``` and ```DG+``` pins with a short wire, as indicated by the arc printed on the board. This makes both electronics and gauges run off 12V.
 
 >For experts: To power the electronics with 5V, but the digital gauges with 12V, put 12V on ```DG+``` and ```-``` of the 12V connector [red_2], and 5V on the 5V connector [red_1] or on the ESP32 via USB. Do NOT bridge the ```+``` and ```DG+``` pins on [red_2].
 
@@ -391,7 +393,7 @@ CircuitSetup-produced boards have pre-installed trimpots (trimmer potentiometers
 - Remove all built-in resistors, caps etc from the meter. The meter's input terminals must be directly connected to the meter's coil. **Note**: The trimpots allow for a total resistance of between 2k and 6k for the Phaostron gauges, and between 10k+20R and 60k+20R for the Roentgens gauge. This covers nearly all meters I have tested. However: If your required resistance is beyond that, you will need to either replace the additional THT resistor on the board (R3, R2 for the Phaostron gauges, R6 for the Roentgens) or add another resistor elsewhere (eg. inside the meter).
 - Check that the trimpot for the meter [purple_3, purple_1, purple_5] is at its maximum resistance; turn it until either you hear a "click" or the screw blocks.
 - Connect the meter to the Control Board.
-- Power up; after the startup-sequence, hold the "Time Travel" button for 5 seconds.
+- Power up; after the startup-sequence, hold the "Time Travel" button on the Dash Gauges's Control Board for 5 seconds.
 - Navigate your browser to the Config Portal.
 - Set the Gauge Type to "Generic analog 0-5V"
   

@@ -25,21 +25,32 @@ Firmware features include
 - support for [door switches](#door-switches) for playing sounds when opening/closing the car doors, optionally through the TCD (and hence through your stereo)
 - [wireless communication](#bttf-network-bttfn) with [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/); used for synchronized time travels, alarm, night mode, fake power and remote control through TCD keypad
 - [music player](#the-music-player): Play mp3 files located on an SD card [requires TCD connected wirelessly or HA/MQTT for control]
-- [SD card](#sd-card) support for custom audio files for effects, and music for the Music Player
 - advanced network-accessible [Config Portal](#the-config-portal) for setup (http://gauges.local)
 - [Home Assistant](#home-assistant--mqtt) (MQTT) support
 - built-in OTA installer for firmware updates and audio files
 - &#128007; &#129370; &#129370; &#127381;
 
->This [repository](https://dg.out-a-ti.me) is the upstream source for CircuitSetup's releases. The only difference is that both code and documentation [here](https://dg.out-a-ti.me) might be ahead in development.
+>The [A10001986 repository](https://dg.out-a-ti.me) is the upstream source for CircuitSetup's releases. There are no differences between A10001986 and CircuitSetup releases of the same version.
 
 For information on updating the firmware of your Dash Gauges, see [here](#firmware-installation--firmware-update).
 
+#### What's new in 2.00
+
+- Re-arrange WiFi Configuration page for a better user experience
+- BTTFN: "Hostname of TCD" now defaults to "timecircuits" instead of being empty. As a result, factory-fresh Dash Gauges now connect to a TCD in the network without any user configuration changes.
+- Holding Button 1 during (real)power-on and, while still holding Button 1, flipping the side-switch exactly six times within 10 seconds resets all settings, except the Gauge Hardware settings, to factory defaults.
+- New sound-pack (DG07)
+- Sound-pack uploads are done through the top file selector, and no longer through the bottom one. The bottom one is for custom mp3 file upload only.
+- **Future firmware updates may only consist of one single file instead of "main firmware" plus "sound-pack". Firmware updates will require an SD card. In order to update to versions beyond 2.00, version 2.00 must be installed first.**
+
+
 ## Initial Configuration
 
->The following instructions only need to be followed once, on fresh Dash Gauges. They do not need to be repeated after a firmware update.
+**Some key features of your Dash Gauges require an SD card.** The first step is therefore to put a **good-quality** ("endurance", "industrial", "long life", ...) **and empty microSD card into the card slot**. The SD card must be inserted before powering up the Dash Gauges. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the Dash Gauges are powered.
 
-The first step is to establish access to the configuration website ("Config Portal") in order to configure your Dash Gauges:
+>SD/SDHC/SDXC cards up to 32GB are supported. The card needs to be FAT32-formatted (not exFAT). Transcend, Sandisk Ultra and Industrial, Verbatim Premium and Samsung Pro Endurance SDHC cards usually work fine. Some SD cards might not be recognized due to off-specs initialization quirks. SDUC cards are not supported.
+
+The second step is to establish access to the configuration website ("Config Portal") in order to configure your Dash Gauges:
 
 - Power up the device and wait a few seconds.
 - Connect your computer or handheld device to the WiFi network "DG-AP".
@@ -77,18 +88,17 @@ Click on "WiFi Configuration" and either select a network from the top of the pa
 <details>
 <summary>More...</summary>
 
->If there are several APs with identical SSID nearby, you can select a specific AP by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
+>If there are several APs with identical SSID nearby, you can select a specific AP by its BSSID (AP's MAC address). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all APs". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 >The device requests an IP address via DHCP, unless you entered valid data in the fields for static IP addresses (IP, gateway, netmask, DNS). If the device is inaccessible as a result of incorrect static IPs, 
 >- power-down the device,
->- hold the _Time Travel_ button,
->- power-up the device (while still holding the _Time Travel_ button)
->- wait until the "Empty" LED flashes briefly,
->- flip the Side Switch twice within 10 seconds,
->- wait until the "Empty" LED lights up,
+>- press the _Time Travel_ button on the Control Board (located behind the left gauge) and keep it pressed,
+>- power-up the device,
+>- wait until the "Empty" light flashes briefly,
+>- flip the Side Switch twice within 10 seconds ("Empty" will light up after the second flip),
 >- then release the _Time Travel_ button.
 >
->This procedure causes static IP data to be deleted; the device will return to DHCP after a reboot.
+>This procedure causes static IP data to be deleted; the device will return to using DHCP.
 
 </details>
 
@@ -144,7 +154,7 @@ A full reference of the Config Portal is [here](#appendix-a-the-config-portal).
 The firmware needs to know the type of gauges installed; by default, power output to the gauges is disabled.
 
 In order to configure the Dash Gauges for your specific hardware,
-- hold the _Time Travel_ button for 5 seconds (until a beep is emitted),
+- hold the _Time Travel_ button on the Dash Gauge's control board for 5 seconds (until a beep is emitted),
 - then enter the Config Portal as described above, and click on "Settings".
 
 Near the bottom of this page, there are three drop-down widgets, one for each gauge. Carefully select the type for each of your gauges, and click on "Save".
@@ -161,13 +171,7 @@ If the Dash Gauges are operated stand-alone:
 
 Other features require a CircuitSetup [Time Circuits Display](#bttf-network-bttfn) and/or a connection to [Home Assistant](#home-assistant--mqtt) for control.
 
-## SD Card
-
->Only SD/SDHC/SDXC cards up to 32GB are supported. Card needs to be FAT32-formatted (not exFAT). Transcend, Sandisk Ultra (as of firmware version 1.34) and Industrial, Verbatim Premium and Samsung Pro Endurance SDHC cards usually work fine. Some SD cards might not be recognized due to off-specs initialization quirks. SDUC cards are not supported.
-
-The SD card, apart from being required for [installing](#sound-pack-installation) the sound-pack, can be used for substituting built-in sound effects and for music played back by the [Music player](#the-music-player). Also, it is _strongly recommended_ to store [secondary settings](#-save-secondary-settings-on-sd) on the SD card to minimize [Flash Wear](#flash-wear).
-
-The SD card must be inserted before powering up the device. It is not recognized if inserted while the Dash Gauges are running. Furthermore, do not remove the SD card while the device is powered.
+## Sound Customization
 
 ### Sound substitution
 
@@ -216,7 +220,7 @@ The names of the audio files must only consist of three-digit numbers, starting 
 
 Since manually renaming mp3 files is somewhat cumbersome, the firmware can do this for you: Just copy your files with their original filenames to a music folder of your choice; when selecting that folder, the files will be sorted alphabetically and renamed according to the 3-digit name scheme. (If you want your tracks in a specific order, you must rename them, for instance by inserting a letter or number at the start.) The renaming process can take a while (11 minutes for 1000 files in bad cases). Mac users are advised to delete the ._ files from the SD before putting it back into the Dash Gauges as this speeds up the process. While the renaming is in progress, the Dash Gauges' right-most analog gauge shows the percentage of files yet to be processed.
 
-To add files to a music folder later, just copy them to the music folder, and delete the cache file "musicXc" (X being the folder number) located in the top-most folder. That way that the firmware knows that something has changed and will re-examine the folder.
+To add files to a music folder later, just copy them to the folder and delete the corresponding cache file "musicXc" (X being the folder number) located in the top-most folder. That way that the firmware knows that something has changed and will re-examine the folder. 
 
 To start and stop music playback, enter keypad command ```9005``` on your TCD. Keypad command ```9002``` jumps to the previous track, ```9008``` to the next one.
 
@@ -268,7 +272,7 @@ Afterwards, the Dash Gauges and the TCD can communicate wirelessly and
    <tr><td align="center">Function</td><td align="center">Code on TCD</td></tr>
     <tr>
      <td align="left">"Refill"<sup>1</sup></td>
-     <td align="left"><code>9</code> or <code>009</code></td>
+     <td align="left"><code>9</code></td>
     </tr>
    <tr>
      <td align="left">Set "full" percentage of "Primary" gauge (01-99%)</td>
@@ -380,10 +384,6 @@ Afterwards, the Dash Gauges and the TCD can communicate wirelessly and
     <tr>
      <td align="left">Reboot the device<sup>1</sup></td>
      <td align="left"><code>9064738</code></td>
-    </tr>
-    <tr>
-     <td align="left">Delete static IP address<br>and WiFi-AP password<sup>1</sup></td>
-     <td align="left"><code>9123456</code></td>
     </tr>
     <tr>
      <td align="left">Unlock "gauge type" selection in Config Portal</td>
@@ -509,44 +509,64 @@ After WiFi has been switched off due to timer expiration, it can be re-enabled b
 
 > Briefly pressing _Button 1_ also triggers a re-connection attempt in case your configured WiFi network was not available when the Dash Gauges were trying to connect, see [here](#home-setup-with-a-pre-existing-local-wifi-network).
 
-## Flash Wear
-
-Flash memory has a somewhat limited lifetime. It can be written to only between 10.000 and 100.000 times before becoming unreliable. The firmware writes to the internal flash memory when saving settings and other data. Every time you change settings, data is written to flash memory.
-
-In order to reduce the number of write operations and thereby prolong the life of your Dash Gauges, it is recommended to use a good-quality SD card and to check **_[Save secondary settings on SD](#-save-secondary-settings-on-sd)_** in the Config Portal; secondary settings (eg current volume) are then stored on the SD card (which also suffers from wear but is easy to replace). See [here](#-save-secondary-settings-on-sd) for more information.
-
 ## Firmware Installation / Firmware Update
 
-To update the firmware of your Dash Gauges, enter the [Config Portal](#the-config-portal), click on "Update & Upload", select the pre-compiled binary file ("**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**") provided in the [Release package](https://github.com/realA10001986/Dash-Gauges/releases) and click on *Update*.
+The firmware consists of two parts: The main firmware, and a sound-pack.
+
+First, download main firmware and sound-pack. Both files are in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases/latest), and named
+- "**dashgauges-A10001986-Vx.xx.bin**" for A10001986 releases, "**Dash-Gauges_vX.YY.bin**" for CircuitSetup releases
+- "**DGA-DGxx.bin**" for A10001986 releases, "**DGA.bin**" for CircuitSetup releases.
+
+### Main firmware
+
+To update the main firmware of your Dash Gauges, 
+- enter the [Config Portal](#the-config-portal),
+- click on "Update & Upload",
+- select the downloaded main firmware file in the _top_ file selector, and
+- click on *Update*.
 
 <details>
 <summary>Installing on a fresh ESP32...</summary>
 If you are using a fresh ESP32, please go <a href="https://install.out-a-ti.me">here</a> and follow the instructions, or - if you are a nerd and want to deal with source code, compilers'n'stuff - see <a href="https://github.com/realA10001986/Dash-Gauges/blob/main/dashgauges-A10001986/dashgauges-A10001986.ino">dashgauges-A10001986.ino</a> for detailed build and upload information.
 </details>
 
-*After a firmware update, the "empty" light might blink for short while after reboot. Do NOT unplug the device during this time.*
-
 ### Sound-pack installation
 
-The firmware comes with a sound-pack which needs to be installed separately. The sound-pack is not updated as often as the firmware itself. There will be a message in the Config Portal and the "Empty" LED will signal "SOS" (three short blinks, three long blinks, three short blinks) during boot when/if the sound-pack needs to be updated.
+After updating the main firmware, there will be a notification on the Config Portal (and the "Empty" LED will signal "SOS", ie three short blinks, three long blinks, three short blinks, during boot) when/if the sound-pack also needs to be updated. 
 
-_Installing the sound-pack requires an [SD card](#sd-card)._
+_Installing the sound-pack requires an [SD card](#initial-configuration)._
 
-The first step is to extract "sound-pack-dgXX.zip" (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)). It contains one file, named "DGA.bin".
-
-Next, head to the [Config Portal](#the-config-portal), click on "Update & Upload", select the "DGA.bin" file in the _bottom_ file selector and click on *Upload*.
+To update the sound-pack of your Dash Gauges, 
+- enter the [Config Portal](#the-config-portal),
+- click on "Update & Upload",
+- select the DGA-DGxx.bin file in the _top_ file selector, and
+- click on *Upload*.
 
 <details>
 <summary>Alternative way</summary>
 <br>
 Alternatively, you can install the sound-pack the following way:
 <ul>
-<li>Using a computer, copy "DGA.bin" to the root directory of a FAT32 formatted SD card;</li>
+<li>Using a computer, copy "DGA-DGxx.bin" to a FAT32 formatted SD card and rename it to "DGA.bin",</li>
 <li>power down the Dash Gauges,</li>
 <li>insert this SD card into the slot and</li>
 <li>power up the Dash Gauges; the sound-pack will be installed automatically.</li>
 </ul>
 </details>
+
+## Factory Reset
+
+To reset your Dash Gauges to factory default settings, 
+- power-down the device,
+- press _Button 1_ on the Control Board (located behind the center gauge) and keep it pressed,
+- power-up the device,
+- wait until the "Empty" light flashes briefly,
+- flip the Side Switch exactly six times within 10 seconds (the "Empty" light will go on on the sixth time),
+- then release the _Time Travel_ button.
+
+This clears all settings to their defaults except the 'Gauges Hardware' settings. 
+
+Since any configured WiFi connection is deleted as well, the Dash Gauges will reboot in AP-Mode.
 
 ---
 
@@ -570,14 +590,12 @@ This leads to the [HomeAssistant/MQTT Settings page](#hamqtt-settings).
 
 This leads to the firmware update and audio upload page.
 
-In order to upload a new firmware, such as published in the [Release packages](https://github.com/realA10001986/Dash-Gauges/releases), select the "**dashgauges-A10001986-Vx.xx.bin**" or "**Dash-Gauges_vX.YY.bin**" file as contained in the Release package in the _top_ file selector and click *Update*.
+See [here](#firmware-installation--firmware-update) for firmware update instructions.
 
-You can also install the Dash Gauges' sound-pack on this page: Download the sound-pack (which is included in every [Release package](https://github.com/realA10001986/Dash-Gauges/releases)), extract it and select the resulting DGA.bin file in the _bottom_ file selector. Finally, click *Upload*. An SD card is required for this operation.
-
-See also [here](#firmware-installation--firmware-update).
-
-Finally, this page is also for uploading [custom or replacement sound files](#installing-custom--replacement-audio-files) to the SD card. Select an mp3 file in the _bottom_ file selector and click *Upload*. (Maximum 16 files at a time.)
-
+This page is also for uploading [custom or replacement sound files](#installing-custom--replacement-audio-files) to the SD card:
+- Select one or more mp3 file(s) in the _bottom_ file selector (max 16 files at a time) and
+- click *Upload*.
+  
 ---
 
 ### WiFi Configuration
@@ -588,13 +606,27 @@ Through this page you can either connect your Dash Gauges to your local WiFi net
 
 In order to connect your Dash Gauges to your WiFi network, all you need to do is either to click on one of the networks listed at the top or to enter a __Network name (SSID)__, and optionally a __password__ (WPAx). If there is no list displayed, click on "Scan for networks".
  
->By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty.
-
-If there are several APs with identical SSID nearby, the Dash Gauges will connect to the first one found, which might not be the one with the strongest signal. It is therefore recommended to select the nearest/strongest AP by its BSSID (AP's MAC address, a unique identifier for a specific AP)). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
+If there are several APs with identical SSID nearby, the Dash Gauges will connect to the first one found, which might not be the one with the strongest signal. It is therefore recommended to select the nearest/strongest AP by its BSSID (AP's MAC address, a unique identifier for a specific AP)). You can either manually find out your AP's BSSID and enter it or have it filled out automatically: Click "Scan for networks", then "Show all APs". If you click on an AP, its BSSID will be copied into BSSID field in the form below. To see which AP is which, hover over the name to see its BSSID as a tooltip.
 
 ##### &#9193; Forget Saved WiFi Network
 
 Checking this box (and clicking SAVE) deletes the currently saved WiFi network (SSID and password as well as static IP data) and reboots the device; it will restart in "access point" (AP) mode. See [here](#connecting-to-a-wifi-network).
+
+##### &#9193;  Static IP
+
+By default, the Dash Gauges request an IP address via DHCP. However, you can also configure a static IP for the Dash Gauges by entering the IP, netmask, gateway and DNS server. All four fields must be filled for a valid static IP configuration. If you want to stick to DHCP, leave those four fields empty.
+
+##### &#9193; WiFi connection attempts
+
+Number of times the firmware tries to reconnect to a WiFi network, before falling back to AP-mode. See [here](#connecting-to-a-wifi-network)
+
+##### &#9193; Hostname
+
+The device's hostname in the WiFi network. Defaults to 'gauges'. This also is the domain name at which the Config Portal is accessible from a browser in the same local network. The URL of the Config Portal then is http://<i>hostname</i>.local (the default is http://gauges.local)
+
+If you have several Dash Gauges in your local network, please give them unique hostnames.
+
+_This setting applies to both AP-mode and when your Dash Gauges are connected to a WiFi network._ 
 
 ##### &#9193; Car mode settings
 
@@ -606,18 +638,6 @@ The **_TCD-AP BSSID_** field is optional for you to fill out. The TCD displays i
 > If you ever need to connect your Dash Gauges to a different TCD (or, for instance, swap out your TCD's circuit board), this field needs to be cleared in order to pair your Dash Gauges to the new TCD. Note that if the Dash Gauges fail to connect to a BSSID-identified TCD, they will boot into [AP-Mode](#connecting-to-a-wifi-network) ("DG-AP").
 
 If you want to enter Car mode immediately after saving your settings, check **_Enable car mode now_**. You can also later enable Car mode by holding _Button 1_ for six seconds (until a triple-beep is emitted).
-
-##### &#9193; Hostname
-
-The device's hostname in the WiFi network. Defaults to 'gauges'. This also is the domain name at which the Config Portal is accessible from a browser in the same local network. The URL of the Config Portal then is http://<i>hostname</i>.local (the default is http://gauges.local)
-
-If you have several Dash Gauges in your local network, please give them unique hostnames.
-
-_This setting applies to both AP-mode and when your Dash Gauges are connected to a WiFi network._ 
-
-##### &#9193; WiFi connection attempts
-
-Number of times the firmware tries to reconnect to a WiFi network, before falling back to AP-mode. See [here](#connecting-to-a-wifi-network)
 
 #### <ins>Settings for AP-mode</ins>
 
@@ -631,14 +651,13 @@ By default, and if this field is empty, the Dash Gauges' own WiFi network ("DG-A
 
 If you forget this password and are thereby locked out of your Dash Gauges, 
 - power-down the device,
-- hold the _Time Travel_ button,
-- power-up the device (while still holding the _Time Travel_ button)
-- wait until the "Empty" LED flashes briefly,
-- flip the Side Switch twice within 10 seconds,
-- wait until the "Empty" LED lights up,
+- press the _Time Travel_ button on the Control Board (located behind the left-most gauge) and keep it pressed,
+- power-up the device,
+- wait until the "Empty" light flashes briefly,
+- flip the Side Switch twice within 10 seconds ("Empty" will light up on the second flip),
 - then release the _Time Travel_ button.
 
-This procedure temporarily (until a reboot) clears the WiFi password, allowing unprotected access to the Config Portal. (Note that this procedure also deletes static IP address data; the device will return to using DHCP after a reboot.)
+The Dash Gauges will boot and start the access point - this once - without a password, thereby giving you an opportunity to connect without a password and to either look up or change said password. When you reboot or power-cycle the Dash Gauges, DG-AP will be password protected again.
 
 ##### &#9193; WiFi channel
 
@@ -648,7 +667,7 @@ WiFI channel selection is key for a trouble-free operation. Disturbed WiFi commu
 
 If a WiFi Scan was done (which can be triggered by clicking "Scan for networks"), 
 
-- a list of networks is displayed at the top of the page; click "Show All" to list all networks including their channel;
+- a list of networks is displayed at the top of the page; click "Show All APs" to list all APs including their channel;
 - a "proposed channel" is displayed near the "WiFi channel" drop-down, based on a rather simple heuristic. The banner is green when a channel is excellent, grey when it is impeded by overlapping channels, and when that banner is red operation in AP mode is not recommended due to channels all being used.
 
 The channel proposition is based on all WiFi networks found; it does not take non-WiFi equipment (baby monitors, cordless phones, Bluetooth devices, microwave ovens, etc) into account.
@@ -805,18 +824,14 @@ If your Dash Gauges are connected wirelessly, this option has no effect.
 
 ##### &#9193; Save secondary settings on SD
 
-If this is checked, some settings (volume, etc) are stored on the SD card (if one is present). This helps to minimize write operations to the internal flash memory and to prolong the lifetime of your Dash Gauges. See [Flash Wear](#flash-wear).
+_Please leave this option checked. It is safe to have this option checked even with no SD card present._
 
-Apart from Flash Wear, there is another reason for using an SD card for settings: Writing data to internal flash memory can cause delays of up to 1.5 seconds, which interrupt sound playback and have other undesired effects. The Dash Gauges need to save data from time to time, so for a smooth experience without unexpected and unwanted delays, please use an SD card and check this option.
-
-It is safe to have this option checked even with no SD card present.
+If this is checked, some settings are stored on the SD card. This helps to minimize write operations to the internal flash memory and to prolong the lifetime of your Dash Gauges. Apart from Flash Wear, there is another reason for using an SD card for settings: The Dash Gauges need to save data from time to time. Writing data to internal flash memory can cause delays of up to 1.5 seconds, which interrupt sound playback and have other undesired effects.
 
 If you want copy settings from one SD card to another, do as follows:
 - With the old SD card still in the slot, enter the Config Portal, turn off _Save secondary settings on SD_, and click "SAVE".
 - After the Dash Gauges have rebooted, power them down, and swap the SD card for your new one.
 - Power-up the Dash Gauges, enter the Config Portal, re-enable _Save secondary settings on SD_, and click "SAVE".
-
-This procedure ensures that all your settings are copied from the old to the new SD card.
 
 #### <ins>Door Switches Hardware settings</ins>
 
@@ -882,7 +897,7 @@ If you are using a 12V power supply or want to avoid cramming two wires into the
 
 This selects the type of gauge hardware and the way of connection. In order to protect your props, this is locked by default. To unlock this setting
 
-- either hold the _Time Travel_ button for 5 seconds or
+- either hold the _Time Travel_ button on the Dash Gauges' control board for 5 seconds or
 - enter 9317931 on a wirelessly connected TCD,
 
 then reload the page in your browser.
@@ -957,6 +972,7 @@ The "Empty" light is used for the following signals:
 
 ---
 _Text & images: (C) Thomas Winischhofer ("A10001986"). See LICENSE._ [Source](https://dg.out-a%2dti.me)  
+_No generative AI or automated code-completion tools were used in the development of this project._   
 _Other props: [Time Circuits Display](https://tcd.out-a%2dti.me) ... [Flux Capacitor](https://fc.out-a%2dti.me) ... [SID](https://sid.out-a%2dti.me) ... [VSR](https://vsr.out-a%2dti.me) ... [Remote Control](https://remote.out-a%2dti.me) ... [TFC](https://tfc.out-a%2dti.me) ... [Jukebox](https://jb.out-a%2dti.me)_
 
 
