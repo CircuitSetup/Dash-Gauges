@@ -19,7 +19,7 @@ Firmware features include
 - support for analog gauges (with software-controlled arbitrary pointer position) and digital gauges (Empty/Full, without arbitrary pointer position)
 - selectable "full" percentages per analog gauge (besides for fun, useful for adjusting inaccurate readings)
 - selectable threshold percentage for Empty/Full position for digital gauges
-- [Time Travel](#basic-operation) function, triggered by button, [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) (TCD) or via [Home Assistant](#home-assistant--mqtt)
+- [Time Travel](#basic-operation) sequence, triggered by button, [Time Circuits Display](https://circuitsetup.us/product/complete-time-circuits-display-kit/) (TCD) or via [Home Assistant](#home-assistant--mqtt)
 - support for Side Switch to play "empty" and "refill" sequences
 - Automatic refill timer, automatic alarm mute timer (both optional)
 - support for [door switches](#door-switches) for playing sounds when opening/closing the car doors, optionally through the TCD (and hence through your stereo)
@@ -197,7 +197,7 @@ Those files are not provided here. You can use any mp3, with a bitrate of 128kpb
 
 Replacements and custom sounds can either be uploaded through the Config Portal or copied to the SD card’s root folder using a computer.
 
-Uploading through the Config Portal works exactly like [installing the sound-pack](#sound-pack-installation); on the main menu, click "Update & Upload". Afterwards choose one or more mp3 files to upload using the bottom file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
+Uploading through the Config Portal works like this: On the main menu, click "Update & Upload". Afterwards choose one or more mp3 files to upload using the _bottom_ file selector, and click "UPLOAD". The firmware will store the uploaded mp3 files on the SD card.
 
 To delete a file from the SD card, upload a file whose name is prefixed with "delete-". For example: To delete "key3.mp3" from the SD card, upload a file named "delete-key3.mp3"; the file's contents does not matter, so it's easiest to use a newly created empty file. The firmware detects the "delete-" part and, instead of storing the uploaded file, it throws it away and deletes "key3.mp3" from the SD card.
 
@@ -518,7 +518,7 @@ First, download main firmware and sound-pack. Both files are in every [Release p
 - "**DGA-DGxx.bin**" for A10001986 releases, "**DGA.bin**" for CircuitSetup releases.
 
 > [!TIP]
-> &#127381; If you want to update several props at a time, you can download all current files from one place: https://all.out-a-ti.me
+> &#127381; If you want to update several props at a time, you can download all current firmwares from one place: https://all.out-a-ti.me
 
 ### Main firmware
 
